@@ -41,6 +41,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                 <tbody>
                 <?php
                 for ($i=0; $i<count($list); $i++) {
+                    if ($i%2==0) $lt_class = "even";
+                    else $lt_class = "";
+
                     switch($list[$i]['cr_state']) {
                         case 1:
                             $str = '<span class="status_02">입금완료</span>';
@@ -62,7 +65,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                             break;
                     }
                 ?>
-                    <tr class="bo_notice">
+                    <tr class="<?php echo $lt_class ?>">
                         <td class="td_num2">
                             <?php echo $total_count--; ?>
                         </td>

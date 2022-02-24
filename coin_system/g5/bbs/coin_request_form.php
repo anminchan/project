@@ -22,6 +22,8 @@ $g5['title'] = '코인구매';
 $sql_acc = " select * from {$g5['account_table']} where ac_state = 1 order by ac_id desc limit 1 ";
 $result_acc = sql_fetch($sql_acc);
 
+$register_action_url = G5_BBS_URL.'/coin_request_form_update.php';
+
 include_once('./_head.php');
 
 include_once($coin_skin_path.'/coin_rquest_form.skin.php');
