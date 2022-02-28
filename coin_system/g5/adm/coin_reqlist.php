@@ -43,7 +43,7 @@ if ($cr_state != "") {
 }
 
 if ($fr_date && $to_date) {
-    $where[] = " cr_time between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
+    $where[] = " cr_date between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
 }
 
 if ($where) {
@@ -56,8 +56,9 @@ if (!$sst) {
     $sod = "desc";
 }
 
-$sql_common = "  from {$g5['coin_req_table']} a
-                 left join {$g5['member_table']} b on (a.mb_id = b.mb_id) ";
+/*$sql_common = "  from {$g5['coin_req_table']} a
+                 left join {$g5['member_table']} b on (a.mb_id = b.mb_id) ";*/
+$sql_common = "  from {$g5['coin_req_table']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
@@ -110,8 +111,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <label for="sfl" class="sound_only">검색대상</label>
 <select name="sfl" id="sfl">
     <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
-    <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>이름</option>
-    <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>금액</option>
+    <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
+    <option value="cr_price" <?php echo get_selected($sfl, 'cr_price'); ?>>금액</option>
 </select>
 
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
@@ -160,8 +161,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <table>
     <caption><?php echo $g5['title']; ?> 목록</caption>
     <colgroup>
-        <col style="width:50px">
-        <col style="width:50px">
+        <col class="grid_1">
+        <col class="grid_1">
         <col class="grid_2">
         <col class="grid_2">
         <col class="grid_2">
@@ -193,27 +194,27 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <tbody>
     <?php
     for ($i=0; $row=sql_fetch_array($result); $i++) {
-        $name = get_sideview($row['mb_id'], get_text($row['mb_name']), $row['mb_email'], $row['mb_homepage']);
+        $name = get_sideview($row['mb_id'], get_text($row['mb_name']), '', '');
         $bg = 'bg'.($i%2);
 
         switch($row['cr_state']) {
             case 1:
-                $str = "<span class=\"\" style=\"background: #b6ca5b;color: white; cursor:default;\">입금완료</span>";
+                $str = "<span class=\"status_01 color_02\">입금완료</span>";
                 break;
             case 2:
-                $str = "<span class=\"\" style=\"background: #ca5b7c;color: white; cursor:default;\">입금취소</span>";
+                $str = "<span class=\"status_01 color_06\">입금취소</span>";
                 break;
             case 3:
-                $str = "<span class=\"\" style=\"background: #8dbed1;color: white; cursor:default;\">증감</span>";
+                $str = "<span class=\"status_01 color_03\">증감</span>";
                 break;
             case 4:
-                $str = "<span class=\"\" style=\"background: #5bc6ca;color: white; cursor:default;\">차감</span>";
+                $str = "<span class=\"status_01 color_04\">차감</span>";
                 break;
             case 5:
-                $str = "<span class=\"\" style=\"background: #5b76ca;color: white; cursor:default;\">전환</span>";
+                $str = "<span class=\"status_01 color_05\">전환</span>";
                 break;
             default :
-                $str = "<span class=\"\" style=\"background: #5b76ca;color: white; cursor:default;\">입금요청</span>";
+                $str = "<span class=\"status_01 color_01\">입금요청</span>";
                 break;
         }
 
@@ -228,12 +229,12 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         </td>
         <td class="td_name"><?php echo $total_count--; ?></td>
         <td class="td_name"><?php echo $row['mb_id']; ?></td>
-        <td class="td_name"><?php echo $name; ?></td>
+        <td class="td_name"><?php echo $row['mb_name']; ?></td>
         <td class="td_boolean"><?php echo number_format($row['cr_price']); ?></td>
         <td class="td_boolean"><?php echo number_format($row['cr_coin']); ?></td>
-        <td class="td_boolean"><?php echo $row['mb_bank'].'/'.$row['mb_bank_account'].'/'.$row['mb_bank_holder']; ?></td>
+        <td class="td_boolean"><?php echo $row['cr_account']; ?></td>
         <td class="td_mng td_mng_s"><?php echo $str; ?></td>
-        <td><?php echo $row['cr_time']; ?></td>
+        <td><?php echo $row['cr_date']; ?></td>
         <td>
             <input type="submit" name="act_button" value="승인" onclick="document.pressed=this.value" class="btn btn_01">
             <input type="submit" name="act_button" value="취소" onclick="document.pressed=this.value" class="btn btn_03">

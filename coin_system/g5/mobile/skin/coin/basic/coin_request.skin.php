@@ -20,40 +20,50 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                 switch($list[$i]['cr_state']) {
                     case 1:
                         $str = '<span class="status_02">입금완료</span>';
+                        $sales = '구매(KRW)';
                         break;
                     case 2:
                         $str = '<span class="status_06">입금취소</span>';
+                        $sales = '구매(KRW)';
                         break;
                     case 3:
-                        $str = '<span class="status_03">증감</span>';
+                        //$str = '<span class="status_03">증감</span>';
+                        $sales = '증감';
                         break;
                     case 4:
-                        $str = '<span class="status_04">차감</span>';
+                        //$str = '<span class="status_04">차감</span>';
+                        $sales = '차감';
                         break;
                     case 5:
-                        $str = '<span class="status_05">전환</span>';
+                        //$str = '<span class="status_05">전환</span>';
+                        $sales = '전환(KRW)';
                         break;
                     default :
                         $str = '<span class="status_01">입금요청</span>';
+                        $sales = '구매(KRW)';
                         break;
                 }
             ?>
                 <li>
                     <div class="bo_cnt">
-                        <?php echo $list[$i]['cr_price'] ?>
-                        <?php echo $list[$i]['cr_coin'] ?>
-                        <?php echo $list[$i]['$str'] ?>
+                        <?php echo number_format($list[$i]['cr_price']); ?> KRW /
+                        <?php echo $list[$i]['cr_coin']; ?> COIN
                     </div>
                     <div class="bo_info">
-                        <span class="sound_only">작성자</span><?php echo $list[$i]['mb_id'] ?>
-                        <span class="bo_date"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $list[$i]['cr_time'] ?></span>
+                        <b><?php echo $sales; ?></b>
+                        <?php echo $str; ?>
+                    </div>
+                    <div class="bo_info">
+                        <span class="sound_only">작성자</span>
+                        <span class="sv_member"><?php echo $list[$i]['mb_id'] ?></span>
+                        <span class="bo_date"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $list[$i]['cr_date'] ?></span>
                     </div>
                 </li>
             <?php } ?>
             <?php if (count($list) == 0) { echo '<li class="empty_table">게시물이 없습니다.</li>'; } ?>
         </ul>
     </div>
-
+3
 </div>
 
 </form>

@@ -31,7 +31,9 @@ if($w == 'd') {
     if(!$ac_name)
         alert('계좌명을 입력해 주십시오.');
     if(!$account)
-        alert('계좌번호를 입력해 주십시오.');
+        alert('계좌번호를 정확히 입력해 주십시오.');
+
+    sql_query(" update {$g5['account_table']} set ac_state = 0 where ac_state = 1 ");
 
     $sql = " insert into {$g5['account_table']}
                   ( ac_name, account, ac_holder, ac_memo )

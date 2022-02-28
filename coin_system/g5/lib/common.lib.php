@@ -1034,6 +1034,60 @@ function insert_point($mb_id, $point, $content='', $rel_table='', $rel_id='', $r
     return 1;
 }
 
+// 코인 부여
+function insert_coin($mb_id, $coin)
+{
+    global $config;
+    global $g5;
+    global $is_admin;
+
+    // 포인트가 없다면 업데이트 할 필요 없음
+    if ($coin == 0) { return 0; }
+
+    // 회원아이디가 없다면 업데이트 할 필요 없음
+    if ($mb_id == '') { return 0; }
+    $mb = sql_fetch(" select mb_id, mb_coin from {$g5['member_table']} where mb_id = '$mb_id' ");
+    if (!$mb['mb_id']) { return 0; }
+
+    // 회원코인
+    $mb_coin = $mb['mb_coin'];
+    $sum_mb_coin = $mb_coin + $coin;
+
+    // 코인 UPDATE
+    $sql = " update {$g5['member_table']} set mb_coin = '$sum_mb_coin' where mb_id = '$mb_id' ";
+    sql_query($sql);
+
+    return 1;
+}
+
+// 코인 삭제
+function delete_coin($mb_id, $coin)
+{
+    global $config;
+    global $g5;
+    global $is_admin;
+
+    // 포인트가 없다면 업데이트 할 필요 없음
+    if ($coin == 0) { return 0; }
+
+    // 회원아이디가 없다면 업데이트 할 필요 없음
+    if ($mb_id == '') { return 0; }
+    $mb = sql_fetch(" select mb_id, mb_coin from {$g5['member_table']} where mb_id = '$mb_id' ");
+    if (!$mb['mb_id']) { return 0; }
+
+    // 회원코인
+    $mb_coin = $mb['mb_coin'];
+    $sum_mb_coin = $mb_coin - $coin;
+
+    if($sum_mb_coin <= 0) $po_mb_coin = 0;
+
+    // 코인 UPDATE
+    $sql = " update {$g5['member_table']} set mb_coin = '$sum_mb_coin' where mb_id = '$mb_id' ";
+    sql_query($sql);
+
+    return 1;
+}
+
 // 사용포인트 입력
 function insert_use_point($mb_id, $point, $po_id='')
 {
@@ -1355,9 +1409,9 @@ function get_sideview($mb_id, $name='', $email='', $homepage='')
     if($mb_id)
         $str2 .= "<a href=\"".G5_BBS_URL."/memo_form.php?me_recv_mb_id=".$mb_id."\" onclick=\"win_memo(this.href); return false;\">쪽지보내기</a>\n";
     if($email)
-        $str2 .= "<a href=\"".G5_BBS_URL."/formmail.php?mb_id=".$mb_id."&amp;name=".urlencode($name)."&amp;email=".$email."\" onclick=\"win_email(this.href); return false;\">메일보내기</a>\n";
+        //$str2 .= "<a href=\"".G5_BBS_URL."/formmail.php?mb_id=".$mb_id."&amp;name=".urlencode($name)."&amp;email=".$email."\" onclick=\"win_email(this.href); return false;\">메일보내기</a>\n";
     if($homepage)
-        $str2 .= "<a href=\"".$homepage."\" target=\"_blank\">홈페이지</a>\n";
+        //$str2 .= "<a href=\"".$homepage."\" target=\"_blank\">홈페이지</a>\n";
     if($mb_id)
         $str2 .= "<a href=\"".G5_BBS_URL."/profile.php?mb_id=".$mb_id."\" onclick=\"win_profile(this.href); return false;\">자기소개</a>\n";
     if($bo_table) {
@@ -1368,10 +1422,12 @@ function get_sideview($mb_id, $name='', $email='', $homepage='')
         }
     }
     if($mb_id)
-        $str2 .= "<a href=\"".G5_BBS_URL."/new.php?mb_id=".$mb_id."\" class=\"link_new_page\" onclick=\"check_goto_new(this.href, event);\">전체게시물</a>\n";
+        //$str2 .= "<a href=\"".G5_BBS_URL."/new.php?mb_id=".$mb_id."\" class=\"link_new_page\" onclick=\"check_goto_new(this.href, event);\">전체게시물</a>\n";
     if($is_admin == "super" && $mb_id) {
         $str2 .= "<a href=\"".G5_ADMIN_URL."/member_form.php?w=u&amp;mb_id=".$mb_id."\" target=\"_blank\">회원정보변경</a>\n";
-        $str2 .= "<a href=\"".G5_ADMIN_URL."/point_list.php?sfl=mb_id&amp;stx=".$mb_id."\" target=\"_blank\">포인트내역</a>\n";
+        //$str2 .= "<a href=\"".G5_ADMIN_URL."/point_list.php?sfl=mb_id&amp;stx=".$mb_id."\" target=\"_blank\">포인트내역</a>\n";
+        $str2 .= "<a href=\"".G5_ADMIN_URL."/coin_list.php?mb_id=".$mb_id."\" target=\"_blank\">코인내역</a>\n";
+        $str2 .= "<a href=\"javascript:;\" onclick=\"window.open('".G5_ADMIN_URL."/coin_convert_form.php?mb_id=".$mb_id."', '', 'width=500,height=350,scrollbars=1,menus=0');\">변환</a>\n";
     }
     $str2 .= "</span>\n";
     $str .= $str2;

@@ -34,8 +34,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                     <th scope="col">번호</th>
                     <th scope="col">구매금액</th>
                     <th scope="col">지급코인</th>
+                    <th scope="col">구분</th>
                     <th scope="col">상태</th>
-                    <th scope="col"><?php echo subject_sort_link('cr_time', $qstr2, 1) ?>날짜  </a></th>
+                    <th scope="col"><?php echo subject_sort_link('cr_date', $qstr2, 1) ?>날짜  </a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,21 +48,27 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                     switch($list[$i]['cr_state']) {
                         case 1:
                             $str = '<span class="status_02">입금완료</span>';
+                            $sales = '구매(KRW)';
                             break;
                         case 2:
                             $str = '<span class="status_06">입금취소</span>';
+                            $sales = '구매(KRW)';
                             break;
                         case 3:
-                            $str = '<span class="status_03">증감</span>';
+                            //$str = '<span class="status_03">증감</span>';
+                            $sales = '증감';
                             break;
                         case 4:
-                            $str = '<span class="status_04">차감</span>';
+                            //$str = '<span class="status_04">차감</span>';
+                            $sales = '차감';
                             break;
                         case 5:
-                            $str = '<span class="status_05">전환</span>';
+                            //$str = '<span class="status_05">전환</span>';
+                            $sales = '전환(KRW)';
                             break;
                         default :
                             $str = '<span class="status_01">입금요청</span>';
+                            $sales = '구매(KRW)';
                             break;
                     }
                 ?>
@@ -69,10 +76,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                         <td class="td_num2">
                             <?php echo $total_count--; ?>
                         </td>
-                        <td class="td_mng"><?php echo $list[$i]['cr_price'] ?></td>
-                        <td class="td_mng"><?php echo $list[$i]['cr_coin'] ?></td>
+                        <td class="td_mng"><?php echo number_format($list[$i]['cr_price']); ?> KRW</td>
+                        <td class="td_mng"><?php echo $list[$i]['cr_coin']; ?> COIN</td>
+                        <td class="td_mng"><b><?php echo $sales; ?></b></td>
                         <td class="td_mng"><?php echo $str; ?></td>
-                        <td class="td_datetime"><?php echo $list[$i]['cr_time'] ?></td>
+                        <td class="td_datetime"><?php echo $list[$i]['cr_date']; ?></td>
 
                     </tr>
                 <?php } ?>

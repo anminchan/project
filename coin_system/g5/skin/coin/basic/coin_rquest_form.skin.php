@@ -7,6 +7,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 
 <div class="register">
 	<form id="fregisterform" name="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
+    <input type="hidden" name="ac_name" value="<?php echo $member['mb_bank_nm'] ?>">
+    <input type="hidden" name="account" value="<?php echo $member['mb_bank_account'] ?>">
+    <input type="hidden" name="ac_holder" value="<?php echo $member['mb_bank_holder'] ?>">
+
 	<div id="register_form" class="form_01">
 	    <div class="tbl_frm01 tbl_wrap register_form_inner">
 	        <h2>코인구매정보</h2>
@@ -22,9 +26,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
                     <a href="#" class="price_06" onclick="fnPriceinput(1000000);">100만원</a>
                     <a href="#" class="price_07" onclick="fnPriceinput(10000000);">1000만원</a>
                     <a href="#" class="price_08" onclick="fnPriceinput(0);">정정</a>
-                    <a href="#" class="price_08" onclick="fnPriceinput(-10000);">1만원차감</a>
+                    <!--<a href="#" class="price_08" onclick="fnPriceinput(-10000);">1만원차감</a>
                     <a href="#" class="price_08" onclick="fnPriceinput(-100000);">10만원차감</a>
-                    <a href="#" class="price_06" onclick="fnPriceinput(-1000000);">100만원차감</a>
+                    <a href="#" class="price_06" onclick="fnPriceinput(-1000000);">100만원차감</a>-->
 
 	            </li>
 	            <li>
@@ -46,20 +50,20 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 	        <h2>입금정보</h2>
 	        <ul>
                 <li>
-                    <label for="ac_name">은행명</label>
-                    <input type="text" id="ac_name" name="ac_name" value="<?php echo $result_acc['ac_name'] ?>" class="frm_input" readonly size="25">
+                    <label>은행명</label>
+                    <input type="text" value="<?php echo $result_acc['ac_name'] ?>" class="frm_input" readonly size="25">
                 </li>
                 <li>
-                    <label for="account">계좌번호</label>
-                    <input type="text" id="account" name="account" value="<?php echo $result_acc['account'] ?>" class="frm_input" readonly size="25">
+                    <label>계좌번호</label>
+                    <input type="text" value="<?php echo $result_acc['account'] ?>" class="frm_input" readonly size="25">
                 </li>
                 <li>
-                    <label for="ac_holder">예금주</label>
-                    <input type="text" id="ac_holder" name="ac_holder" value="<?php echo $result_acc['ac_holder'] ?>" class="frm_input" readonly size="25">
+                    <label>예금주</label>
+                    <input type="text" value="<?php echo $result_acc['ac_holder'] ?>" class="frm_input" readonly size="25">
                 </li>
                 <li>
-                    <label for="ac_memo">입금안내</label>
-                    <textarea name="ac_memo" id="ac_memo" readonly><?php echo $result_acc['ac_memo'] ?></textarea>
+                    <label>입금안내</label>
+                    <textarea readonly><?php echo $result_acc['ac_memo'] ?></textarea>
                 </li>
 	        </ul>
 	    </div>

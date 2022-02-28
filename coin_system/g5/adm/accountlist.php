@@ -6,7 +6,7 @@ auth_check_menu($auth, $sub_menu, "r");
 
 $sql_common = " from {$g5['account_table']} ";
 
-$sql_search = " where (1) ";
+$sql_search = " where ac_state = 1 ";
 $sql_order = " order by ac_id desc ";
 
 $sql = " select count(*) as cnt
@@ -44,10 +44,10 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         <caption>추가배송비 내역</caption>
         <thead>
         <tr>
-            <th scope="col">
+            <!--<th scope="col">
                 <label for="chkall" class="sound_only">내역 전체</label>
                 <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-            </th>
+            </th>-->
             <th scope="col">은행명</th>
             <th scope="col">예금주</th>
             <th scope="col">계좌번호</th>
@@ -61,10 +61,10 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         $bg = 'bg'.($i%2);
         ?>
         <tr class="<?php echo $bg; ?>">
-            <td class="td_chk">
-                <input type="hidden" id="ac_id_<?php echo $i; ?>" name="ac_id[<?php echo $i; ?>]" value="<?php echo $row['ac_id']; ?>">
-                <input type="checkbox" id="chk_<?php echo $i; ?>" name="chk[]" value="<?php echo $i; ?>" title="내역선택">
-            </td>
+            <!--<td class="td_chk">
+                <input type="hidden" id="ac_id_<?php /*echo $i; */?>" name="ac_id[<?php /*echo $i; */?>]" value="<?php /*echo $row['ac_id']; */?>">
+                <input type="checkbox" id="chk_<?php /*echo $i; */?>" name="chk[]" value="<?php /*echo $i; */?>" title="내역선택">
+            </td>-->
             <td class="td_center"><?php echo $row['ac_name']; ?></td>
             <td class="td_center"><?php echo $row['ac_holder']; ?></td>
             <td class="td_center"><?php echo $row['account']; ?></td>
@@ -81,9 +81,9 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         </table>
     </div>
 
-    <div class="btn_list01 btn_list">
+    <!--<div class="btn_list01 btn_list">
         <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn_frmline">
-    </div>
+    </div>-->
 
     </form>
 </section>
