@@ -19,28 +19,28 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
             <?php for ($i=0; $i<count($list); $i++) {
                 switch($list[$i]['cr_state']) {
                     case 1:
-                        $str = '<span class="status_02">입금완료</span>';
-                        $sales = '구매(KRW)';
+                        $str = '<span class="status_02">'.$gw_status[$list[$i]['cr_state']].'</span>';
+                        $sales = $gw_status2[$list[$i]['cr_state']];
                         break;
                     case 2:
-                        $str = '<span class="status_06">입금취소</span>';
-                        $sales = '구매(KRW)';
+                        $str = '<span class="status_06">'.$gw_status[$list[$i]['cr_state']].'</span>';
+                        $sales = $gw_status2[$list[$i]['cr_state']];
                         break;
                     case 3:
                         //$str = '<span class="status_03">증감</span>';
-                        $sales = '증감';
+                        $sales = $gw_status2[$list[$i]['cr_state']];
                         break;
                     case 4:
                         //$str = '<span class="status_04">차감</span>';
-                        $sales = '차감';
+                        $sales = $gw_status2[$list[$i]['cr_state']];
                         break;
                     case 5:
                         //$str = '<span class="status_05">전환</span>';
-                        $sales = '전환(KRW)';
+                        $sales = $gw_status2[$list[$i]['cr_state']];
                         break;
                     default :
-                        $str = '<span class="status_01">입금요청</span>';
-                        $sales = '구매(KRW)';
+                        $str = '<span class="status_01">'.$gw_status[$list[$i]['cr_state']].'</span>';
+                        $sales = '';
                         break;
                 }
             ?>

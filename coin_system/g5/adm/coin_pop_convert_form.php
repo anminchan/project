@@ -12,7 +12,7 @@ include_once(G5_PATH.'/head.sub.php');
 ?>
     <div class="new_win">
         <h1>코인변환</h1>
-        <form name="fcoinform" action="./coin_conver_formupdate.php" method="post" onsubmit="return form_check(this);" autocomplete="off">
+        <form name="fcoinform" action="./coin_pop_convert_formupdate.php" method="post" onsubmit="return form_check(this);" autocomplete="off">
             <input type="hidden" name="mb_id" value="<?php echo $mb_id; ?>">
 
             <div class="tbl_head01 tbl_wrap new_win_con">

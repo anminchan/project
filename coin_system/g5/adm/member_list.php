@@ -30,6 +30,9 @@ if ($stx) {
 if ($is_admin != 'super')
     $sql_search .= " and mb_level <= '{$member['mb_level']}' ";
 
+if ($coin_yn)
+    $sql_search .= ($coin_yn=='Y'?' and mb_coin > 0 ':' and mb_coin <= 0 ');
+
 if (!$sst) {
     $sst = "mb_datetime";
     $sod = "desc";
@@ -79,19 +82,24 @@ $colspan = 16;
 <label for="sfl" class="sound_only">검색대상</label>
 <select name="sfl" id="sfl">
     <option value="mb_id"<?php echo get_selected($sfl, "mb_id"); ?>>회원아이디</option>
-    <option value="mb_nick"<?php echo get_selected($sfl, "mb_nick"); ?>>닉네임</option>
+    <!--<option value="mb_nick"<?php /*echo get_selected($sfl, "mb_nick"); */?>>닉네임</option>-->
     <option value="mb_name"<?php echo get_selected($sfl, "mb_name"); ?>>이름</option>
-    <option value="mb_level"<?php echo get_selected($sfl, "mb_level"); ?>>권한</option>
-    <option value="mb_email"<?php echo get_selected($sfl, "mb_email"); ?>>E-MAIL</option>
-    <option value="mb_tel"<?php echo get_selected($sfl, "mb_tel"); ?>>전화번호</option>
-    <option value="mb_hp"<?php echo get_selected($sfl, "mb_hp"); ?>>휴대폰번호</option>
-    <option value="mb_point"<?php echo get_selected($sfl, "mb_point"); ?>>포인트</option>
-    <option value="mb_datetime"<?php echo get_selected($sfl, "mb_datetime"); ?>>가입일시</option>
-    <option value="mb_ip"<?php echo get_selected($sfl, "mb_ip"); ?>>IP</option>
-    <option value="mb_recommend"<?php echo get_selected($sfl, "mb_recommend"); ?>>추천인</option>
+    <!--<option value="mb_level"<?php /*echo get_selected($sfl, "mb_level"); */?>>권한</option>
+    <option value="mb_email"<?php /*echo get_selected($sfl, "mb_email"); */?>>E-MAIL</option>
+    <option value="mb_tel"<?php /*echo get_selected($sfl, "mb_tel"); */?>>전화번호</option>
+    <option value="mb_hp"<?php /*echo get_selected($sfl, "mb_hp"); */?>>휴대폰번호</option>
+    <option value="mb_point"<?php /*echo get_selected($sfl, "mb_point"); */?>>포인트</option>
+    <option value="mb_datetime"<?php /*echo get_selected($sfl, "mb_datetime"); */?>>가입일시</option>
+    <option value="mb_ip"<?php /*echo get_selected($sfl, "mb_ip"); */?>>IP</option>
+    <option value="mb_recommend"<?php /*echo get_selected($sfl, "mb_recommend"); */?>>추천인</option>-->
 </select>
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-<input type="text" name="stx" value="<?php echo $stx ?>" id="stx" required class="required frm_input">
+<input type="text" name="stx" value="<?php echo $stx ?>" id="stx" class="frm_input">
+<select name="coin_yn" id="coin_yn">
+    <option value=""<?php echo get_selected($coin_yn, ""); ?>>전체</option>
+    <option value="Y"<?php echo get_selected($coin_yn, "Y"); ?>>코인보유</option>
+    <option value="N"<?php echo get_selected($coin_yn, "N"); ?>>코인미보유</option>
+</select>
 <input type="submit" class="btn_submit" value="검색">
 
 </form>
@@ -146,7 +154,7 @@ $colspan = 16;
         } else {
             $s_mod = '<a href="./member_form.php?'.$qstr.'&amp;w=u&amp;mb_id='.$row['mb_id'].'" class="btn btn_03">수정</a>';
         }
-        $coin_list = '<a href="./boardgroupmember_form.php?mb_id='.$row['mb_id'].'" class="btn btn_02">내역</a>';
+        $coin_list = '<a href="javascript:;" onclick="window.open(\''.G5_ADMIN_URL.'/coin_pop_historylist.php?mb_id='.$row['mb_id'].'\', \'\', \'width=650,height=750,scrollbars=1,menus=0\');" class="btn btn_02">내역</a>';
 
         $leave_date = $row['mb_leave_date'] ? $row['mb_leave_date'] : date('Ymd', G5_SERVER_TIME);
         $intercept_date = $row['mb_intercept_date'] ? $row['mb_intercept_date'] : date('Ymd', G5_SERVER_TIME);

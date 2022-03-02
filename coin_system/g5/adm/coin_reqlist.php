@@ -83,6 +83,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx;
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 ?>
 
+<div class="admin_pg_notice od_test_caution">(주의!) 당일 신청 내역만 승인 가능합니다. 당일 승인하지 못한 건들은 취소처리됩니다.</div>
+
 <div class="local_ov01 local_ov">
     <?php echo $listall; ?>
     <span class="btn_ov01"><span class="ov_txt"> 전체 문의내역</span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
@@ -135,15 +137,15 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
     <div class="sch_last">
         <strong>주문일자</strong>
-        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" class="frm_input" size="10" maxlength="10"> ~
-        <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" class="frm_input" size="10" maxlength="10">
+        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10"> ~
+        <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
-        <button type="button" onclick="javascript:set_date('어제');">어제</button>
+        <!--<button type="button" onclick="javascript:set_date('어제');">어제</button>
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
         <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
         <button type="button" onclick="javascript:set_date('지난달');">지난달</button>
-        <button type="button" onclick="javascript:set_date('전체');">전체</button>
+        <button type="button" onclick="javascript:set_date('전체');">전체</button>-->
         <input type="submit" value="검색" class="btn_submit">
     </div>
 </form>
@@ -155,7 +157,6 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <input type="hidden" name="sfl" value="<?php echo $sfl; ?>">
 <input type="hidden" name="stx" value="<?php echo $stx; ?>">
 <input type="hidden" name="page" value="<?php echo $page; ?>">
-<input type="hidden" name="search_od_status" value="<?php echo $od_status; ?>">
 
 <div class="tbl_head01 tbl_wrap" id="coin_reqlist">
     <table>
@@ -199,22 +200,22 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
         switch($row['cr_state']) {
             case 1:
-                $str = "<span class=\"status_01 color_02\">입금완료</span>";
+                $str = "<span class=\"status_01 color_02\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             case 2:
-                $str = "<span class=\"status_01 color_06\">입금취소</span>";
+                $str = "<span class=\"status_01 color_06\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             case 3:
-                $str = "<span class=\"status_01 color_03\">증감</span>";
+                $str = "<span class=\"status_01 color_03\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             case 4:
-                $str = "<span class=\"status_01 color_04\">차감</span>";
+                $str = "<span class=\"status_01 color_04\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             case 5:
-                $str = "<span class=\"status_01 color_05\">전환</span>";
+                $str = "<span class=\"status_01 color_05\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             default :
-                $str = "<span class=\"status_01 color_01\">입금요청</span>";
+                $str = "<span class=\"status_01 color_01\">".$gw_status[$row['cr_state']]."</span>";
                 break;
         }
 
@@ -236,8 +237,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <td class="td_mng td_mng_s"><?php echo $str; ?></td>
         <td><?php echo $row['cr_date']; ?></td>
         <td>
-            <input type="submit" name="act_button" value="승인" onclick="document.pressed=this.value" class="btn btn_01">
-            <input type="submit" name="act_button" value="취소" onclick="document.pressed=this.value" class="btn btn_03">
+            <?php if($row['cr_state']=='0'){ ?>
+                <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '1');" class="btn btn_01">승인</a>
+                <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '2');" class="btn btn_03">취소</a>
+            <?php } ?>
         </td>
         <td><?php echo $row['cr_uptime']; ?></td>
     </tr>
@@ -253,8 +256,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 <div class="btn_fixed_top">
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
-    <input type="submit" name="act_button" value="승인" onclick="document.pressed=this.value" class="btn btn_01">
-    <input type="submit" name="act_button" value="취소" onclick="document.pressed=this.value" class="btn btn_03">
+    <input type="submit" name="act_button" value="일괄승인" onclick="document.pressed=this.value" class="btn btn_01">
+    <input type="submit" name="act_button" value="일괄취소" onclick="document.pressed=this.value" class="btn btn_03">
 </div>
 </form>
 
@@ -277,6 +280,27 @@ function fcoin_reqlist_submit(f)
     return true;
 }
 
+function fnstateupdate(cr_id, cr_state){
+    var f = document.createElement('form');
+    var input = document.createElement('input');
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "cr_id");
+    input.setAttribute("value", cr_id);
+    f.appendChild(input);
+    input = document.createElement('input');
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "cr_state");
+    input.setAttribute("value", cr_state);
+    f.appendChild(input);
+
+    document.body.appendChild(f);
+    f.charset = 'UTF-8';
+    f.method = 'post';
+    f.action = './coin_stateupdate.php';
+
+    f.submit();
+}
+
 $(function(){
     $(".qa_href").click(function(){
         var $content = $("#qa_div"+$(this).attr("target"));
@@ -289,6 +313,37 @@ $(function(){
         });
     });
 });
+
+function set_date(today)
+{
+    <?php
+    $date_term = date('w', G5_SERVER_TIME);
+    $week_term = $date_term + 7;
+    $last_term = strtotime(date('Y-m-01', G5_SERVER_TIME));
+    ?>
+    if (today == "오늘") {
+        document.getElementById("fr_date").value = "<?php echo G5_TIME_YMD; ?>";
+        document.getElementById("to_date").value = "<?php echo G5_TIME_YMD; ?>";
+    } else if (today == "어제") {
+        document.getElementById("fr_date").value = "<?php echo date('Y-m-d', G5_SERVER_TIME - 86400); ?>";
+        document.getElementById("to_date").value = "<?php echo date('Y-m-d', G5_SERVER_TIME - 86400); ?>";
+    } else if (today == "이번주") {
+        document.getElementById("fr_date").value = "<?php echo date('Y-m-d', strtotime('-'.$date_term.' days', G5_SERVER_TIME)); ?>";
+        document.getElementById("to_date").value = "<?php echo date('Y-m-d', G5_SERVER_TIME); ?>";
+    } else if (today == "이번달") {
+        document.getElementById("fr_date").value = "<?php echo date('Y-m-01', G5_SERVER_TIME); ?>";
+        document.getElementById("to_date").value = "<?php echo date('Y-m-d', G5_SERVER_TIME); ?>";
+    } else if (today == "지난주") {
+        document.getElementById("fr_date").value = "<?php echo date('Y-m-d', strtotime('-'.$week_term.' days', G5_SERVER_TIME)); ?>";
+        document.getElementById("to_date").value = "<?php echo date('Y-m-d', strtotime('-'.($week_term - 6).' days', G5_SERVER_TIME)); ?>";
+    } else if (today == "지난달") {
+        document.getElementById("fr_date").value = "<?php echo date('Y-m-01', strtotime('-1 Month', $last_term)); ?>";
+        document.getElementById("to_date").value = "<?php echo date('Y-m-t', strtotime('-1 Month', $last_term)); ?>";
+    } else if (today == "전체") {
+        document.getElementById("fr_date").value = "";
+        document.getElementById("to_date").value = "";
+    }
+}
 </script>
 
 <?php

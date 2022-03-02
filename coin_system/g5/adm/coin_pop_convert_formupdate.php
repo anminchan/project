@@ -27,6 +27,7 @@ $sql = " insert into {$g5['coin_req_table']}
                 cr_ip   = '{$_SERVER['REMOTE_ADDR']}',
                 cr_memo   = '$cr_memo',
                 cr_date = '".G5_TIME_YMDHIS."',
+                cr_uptime = '".G5_TIME_YMDHIS."',
                 cr_convert_date = '".G5_TIME_YMDHIS."' ";
 sql_query($sql);
 

@@ -24,7 +24,7 @@ if ($_POST['act_button'] == "선택삭제") {
         $sql = "delete from {$g5['g5_shop_item_qa_table']} where iq_id = '{$iiq_id}' ";
         sql_query($sql);
     }
-}elseif ($_POST['act_button'] == "승인"){
+}elseif ($_POST['act_button'] == "일괄승인"){
 
     auth_check_menu($auth, $sub_menu, 'w');
 
@@ -33,10 +33,10 @@ if ($_POST['act_button'] == "선택삭제") {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
         $icr_id = isset($_POST['cr_id'][$i]) ? (int) $_POST['cr_id'][$k] : 0;
 
-        $sql = "update {$g5['coin_req_table']} set cr_state = 1 where cr_id = '{$icr_id}' and cr_state = 0 ";
+        $sql = "update {$g5['coin_req_table']} set cr_state = 1, cr_approval_date = '".G5_TIME_YMDHIS."', cr_uptime = '".G5_TIME_YMDHIS."' where cr_id = '{$icr_id}' and cr_state = 0 ";
         sql_query($sql);
     }
-}elseif ($_POST['act_button'] == "보류"){
+}elseif ($_POST['act_button'] == "일관취소"){
     auth_check_menu($auth, $sub_menu, 'w');
 
     for ($i=0; $i<$count_post_chk; $i++) {
@@ -44,18 +44,7 @@ if ($_POST['act_button'] == "선택삭제") {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
         $icr_id = isset($_POST['cr_id'][$i]) ? (int) $_POST['cr_id'][$k] : 0;
 
-        $sql = "update {$g5['coin_req_table']} set cr_state = 9 where cr_id = '{$icr_id}' and cr_state = 0 ";
-        sql_query($sql);
-    }
-}elseif ($_POST['act_button'] == "거절"){
-    auth_check_menu($auth, $sub_menu, 'w');
-
-    for ($i=0; $i<$count_post_chk; $i++) {
-        // 실제 번호를 넘김
-        $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
-        $icr_id = isset($_POST['cr_id'][$i]) ? (int) $_POST['cr_id'][$k] : 0;
-
-        $sql = "update {$g5['coin_req_table']} set cr_state = 2 where cr_id = '{$icr_id}' and cr_state = 0 ";
+        $sql = "update {$g5['coin_req_table']} set cr_state = 2, cr_cancel_date = '".G5_TIME_YMDHIS."', cr_uptime = '".G5_TIME_YMDHIS."'  where cr_id = '{$icr_id}' and cr_state = 0 ";
         sql_query($sql);
     }
 }

@@ -440,7 +440,8 @@ function check_admin_token()
     set_session('ss_admin_token', '');
 
     if(!$token || !$_REQUEST['token'] || $token != $_REQUEST['token'])
-        alert('올바른 방법으로 이용해 주십시오.', G5_URL);
+        alert('올바른 방법으로 이용해 주십시오.', G5_ADMIN_URL);
+        //alert('올바른 방법으로 이용해 주십시오.', G5_URL);
 
     return true;
 }
