@@ -66,7 +66,9 @@ $sql = " select count(*) as cnt " . $sql_common;
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
-$rows = $config['cf_page_rows'];
+//$rows = $config['cf_page_rows'];
+$rows = ($page_rows) ? $page_rows : $config['cf_page_rows'];
+
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
@@ -75,6 +77,7 @@ $sql  = " select *
           $sql_common
           order by $sst $sod
           limit $from_record, $rows ";
+echo $sql;
 $result = sql_query($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
@@ -88,6 +91,13 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <div class="local_ov01 local_ov">
     <?php echo $listall; ?>
     <span class="btn_ov01"><span class="ov_txt"> 전체 문의내역</span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
+
+    <select id="page_rows" onchange="location='<?php echo "{$_SERVER['SCRIPT_NAME']}?{$qstr}&page=1";?>&page_rows='+this.value;">
+        <?php echo option_selected('30',  $page_rows, '30줄 정렬'); ?>
+        <?php echo option_selected('50',  $page_rows, '50줄 정렬'); ?>
+        <?php echo option_selected('100', $page_rows, '100줄 정렬'); ?>
+        <?php echo option_selected('150', $page_rows, '150줄 정렬'); ?>
+    </select>
 </div>
 
 <form name="flist" class="local_sch01 local_sch">
@@ -161,19 +171,6 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <div class="tbl_head01 tbl_wrap" id="coin_reqlist">
     <table>
     <caption><?php echo $g5['title']; ?> 목록</caption>
-    <colgroup>
-        <col class="grid_1">
-        <col class="grid_1">
-        <col class="grid_2">
-        <col class="grid_2">
-        <col class="grid_2">
-        <col class="grid_2">
-        <col>
-        <col class="grid_2">
-        <col class="grid_2">
-        <col class="grid_2">
-        <col class="grid_2">
-    </colgroup>
     <thead>
     <tr>
         <th scope="col">
@@ -228,21 +225,21 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <?php } ?>
             <input type="hidden" name="cr_id[<?php echo $i; ?>]" value="<?php echo $row['cr_id']; ?>">
         </td>
-        <td class="td_name"><?php echo $total_count--; ?></td>
-        <td class="td_name"><?php echo $row['mb_id']; ?></td>
+        <td class="td_num"><?php echo $total_count--; ?></td>
+        <td class="td_id"><?php echo $row['mb_id']; ?></td>
         <td class="td_name"><?php echo $row['mb_name']; ?></td>
-        <td class="td_boolean"><?php echo number_format($row['cr_price']); ?></td>
-        <td class="td_boolean"><?php echo number_format($row['cr_coin']); ?></td>
-        <td class="td_boolean"><?php echo $row['cr_account']; ?></td>
-        <td class="td_mng td_mng_s"><?php echo $str; ?></td>
-        <td><?php echo $row['cr_date']; ?></td>
-        <td>
+        <td class="td_price"><?php echo number_format($row['cr_price']); ?></td>
+        <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
+        <td class="td_bank"><?php echo $row['cr_account']; ?></td>
+        <td class="td_stat"><?php echo $str; ?></td>
+        <td class="td_datetime"><?php echo $row['cr_date']; ?></td>
+        <td class="td_mng">
             <?php if($row['cr_state']=='0'){ ?>
                 <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '1');" class="btn btn_01">승인</a>
                 <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '2');" class="btn btn_03">취소</a>
             <?php } ?>
         </td>
-        <td><?php echo $row['cr_uptime']; ?></td>
+        <td class="td_datetime"><?php echo $row['cr_uptime']; ?></td>
     </tr>
     <?php
     }

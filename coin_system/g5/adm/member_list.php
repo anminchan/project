@@ -193,7 +193,7 @@ $colspan = 16;
         </td>
         <td headers="mb_list_mobile" class="td_tel"><?php echo get_text($row['mb_hp']); ?></td>
         <td headers="mb_list_point" rowspan="2" class="td_num"><a href="point_list.php?sfl=mb_id&amp;stx=<?php echo $row['mb_id'] ?>"><?php echo number_format($row['mb_coin']); ?></a></td>
-        <td headers="" rowspan="2">
+        <td headers="" rowspan="2" class="td_bank">
             <?php echo ($row['mb_bank_nm'] && $row['mb_bank_account']) ? $row['mb_bank_nm'].' / '.$row['mb_bank_account'].' / '.$row['mb_bank_holder'] : ''; ?>
         </td>
         <td headers="mb_list_deny" rowspan="2" >
