@@ -1,0 +1,37 @@
+CREATE TABLE `g5_coin_req` (
+  `cr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mb_id` varchar(255) NOT NULL DEFAULT '' COMMENT '신청아이디',
+  `mb_name` varchar(255) DEFAULT NULL,
+  `cr_state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '신청상태(0:요청,1:승인,2:취소,3:증감,4:차감,5:전환)',
+  `cr_price` int(11) NOT NULL DEFAULT '0' COMMENT '신청금액',
+  `cr_coin` int(11) NOT NULL COMMENT '신청코인',
+  `cr_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cr_ip` varchar(25) NOT NULL DEFAULT '',
+  `cr_account` varchar(255) DEFAULT NULL COMMENT '신청계좌번호',
+  `cr_uptime` datetime DEFAULT NULL COMMENT '처리일자',
+  `cr_paymethod` varchar(100) DEFAULT NULL,
+  `cr_cancel_date` datetime DEFAULT NULL COMMENT '취소일시',
+  `cr_approval_date` datetime DEFAULT NULL COMMENT '승인일시',
+  `cr_convert_date` datetime DEFAULT NULL COMMENT '전환일시',
+  `cr_memo` text,
+  PRIMARY KEY (`cr_id`),
+  KEY `g5_coin_req_cr_state_idx` (`cr_state`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `g5_account` (
+  `ac_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ac_name` varchar(255) NOT NULL DEFAULT '',
+  `ac_holder` varchar(100) NOT NULL,
+  `account` varchar(255) NOT NULL DEFAULT '',
+  `ac_state` tinyint(4) NOT NULL DEFAULT '1',
+  `ac_memo` text,
+  PRIMARY KEY (`ac_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+
+
+ALTER TABLE g5_member ADD COLUMN mb_bank_account VARCHAR(100) COMMENT '계좌번호';
+ALTER TABLE g5_member ADD COLUMN mb_bank_nm VARCHAR(100) COMMENT '은행명';
+ALTER TABLE g5_member ADD COLUMN mb_bank_holder VARCHAR(100) COMMENT '예금주';
+ALTER TABLE g5_member ADD COLUMN mb_wallet_addr VARCHAR(100) COMMENT '지갑';
+ALTER TABLE g5_member ADD COLUMN mb_coin int(11) default 0 COMMENT '보유코인';
