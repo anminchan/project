@@ -1,5 +1,5 @@
 <?php
-$sub_menu = '300910';
+$sub_menu = '300940';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
@@ -82,7 +82,7 @@ echo $sql;
 $result = sql_query($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
-$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_state='.$cr_state.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date;
+$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date;
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 ?>
@@ -276,27 +276,6 @@ function fcoin_reqlist_submit(f)
     }
 
     return true;
-}
-
-function fnstateupdate(cr_id, cr_state){
-    var f = document.createElement('form');
-    var input = document.createElement('input');
-    input.setAttribute("type", "hidden");
-    input.setAttribute("name", "cr_id");
-    input.setAttribute("value", cr_id);
-    f.appendChild(input);
-    input = document.createElement('input');
-    input.setAttribute("type", "hidden");
-    input.setAttribute("name", "cr_state");
-    input.setAttribute("value", cr_state);
-    f.appendChild(input);
-
-    document.body.appendChild(f);
-    f.charset = 'UTF-8';
-    f.method = 'post';
-    f.action = './coin_stateupdate.php';
-
-    f.submit();
 }
 
 $(function(){

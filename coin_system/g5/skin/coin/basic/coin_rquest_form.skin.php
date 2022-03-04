@@ -10,6 +10,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
     <input type="hidden" name="ac_name" value="<?php echo $member['mb_bank_nm'] ?>">
     <input type="hidden" name="account" value="<?php echo $member['mb_bank_account'] ?>">
     <input type="hidden" name="ac_holder" value="<?php echo $member['mb_bank_holder'] ?>">
+    <input type="hidden" name="mb_name" value="<?php echo $member['mb_name'] ?>">
 
 	<div id="register_form" class="form_01">
 	    <div class="tbl_frm01 tbl_wrap register_form_inner">

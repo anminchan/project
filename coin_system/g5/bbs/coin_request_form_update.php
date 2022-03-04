@@ -11,6 +11,7 @@ if(!$mb_id)
 
 $cr_price           = isset($_POST['cr_price'])            ? preg_replace("/[^0-9]*/s", "", trim($_POST['cr_price']))          : "";
 $cr_coin            = isset($_POST['cr_coin'])             ? preg_replace("/[^0-9]*/s", "", trim($_POST['cr_coin']))           : "";
+$mb_name            = isset($_POST['mb_name'])             ? trim($_POST['mb_name'])           : "";
 $ac_name            = isset($_POST['ac_name'])             ? trim($_POST['ac_name'])           : "";
 $account            = isset($_POST['account'])             ? trim($_POST['account'])           : "";
 $ac_holder          = isset($_POST['ac_holder'])           ? trim($_POST['ac_holder'])         : "";
@@ -27,7 +28,6 @@ if($cr_coin!=($cr_price/10000))
 
 $sql = " select count(*)as cnt, TIMESTAMPDIFF(MINUTE, max(cr_date), now()) AS TIMESTAMPDIFF from {$g5['coin_req_table']} 
  where mb_id = '$mb_id' and cr_state = 0 and DATE_FORMAT(cr_date, '%y-%m-%d') = DATE_FORMAT(now(), '%y-%m-%d') ";
-echo $sql;
 $result = sql_fetch($sql);
 
 if($result['TIMESTAMPDIFF']!='' && $result['TIMESTAMPDIFF']<=2)
@@ -40,7 +40,8 @@ if($result['cnt'])
 
 //===============================================================
 $sql = " insert into {$g5['coin_req_table']}
-            set mb_id = '{$mb_id}',                 
+            set mb_id = '{$mb_id}',    
+                 mb_name = '{$mb_name}',             
                  cr_price = '{$cr_price}',
                  cr_coin = '{$cr_coin}',
                  cr_state = 0,

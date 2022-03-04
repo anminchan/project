@@ -126,7 +126,7 @@ $login_action_url = G5_HTTPS_BBS_URL."/login_check.php";
         });
     });
 
-    function fhead_submit(f)
+    function flogin_submit(f)
     {
         if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
             return true;
