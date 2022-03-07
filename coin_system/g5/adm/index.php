@@ -53,23 +53,28 @@ $result = sql_query($sql);
 
 // 당일 구매 금액
 // 승인
-$sql = " select sum(cr_price)as sum_price from g5_coin_req where cr_state = 1 and DATE_FORMAT(cr_approval_date, '%Y-%m-d%') = DATE_FORMAT(now(), '%Y-%m-d%') ";
+$sql = " select sum(cr_price)as sum_price from g5_coin_req where cr_state = 1 and DATE_FORMAT(cr_approval_date, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') ";
+//echo $sql;
 $row = sql_fetch($sql);
 $cr_approval_sum_price = $row['sum_price'];
 
 // 취소
-$sql = " select sum(cr_price)as sum_price as cnt from g5_coin_req where cr_state = 2 and DATE_FORMAT(cr_cancel_date, '%Y-%m-d%') = DATE_FORMAT(now(), '%Y-%m-d%') ";
+$sql = " select sum(cr_price)as sum_price as cnt from g5_coin_req where cr_state = 2 and DATE_FORMAT(cr_cancel_date, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') ";
+//echo $sql;
 $row = sql_fetch($sql);
 $cr_cancel_sum_price = $row['sum_price'];
 
 // 당일 전환 코인
 // 전환
-$sql = " select sum(cr_coin)as sum_coin from g5_coin_req where cr_state = 5 and DATE_FORMAT(cr_convert_date, '%Y-%m-d%') = DATE_FORMAT(now(), '%Y-%m-d%') ";
+$sql = " select sum(cr_coin)as sum_coin from g5_coin_req where cr_state = 5 and DATE_FORMAT(cr_convert_date, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') ";
+//echo $sql;
 $row = sql_fetch($sql);
 $cr_convert_coin = $row['sum_coin'];
 
 // 미전환
-$sql = " select sum(cr_coin)as sum_coin as cnt from g5_coin_req where cr_state in (1, 3) ";
+//$sql = " select sum(cr_coin)as sum_coin from g5_coin_req where cr_state in (1, 3) ";
+$sql = " select sum(mb_coin)as sum_coin from {$g5['member_table']} where mb_leave_date = '' ";
+echo $sql;
 $row = sql_fetch($sql);
 $cr_noconvert_coin = $row['sum_coin'];
 
