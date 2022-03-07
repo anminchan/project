@@ -51,4 +51,25 @@ $sql = " insert into {$g5['coin_req_table']}
                  cr_uptime = '".G5_TIME_YMDHIS."' ";
 sql_query($sql);
 
+$sql = " select count(*)as cnt from {$g5['coin_sum_table']} where mb_id = '{$mb_id}' and cc_date = '".G5_TIME_YMD."' ";
+$sum_result = sql_fetch($sql);
+
+if($sum_result['cnt']>0){
+    $sql = " update {$g5['coin_sum_table']}
+            set  cc_sum0 = ({$cr_coin}+cc_sum0),
+                 cc_sum_price = ({$cr_price}+cc_sum_price)
+            where mb_id = '{$mb_id}' 
+            and cc_date = '".G5_TIME_YMD."' ";
+    //echo $sql;
+    sql_query($sql);
+}else{
+    $sql = " insert into {$g5['coin_sum_table']}
+            set mb_id = '{$mb_id}',    
+                 cc_sum0 = '{$cr_coin}',             
+                 cc_sum_price = '{$cr_price}',
+                 cc_date = '".G5_TIME_YMD."' ";
+    //echo $sql;
+    sql_query($sql);
+}
+
 goto_url(G5_HTTP_BBS_URL.'/coin_request.php');

@@ -50,6 +50,7 @@ $g5['menu_table'] = G5_TABLE_PREFIX.'menu'; // 메뉴관리 테이블
 $g5['social_profile_table'] = G5_TABLE_PREFIX.'member_social_profiles'; // 소셜 로그인 테이블
 $g5['member_cert_history_table'] = G5_TABLE_PREFIX.'member_cert_history'; // 본인인증 변경내역 테이블
 $g5['coin_req_table'] = G5_TABLE_PREFIX.'coin_req'; // 코인신청테이블
+$g5['coin_sum_table'] = G5_TABLE_PREFIX.'coin_sum'; // 코인sum테이블
 $g5['account_table'] = G5_TABLE_PREFIX.'account'; // 신청계좌관리테이블
 
 define('G5_USE_SHOP', false);
