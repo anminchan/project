@@ -30,6 +30,8 @@ if($w == 'd') {
 
     if(!$ac_name)
         alert('계좌명을 입력해 주십시오.');
+    if(!$ac_holder)
+        alert('예금주를 입력해 주십시오.');
     if(!$account)
         alert('계좌번호를 정확히 입력해 주십시오.');
 

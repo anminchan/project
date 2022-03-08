@@ -60,6 +60,7 @@ $row = sql_fetch($sql);
 $intercept_count = $row['cnt'];
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
+$listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a>';
 
 $g5['title'] = '회원관리';
 include_once('./admin.head.php');
@@ -117,6 +118,7 @@ $colspan = 16;
 <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
 <input type="hidden" name="stx" value="<?php echo $stx ?>">
 <input type="hidden" name="page" value="<?php echo $page ?>">
+<input type="hidden" name="q1" value="<?php echo $qstr; ?>">
 <input type="hidden" name="token" value="">
 
 <div class="tbl_head01 tbl_wrap">
@@ -261,6 +263,12 @@ function fmemberlist_submit(f)
 
     return true;
 }
+
+// 결과처리 - 결과엑셀저장
+$("#frmExcel").on("click", function() {
+    var qstr = $("#fmemberlist").find("input[name=q1]").val();
+    location.href = "./member_excel.php?" + qstr;
+});
 </script>
 
 <?php

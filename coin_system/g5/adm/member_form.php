@@ -418,6 +418,11 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         </td>
     </tr>-->
 
+    <tr>
+        <th scope="row"><label for="mb_memo">메모</label></th>
+        <td colspan="3"><textarea name="mb_memo" id="mb_memo"><?php echo $mb['mb_memo'] ?></textarea></td>
+    </tr>
+
     <?php if ($w == 'u') { ?>
     <tr>
         <th scope="row">회원가입일</th>
