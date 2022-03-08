@@ -26,15 +26,25 @@ if(!$cr_coin)
 if($cr_coin!=($cr_price/10000))
     alert('구매코인이 잘못되었습니다.');
 
-$sql = " select count(*)as cnt, TIMESTAMPDIFF(MINUTE, max(cr_date), now()) AS TIMESTAMPDIFF from {$g5['coin_req_table']} 
- where mb_id = '$mb_id' and cr_state = 0 and DATE_FORMAT(cr_date, '%y-%m-%d') = DATE_FORMAT(now(), '%y-%m-%d') ";
+$sql = " select TIMESTAMPDIFF(MINUTE, max(cr_date), now()) AS TIMESTAMPDIFF 
+ from {$g5['coin_req_table']} 
+ where mb_id = '$mb_id' 
+ and cr_state in (0,1,2)
+order by cr_id desc limit 1 ";
 $result = sql_fetch($sql);
 
 if($result['TIMESTAMPDIFF']!='' && $result['TIMESTAMPDIFF']<=2)
     alert('입금신청은 2분에 1번씩만 가능합니다.\\n2분 후 재신청해주시기 바랍니다.');
     //alert('입금신청은 2분에 1번씩만 가능합니다.\\n2분 후 재신청해주시기 바랍니다.', G5_HTTP_BBS_URL.'/coin_request_form.php?cr_price='.$cr_price.'&cr_coin='.$cr_coin);
 
-if($result['cnt'])
+$sql = " select count(*)as cnt 
+ from {$g5['coin_req_table']} 
+ where mb_id = '$mb_id' 
+ and cr_state = 0 
+ and DATE_FORMAT(cr_date, '%y-%m-%d') = DATE_FORMAT(now(), '%y-%m-%d') ";
+$result2 = sql_fetch($sql);
+
+if($result2['cnt'])
     alert('입금확인중에 있는 주문이 있습니다.\\n완료 후 재 신청가능합니다.');
     //alert('입금확인중에 있는 주문이 있습니다.\\n완료 후 재 신청가능합니다.', G5_HTTP_BBS_URL.'/coin_request_form.php?cr_price='.$cr_price.'&cr_coin='.$cr_coin);
 
@@ -50,26 +60,5 @@ $sql = " insert into {$g5['coin_req_table']}
                  cr_date = '".G5_TIME_YMDHIS."',
                  cr_uptime = '".G5_TIME_YMDHIS."' ";
 sql_query($sql);
-
-$sql = " select count(*)as cnt from {$g5['coin_sum_table']} where mb_id = '{$mb_id}' and cc_date = '".G5_TIME_YMD."' ";
-$sum_result = sql_fetch($sql);
-
-if($sum_result['cnt']>0){
-    $sql = " update {$g5['coin_sum_table']}
-            set  cc_sum0 = ({$cr_coin}+cc_sum0),
-                 cc_sum_price = ({$cr_price}+cc_sum_price)
-            where mb_id = '{$mb_id}' 
-            and cc_date = '".G5_TIME_YMD."' ";
-    //echo $sql;
-    sql_query($sql);
-}else{
-    $sql = " insert into {$g5['coin_sum_table']}
-            set mb_id = '{$mb_id}',    
-                 cc_sum0 = '{$cr_coin}',             
-                 cc_sum_price = '{$cr_price}',
-                 cc_date = '".G5_TIME_YMD."' ";
-    //echo $sql;
-    sql_query($sql);
-}
 
 goto_url(G5_HTTP_BBS_URL.'/coin_request.php');

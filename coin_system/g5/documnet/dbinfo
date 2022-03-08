@@ -19,6 +19,26 @@ CREATE TABLE `g5_coin_req` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
 
 
+
+CREATE TABLE `g5_coin_sum` (
+  `cc_date` date NOT NULL,
+  `mb_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mb_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
+  `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
+  `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
+  `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
+  `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
+  `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
+  `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
+  `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
+  `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
+  `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+  KEY `g5_coin_sum_cc_date_idx` (`cc_date`) USING BTREE,
+  KEY `g5_coin_sum_mb_id_idx` (`mb_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+
 CREATE TABLE `g5_account` (
   `ac_id` int(11) NOT NULL AUTO_INCREMENT,
   `ac_name` varchar(255) NOT NULL DEFAULT '',
@@ -35,3 +55,55 @@ ALTER TABLE g5_member ADD COLUMN mb_bank_nm VARCHAR(100) COMMENT '은행명';
 ALTER TABLE g5_member ADD COLUMN mb_bank_holder VARCHAR(100) COMMENT '예금주';
 ALTER TABLE g5_member ADD COLUMN mb_wallet_addr VARCHAR(100) COMMENT '지갑';
 ALTER TABLE g5_member ADD COLUMN mb_coin int(11) default 0 COMMENT '보유코인';
+
+
+
+
+CREATE EVENT e_coin_req_del
+ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:05:00'
+DO update g5_coin_req set cr_state = 2 where cr_state = 0 and date_format(cr_date, '%y-%m-%d') <= DATE_ADD(CURDATE(), INTERVAL -1 DAY);
+
+
+CREATE EVENT e_coin_total_sum
+ON SCHEDULE EVERY 1 DAY STARTS '2022-03-09 00:00:00'
+DO call coin_total_sum();
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `coin_total_sum`()
+begin
+
+
+insert into g5_coin_sum(mb_id, mb_name, cc_date, cc_sum_price0, cc_sum_price1, cc_sum_price2, cc_sum0, cc_sum1, cc_sum2, cc_sum3, cc_sum4, cc_sum5, cc_sum6)
+select a.mb_id, a.mb_name,
+b.cc_date,
+b.cc_sum_price0,
+b.cc_sum_price1,
+b.cc_sum_price2,
+b.cc_sum0,
+b.cc_sum1,
+b.cc_sum2,
+b.cc_sum3,
+b.cc_sum4,
+b.cc_sum5,
+a.mb_coin as cc_sum6
+from g5_member a
+left join (select date_format(now(),'%Y-%m-%d')as cc_date, mb_id,
+sum(if(cr_state=0, cr_price, 0))as cc_sum_price0,
+sum(if(cr_state=1, cr_price, 0))as cc_sum_price1,
+sum(if(cr_state=2, cr_price, 0))as cc_sum_price2,
+sum(if(cr_state=0, cr_coin, 0))as cc_sum0,
+sum(if(cr_state=1, cr_coin, 0))as cc_sum1,
+sum(if(cr_state=2, cr_coin, 0))as cc_sum2,
+sum(if(cr_state=3, cr_coin, 0))as cc_sum3,
+sum(if(cr_state=4, cr_coin, 0))as cc_sum4,
+sum(if(cr_state=5, cr_coin, 0))as cc_sum5,
+sum(if(cr_state=6, cr_coin, 0))as cc_sum6
+from g5_coin_req
+where cr_uptime between concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 00:00:00') and concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 23:59:59')
+group by mb_id) b
+on a.mb_id = b.mb_id
+where (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
+
+
+END

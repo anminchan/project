@@ -8,17 +8,22 @@ auth_check_menu($auth, $sub_menu, 'w');
 
 $cr_id = $_POST['cr_id'];
 $cr_state = $_POST['cr_state'];
-echo $cr_id;
-echo $cr_state;
+//echo $cr_id;
+//echo $cr_state;
 if (!$cr_id)
     alert("변경 할 정보를 확인 바랍니다.");
 
 //check_admin_token();
 
-if($cr_state=='1')
+if($cr_state=='1'){
     $sql = "update {$g5['coin_req_table']} set cr_state = 1, cr_approval_date = '".G5_TIME_YMDHIS."', cr_uptime = '".G5_TIME_YMDHIS."' where cr_id = '{$cr_id}' and cr_state = 0 ";
-else
+
+    // 회원정보에 코인업데이트
+    $result = sql_fetch(" select * from {$g5['coin_req_table']} where cr_id = '{$cr_id}' ");
+    $rtn = insert_coin($result['mb_id'], $result['cr_coin']);
+}else{
     $sql = "update {$g5['coin_req_table']} set cr_state = 2, cr_cancel_date = '".G5_TIME_YMDHIS."', cr_uptime = '".G5_TIME_YMDHIS."' where cr_id = '{$cr_id}' and cr_state = 0 ";
+}
 
 sql_query($sql);
 

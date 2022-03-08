@@ -81,14 +81,16 @@ $sql  = " select *
 echo $sql;
 $result = sql_query($sql);
 
-$sql  = " select sum(cc_sum_price)as sum_price,
-            sum(cc_sum1)as sum_coin1, 
-            sum(cc_sum3)as sum_coin3, 
-            sum(cc_sum4)as sum_coin4,
-            sum(cc_sum5)as sum_coin5,
-            sum(cc_sum6)as sum_coin6
-          from g5_coin_sum
-          where cc_date between '$fr_date' and '$fr_date' ";
+$sql  = " select sum(if(cr_state=1, cr_price, 0))as sum_price,
+            --sum(if(cr_state=0, cr_coin, 0))as sum_coin0, 
+            sum(if(cr_state=1, cr_coin, 0))as sum_coin1, 
+            -- sum(if(cr_state=2, cr_coin, 0))as sum_coin2, 
+            sum(if(cr_state=3, cr_coin, 0))as sum_coin3, 
+            sum(if(cr_state=4, cr_coin, 0))as sum_coin4,
+            sum(if(cr_state=5, cr_coin, 0))as sum_coin5,
+            (select sum(mb_coin)as sum_coin from {$g5['member_table']} where mb_leave_date = '')as sum_coin6
+          from {$g5['coin_req_table']}
+          where cr_uptime between '$fr_date 00:00:00' and '$to_date 23:59:59'";
 //echo $sql;
 $sum_rst = sql_fetch($sql);
 
@@ -119,16 +121,19 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
     <input type="hidden" name="save_stx" value="<?php echo $stx; ?>">
 
     <div>
-        <label for="sfl" class="sound_only">검색대상</label>
-        <select name="sfl" id="sfl">
-            <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
-            <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
-            <option value="cr_price" <?php echo get_selected($sfl, 'cr_price'); ?>>금액</option>
-        </select>
-
-        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-        <input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
+        <strong>일자</strong>
+        <?php echo $fr_date; ?> ~ <?php echo $to_date; ?>
+        <!--<input type="text" id="fr_date"  name="fr_date" value="<?php /*echo $fr_date; */?>" readonly class="frm_input" size="10" maxlength="10"> ~
+        <input type="text" id="to_date"  name="to_date" value="<?php /*echo $to_date; */?>" readonly class="frm_input" size="10" maxlength="10">
+        <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
+        <button type="button" onclick="javascript:set_date('어제');">어제</button>
+        <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
+        <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
+        <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
+        <button type="button" onclick="javascript:set_date('지난달');">지난달</button>
+        <button type="button" onclick="javascript:set_date('전체');">전체</button>-->
     </div>
+
     <div>
         <strong>신청상태</strong>
         <input type="radio" name="cr_state" value="" id="cr_state_all" <?php echo get_checked($cr_state, '');     ?>>
@@ -142,16 +147,14 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
     </div>
 
     <div class="sch_last">
-        <strong>일자</strong>
-        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10"> ~
-        <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
-        <!--<button type="button" onclick="javascript:set_date('오늘');">오늘</button>
-        <button type="button" onclick="javascript:set_date('어제');">어제</button>
-        <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
-        <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
-        <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
-        <button type="button" onclick="javascript:set_date('지난달');">지난달</button>
-        <button type="button" onclick="javascript:set_date('전체');">전체</button>-->
+        <label for="sfl" class="sound_only">검색대상</label>
+        <select name="sfl" id="sfl">
+            <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
+            <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
+            <option value="cr_price" <?php echo get_selected($sfl, 'cr_price'); ?>>금액</option>
+        </select>
+        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+        <input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
         <input type="submit" value="검색" class="btn_submit">
     </div>
 

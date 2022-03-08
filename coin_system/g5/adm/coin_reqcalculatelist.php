@@ -26,38 +26,23 @@ if(!isset($_GET['fr_date']) && !$fr_date)
 
 $sql_search = "";
 
-if ($stx != "") {
-    if ($sfl != "") {
-        $where[] = " $sfl like '%$stx%' ";
-    }
-
-    if ($save_stx != $stx) {
-        $page = 1;
-    }
-}
-
-if ($sca != "") {
-    $where[] = " ca_id like '$sca%' ";
-}
-
 if ($cr_status == 'S'){
-    $where[] = " cr_state = 1 ";
+    $where[] = " cc_sum1 > 0 ";
 }elseif($cr_status == 'U'){
-    $where[] = " cr_state = 3 ";
+    $where[] = " cc_sum3 > 0 ";
 }elseif($cr_status == 'D'){
-    $where[] = " cr_state = 4 ";
+    $where[] = " cc_sum4 > 0 ";
 }elseif($cr_status == 'C'){
-    $where[] = " cr_state = 5 ";
+    $where[] = " cc_sum5 > 0 ";
 }elseif($cr_status == 'N'){
-    $where[] = " cr_state = 0 ";
+    $where[] = " cc_sum6 > 0 ";
 }
-$where[] = " cr_state != 0 ";
 
 /*if ($fr_date && $to_date) {
     $where[] = " cr_uptime between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
 }*/
 if ($fr_date) {
-    $where[] = " cr_uptime between '$fr_date 00:00:00' and '$fr_date 23:59:59' ";
+    $where[] = " cc_date = '$fr_date' ";
 }
 
 if ($where) {
@@ -65,14 +50,8 @@ if ($where) {
 }
 
 if ($sfl == "")  $sfl = "mb_id";
-if (!$sst) {
-    $sst = "cr_id";
-    $sod = "desc";
-}
 
-/*$sql_common = "  from {$g5['coin_req_table']} a
-                 left join {$g5['member_table']} b on (a.mb_id = b.mb_id) ";*/
-$sql_common = "  from {$g5['coin_req_table']} ";
+$sql_common = "  from {$g5['coin_sum_table']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
@@ -87,23 +66,22 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$sql  = " select mb_id, mb_name, sum(cr_price)as sum_price, sum(cr_coin)as sum_coin
+$sql  = " select *
           $sql_common
-          group by mb_id
-          order by $sst $sod
+          order by mb_id
           limit $from_record, $rows ";
 echo $sql;
 $result = sql_query($sql);
 
-$sql  = " select sum(cc_sum_price)as sum_price,
+$sql  = " select sum(cc_sum_price1)as sum_price1,
             sum(cc_sum1)as sum_coin1, 
             sum(cc_sum3)as sum_coin3, 
             sum(cc_sum4)as sum_coin4,
             sum(cc_sum5)as sum_coin5,
             sum(cc_sum6)as sum_coin6
-          from g5_coin_sum
-          where cc_date between '$fr_date' and '$fr_date' ";
-//echo $sql;
+          from {$g5['coin_sum_table']}
+          where cc_date = '$fr_date' ";
+echo $sql;
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
@@ -112,7 +90,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_statu
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 ?>
 
-<div class="admin_pg_notice od_test_caution">(주의!) 하루 단위로 조회가 가능합니다..</div>
+<div class="admin_pg_notice od_test_caution">(주의!) 하루 단위로 조회가 가능합니다.</div>
 
 <div class="local_ov01 local_ov">
     <?php echo $listall; ?>
@@ -174,7 +152,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             </thead>
             <tbody>
             <tr>
-                <td class="td_price"><?php echo number_format($sum_rst['sum_price']); ?></td>
+                <td class="td_price"><?php echo number_format($sum_rst['sum_price1']); ?></td>
                 <td class="td_price"><?php echo number_format($sum_rst['sum_coin1']); ?></td>
                 <td class="td_price"><?php echo number_format($sum_rst['sum_coin5']); ?></td>
                 <td class="td_price"><?php echo number_format($sum_rst['sum_coin6']); ?></td>
@@ -186,7 +164,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     </div>
 </form>
 
-<form name="fcoin_reqlist" method="post" action="./coin_reqlistupdate.php" onsubmit="return fcoin_reqlist_submit(this);" autocomplete="off">
+<form name="fcoin_reqlist" method="post" autocomplete="off">
 <input type="hidden" name="sca" value="<?php echo $sca; ?>">
 <input type="hidden" name="sst" value="<?php echo $sst; ?>">
 <input type="hidden" name="sod" value="<?php echo $sod; ?>">
@@ -213,18 +191,33 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     for ($i=0; $row=sql_fetch_array($result); $i++) {
         $name = get_sideview($row['mb_id'], get_text($row['mb_name']), '', '');
         $bg = 'bg'.($i%2);
+
+        $coin_sum = 0;
+        $price_sum = 0;
+        if ($cr_status == 'S'){
+            $price_sum = $row['cc_sum_price1'];
+            $coin_sum = $row['cc_sum1'];
+        }elseif($cr_status == 'U'){
+            $coin_sum = $row['cc_sum3'];
+        }elseif($cr_status == 'D'){
+            $coin_sum = $row['cc_sum4'];
+        }elseif($cr_status == 'C'){
+            $coin_sum = $row['cc_sum5'];
+        }elseif($cr_status == 'N'){
+            $coin_sum = $row['cc_sum6'];
+        }
      ?>
     <tr class="<?php echo $bg; ?>">
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><?php echo $row['mb_id']; ?></td>
         <td class="td_name"><?php echo $row['mb_name']; ?></td>
-        <td class="td_price"><?php echo number_format($row['sum_price']); ?></td>
-        <td class="td_price"><?php echo number_format($row['sum_coin']); ?></td>
+        <td class="td_price"><?php echo number_format($price_sum); ?></td>
+        <td class="td_price"><?php echo number_format($coin_sum); ?></td>
     </tr>
     <?php
     }
     if ($i == 0) {
-        echo '<tr><td colspan="11" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
+        echo '<tr><td colspan="5" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
     }
     ?>
     </tbody>
@@ -241,22 +234,6 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <script>
-function fcoin_reqlist_submit(f)
-{
-    if (!is_checked("chk[]")) {
-        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
-        return false;
-    }
-
-    if(document.pressed  == "선택삭제") {
-        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 $(function(){
     $("#fr_date, #to_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" });
 

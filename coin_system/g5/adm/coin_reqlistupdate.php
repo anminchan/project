@@ -35,8 +35,12 @@ if ($_POST['act_button'] == "선택삭제") {
 
         $sql = "update {$g5['coin_req_table']} set cr_state = 1, cr_approval_date = '".G5_TIME_YMDHIS."', cr_uptime = '".G5_TIME_YMDHIS."' where cr_id = '{$icr_id}' and cr_state = 0 ";
         sql_query($sql);
+
+        // 회원정보에 코인업데이트
+        $result = sql_fetch(" select * from {$g5['coin_req_table']} where cr_id = '{$icr_id}' ");
+        $rtn = insert_coin($result['mb_id'], $result['cr_coin']);
     }
-}elseif ($_POST['act_button'] == "일관취소"){
+}elseif ($_POST['act_button'] == "일괄취소"){
     auth_check_menu($auth, $sub_menu, 'w');
 
     for ($i=0; $i<$count_post_chk; $i++) {

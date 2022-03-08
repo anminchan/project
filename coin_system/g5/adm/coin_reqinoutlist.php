@@ -247,7 +247,7 @@ function fcoin_reqlist_submit(f)
 }
 
 $(function(){
-    $("#fr_date, #to_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" });
+    $("#fr_date, #to_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "-7d", maxDate: "0d" });
 
     $(".qa_href").click(function(){
         var $content = $("#qa_div"+$(this).attr("target"));
