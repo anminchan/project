@@ -2,17 +2,17 @@
 if (!defined('_GNUBOARD_')) exit;
 
 // 샘플 및 테스트 웹
-/*define('G5_MYSQL_HOST', 'localhost');
+define('G5_MYSQL_HOST', 'chanykingweb.cafe24.com');
 define('G5_MYSQL_USER', 'chanykingweb');
 define('G5_MYSQL_PASSWORD', 'qwer123@');
 define('G5_MYSQL_DB', 'chanykingweb');
-define('G5_MYSQL_SET_MODE', true);*/
+define('G5_MYSQL_SET_MODE', true);
 
-define('G5_MYSQL_HOST', 'localhost');
+/*define('G5_MYSQL_HOST', 'localhost');
 define('G5_MYSQL_USER', 'prj_no1');
 define('G5_MYSQL_PASSWORD', 'qwe123!@#');
 define('G5_MYSQL_DB', 'prj_no1');
-define('G5_MYSQL_SET_MODE', true);
+define('G5_MYSQL_SET_MODE', true);*/
 
 define('G5_TABLE_PREFIX', 'g5_');
 

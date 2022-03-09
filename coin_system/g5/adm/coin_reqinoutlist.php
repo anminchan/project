@@ -169,7 +169,7 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
     <caption><?php echo $g5['title']; ?> 목록</caption>
     <thead>
     <tr>
-        <th scope="col">번호</th>member_list.php
+        <th scope="col">번호</th>
         <th scope="col"><?php echo subject_sort_link('mb_id'); ?>아이디</a></th>
         <th scope="col">이름</th>
         <th scope="col">상태</th>

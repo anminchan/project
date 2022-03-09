@@ -27,8 +27,10 @@ if ($stx) {
     $sql_search .= " ) ";
 }
 
-if ($is_admin != 'super')
+if ($is_admin != 'super') {
     $sql_search .= " and mb_level <= '{$member['mb_level']}' ";
+    $sql_search .= " and (mb_1 is null or m_1 = '') "; // 판매자, view관리자 제외
+}
 
 if ($coin_yn)
     $sql_search .= ($coin_yn=='Y'?' and mb_coin > 0 ':' and mb_coin <= 0 ');

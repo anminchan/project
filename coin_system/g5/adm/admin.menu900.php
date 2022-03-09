@@ -1,5 +1,5 @@
 <?php
-$menu["menu900"] = array (
+/*$menu["menu900"] = array (
     array('900000', 'SMS 관리', ''.G5_SMS5_ADMIN_URL.'/config.php', 'sms5'),
     array('900100', 'SMS 기본설정', ''.G5_SMS5_ADMIN_URL.'/config.php', 'sms5_config'),
     array('900200', '회원정보업데이트', ''.G5_SMS5_ADMIN_URL.'/member_update.php', 'sms5_mb_update'),
@@ -11,4 +11,4 @@ $menu["menu900"] = array (
     array('900700', '휴대폰번호 그룹', ''.G5_SMS5_ADMIN_URL.'/num_group.php' , 'hp_group', 1),
     array('900800', '휴대폰번호 관리', ''.G5_SMS5_ADMIN_URL.'/num_book.php', 'hp_manage', 1),
     array('900900', '휴대폰번호 파일', ''.G5_SMS5_ADMIN_URL.'/num_book_file.php' , 'hp_file', 1)
-);
+);*/

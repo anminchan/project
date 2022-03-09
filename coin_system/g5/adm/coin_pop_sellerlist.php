@@ -1,5 +1,8 @@
 <?php
+$sub_menu = '300900';
 include_once('./_common.php');
+
+auth_check_menu($auth, $sub_menu, "r");
 
 $html_title = '판매자 리스트';
 
@@ -16,12 +19,23 @@ function getnerate_random_string($length){
     return $random_string;
 }
 
-$acc = sql_fetch(" select * from {$g5['account_table']} where (mb_id is null or mb_id = '') and (mb_password is null or mb_password = '') order by ac_id desc limit 1 ");
+$acc = sql_fetch(" select * from {$g5['account_table']} where (mb_id is null or mb_id = '') order by ac_id desc limit 1 ");
 if($acc['ac_id']){
-    $id = 'seller_'.getnerate_random_string(4).$acc['ac_id'];
+    $mb_id = 'seller_'.getnerate_random_string(4).$acc['ac_id'];
     $wallet = bin2hex(openssl_random_pseudo_bytes(16));
 
-    $sql = "update {$g5['account_table']} set mb_id = '$id', mb_password = '".get_encrypt_string($id)."', mb_wallet_addr = '$wallet' where ac_id = '{$acc['ac_id']}' and (mb_id is null or mb_id = '') and (mb_password is null or mb_password = '') ";
+    // 판매자 아이디 생성
+    sql_query(" insert into {$g5['member_table']} set mb_id = '{$mb_id}', mb_password = '".get_encrypt_string($mb_id)."', mb_name = '{$mb_id}', mb_nick = '{$mb_id}', mb_level = '5', mb_wallet_addr = '{$wallet}', mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}', mb_1 = 'seller' ");
+
+    // 판매자권한
+    $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '200100', au_auth = 'r' ", FALSE);
+    $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300910', au_auth = 'r, w' ", FALSE);
+    $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300920', au_auth = 'r, w' ", FALSE);
+    $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300930', au_auth = 'r, w' ", FALSE);
+    $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300940', au_auth = 'r, w' ", FALSE);
+
+    // 판매자 추가
+    $sql = "update {$g5['account_table']} set mb_id = '$mb_id' where ac_id = '{$acc['ac_id']}' and (mb_id is null or mb_id = '') ";
     sql_query($sql);
 }
 

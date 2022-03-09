@@ -1041,6 +1041,9 @@ function insert_coin($mb_id, $coin)
     global $g5;
     global $is_admin;
 
+
+    $mb_coin = isset($_POST['mb_coin'])             ? preg_replace("/[^0-9]*/s", "", trim($_POST['mb_coin']))           : "";
+
     // 포인트가 없다면 업데이트 할 필요 없음
     if ($coin == 0) { return 0; }
 
