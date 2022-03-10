@@ -25,8 +25,10 @@ if ($is_member) {
 /*if(!$is_member && strpos($_SERVER['HTTP_HOST'], '') !== false)
     goto_url(TB_ADMIN_URL.'');*/
 
-$login_url        = login_url($url);
-$login_action_url = G5_HTTPS_BBS_URL."/login_check.php";
+$login_url        = G5_ADMIN_URL;
+$login_action_url = G5_ADMIN_URL."/login_check.php";
+
+include_once(G5_PATH.'/head.sub.php');
 ?>
 
 <style>
@@ -134,3 +136,6 @@ $login_action_url = G5_HTTPS_BBS_URL."/login_check.php";
         return false;
     }
 </script>
+
+<?php
+include_once(G5_PATH.'/tail.sub.php');

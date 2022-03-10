@@ -3992,3 +3992,17 @@ function option_array_checked($option, $arr=array()){
 
     return $checked;
 }
+
+function seller_coin_check($req_coin){
+    $rtn = '';
+    $sql = " select a.mb_id, b.mb_coin from g5_account a left join g5_member b on a.mb_id = b.mb_id where a.ac_state = 1 and b.mb_1 = 'seller' limit 1 ";
+    $result = sql_fetch($sql);
+
+    if($result['mb_coin']>=$req_coin) $rtn = $result['mb_id'];
+
+    return $rtn;
+}
+
+function seller_coin_balance($mb_id, $req_coin){
+    sql_query(" update g5_member set mb_coin = (mb_coin-$req_coin) where mb_id = '{$mb_id}' ");
+}

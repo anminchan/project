@@ -129,8 +129,8 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
     </div>
 
     <div class="btn_confirm01 btn_confirm">
-        <input type="submit" value="확인" class="btn_submit btn">
-        <a href="javascript:;" onclick="window.open('./coin_pop_sellerlist.php', '', 'width=650,height=750,scrollbars=1,menus=0');" class="btn_submit btn">판매자리스트</a>
+        <input type="submit" value="등록" class="btn_submit btn">
+        <a href="javascript:;" onclick="window.open('./coin_pop_sellerlist.php', '', 'width=650,height=450,scrollbars=1,menus=0');" class="btn_submit btn">판매자리스트</a>
     </div>
 
     </form>

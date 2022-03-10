@@ -11,7 +11,7 @@ $menu['menu300'] = array (
     array('300820', '글,댓글 현황', G5_ADMIN_URL.'/write_count.php', 'scf_write_count'),
 
     array('300900', '계좌관리', G5_ADMIN_URL.'/accountlist.php', 'accountlist'),
-    array('300950', 'VIEW등록', G5_ADMIN_URL.'/manageraddform.php', 'managerform'),
+    array('300950', 'VIEW ADMIN 등록', G5_ADMIN_URL.'/manageraddform.php', 'managerform'),
     array('300910', '코인구매관리', G5_ADMIN_URL.'/coin_reqlist.php', 'coin_reqlist'),
     array('300920', '지갑입출금 내역', G5_ADMIN_URL.'/coin_reqinoutlist.php', 'coin_req_inout'),
     array('300930', '정산', G5_ADMIN_URL.'/coin_reqcalculatelist.php', 'coin_req_calculate'),

@@ -24,6 +24,10 @@ if($acc['ac_id']){
     $mb_id = 'seller_'.getnerate_random_string(4).$acc['ac_id'];
     $wallet = bin2hex(openssl_random_pseudo_bytes(16));
 
+    $mb = get_member($mb_id);
+    if (isset($mb['mb_id']) && $mb['mb_id'])
+        alert('이미 존재하는 회원아이디입니다.\\nＩＤ : '.$mb['mb_id'].'\\n이름 : '.$mb['mb_name'].'\\n닉네임 : '.$mb['mb_nick']);
+
     // 판매자 아이디 생성
     sql_query(" insert into {$g5['member_table']} set mb_id = '{$mb_id}', mb_password = '".get_encrypt_string($mb_id)."', mb_name = '{$mb_id}', mb_nick = '{$mb_id}', mb_level = '5', mb_wallet_addr = '{$wallet}', mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}', mb_1 = 'seller' ");
 
@@ -47,7 +51,8 @@ $sql = " select count(*) as cnt " . $sql_common . $sql_where;
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
-$rows = $config['cf_page_rows'];
+//$rows = $config['cf_page_rows'];
+$rows = 5;
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함

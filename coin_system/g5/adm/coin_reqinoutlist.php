@@ -50,6 +50,7 @@ if ($cr_status != "") {
         $where[] = " cr_state = 5 ";
     }
 }
+$where[] = " cr_state != 0 ";
 
 if ($fr_date && $to_date) {
     $where[] = " cr_date between '$fr_date 00:00:00' and '$to_date 23:59:59' ";

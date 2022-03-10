@@ -106,7 +106,7 @@ function fregisterform_submit(f)
 function fnPriceinput(price){
     var price_sum = coint_sum = '';
     if(price > 0 || price < 0){
-        price_sum = Number($("#cr_price").val().replaceAll(",", ""))+price;
+        price_sum = Number($("#cr_price").val().replace(/,/g, ""))+price;
         coint_sum = price_sum/10000;
     }
     if(price_sum <= 0 && coint_sum <= 0){

@@ -17,7 +17,7 @@ $result = sql_fetch($sql);
 ?>
     <div class="new_win">
         <h1>코인변환</h1>
-        <form name="fcoinform" action="./coin_pop_convert_formupdate.php" method="post" onsubmit="return form_check(this);" autocomplete="off">
+        <form name="fsellerform" action="./coin_pop_sellerformupdate.php" method="post" onsubmit="return form_check(this);" autocomplete="off">
             <input type="hidden" name="ac_id" value="<?php echo $ac_id; ?>">
             <input type="hidden" name="mb_id" value="<?php echo $result['mb_id']; ?>">
 
@@ -48,7 +48,7 @@ $result = sql_fetch($sql);
                     <tr>
                         <th scope="row"><label for="cp_subject">코인충전</label></th>
                         <td>
-                            <input type="text" name="mb_coin" value="" id="mb_coin" class="frm_input" size="20">
+                            <input type="text" name="mb_coin" value="" id="mb_coin" required class="frm_input required" size="20">
                         </td>
                     </tr>
                     </tbody>
@@ -64,22 +64,15 @@ $result = sql_fetch($sql);
     <script>
         function form_check(f)
         {
-            var cr_state = f.cr_state;
-            cr_state = cr_state.options[cr_state.selectedIndex].value;
-            var cr_coin = f.cr_coin.value;
+            var mb_coin = f.mb_coin.value;
 
-            if(!f.cr_state.checked && f.cr_state.value == "") {
-                alert("상태를 선택해 주십시오.");
+            if(isNaN(mb_coin)) {
+                alert("코인충전은 숫자만 입력해 주십시오.");
+                f.mb_coin.focus();
                 return false;
             }
 
-            if(isNaN(cr_coin)) {
-                alert("변경수량은 숫자로 입력해 주십시오.");
-                f.cr_coin.focus();
-                return false;
-            }
-
-            if(!confirm("변환하시겠습니까?")) {
+            if(!confirm("등록하시겠습니까?")) {
                 return false;
             }
 

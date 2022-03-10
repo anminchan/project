@@ -18,7 +18,7 @@ $fr_date = (isset($_GET['fr_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0
 
 // 기본날짜 조건 당일로 지정
 if(!isset($_GET['fr_date']) && !$fr_date)
-    $fr_date = G5_TIME_YMD;
+    $fr_date = date('Y-m-d', (G5_SERVER_TIME-86400));
 
 // 기본날짜 조건 당일로 지정
 /*if(!isset($_GET['to_date']) && !$to_date)
