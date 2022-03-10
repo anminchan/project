@@ -23,8 +23,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
                 <strong><?php /*echo $point; */?></strong>
             </a>-->
             <a href="<?php echo G5_BBS_URL ?>/coin_request.php" class="_point">
-                <i class="fa fa-database" aria-hidden="true"></i>포인트
-                <strong><?php echo $point; ?></strong>
+                <i class="fa fa-database" aria-hidden="true"></i>COIN
+                <strong><?php echo $coin; ?></strong>
             </a>
         </li>
         <!--<li>

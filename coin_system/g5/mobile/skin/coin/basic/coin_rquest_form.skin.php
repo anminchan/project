@@ -18,18 +18,25 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
             <li>
                 <label for="cr_price" class="sound_only"> (필수)구매금액</label>
                 <input type="text" id="cr_price" name="cr_price" value="" required class="frm_input required" readonly size="50" placeholder="(필수)구매금액">
-                <a href="#" class="price_01" onclick="fnPriceinput(10000);">1만원</a>
-                <a href="#" class="price_02" onclick="fnPriceinput(30000);">3만원</a>
-                <a href="#" class="price_03" onclick="fnPriceinput(50000);">5만원</a>
-                <a href="#" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
-                <a href="#" class="price_05" onclick="fnPriceinput(500000);">50만원</a>
-                <a href="#" class="price_06" onclick="fnPriceinput(1000000);">100만원</a>
-                <a href="#" class="price_07" onclick="fnPriceinput(10000000);">1000만원</a>
-                <a href="#" class="price_08" onclick="fnPriceinput(0);">정정</a>
-                <!--<a href="#" class="price_08" onclick="fnPriceinput(-10000);">1만원차감</a>
+                <ul>
+                    <li>
+                        <a href="#" class="price_01" onclick="fnPriceinput(10000);">1만원</a>
+                        <a href="#" class="price_02" onclick="fnPriceinput(30000);">3만원</a>
+                        <a href="#" class="price_03" onclick="fnPriceinput(50000);">5만원</a>
+                        <a href="#" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
+                    </li>
+                    <li>
+                        <a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>
+                        <a href="#" class="price_06" onclick="fnPriceinput(200000);">20만원</a>
+                        <a href="#" class="price_07" onclick="fnPriceinput(500000);">50만원</a>
+                        <a href="#" class="price_08" onclick="fnPriceinput(1000000);">100만원</a>
+                        <a href="#" class="price_09" onclick="fnPriceinput(0);">정정</a>
+                    </li>
+                </ul>
+                <!--<a href="#" class="price_07" onclick="fnPriceinput(10000000);">1000만원</a>
+                <a href="#" class="price_08" onclick="fnPriceinput(-10000);">1만원차감</a>
                 <a href="#" class="price_08" onclick="fnPriceinput(-100000);">10만원차감</a>
                 <a href="#" class="price_06" onclick="fnPriceinput(-1000000);">100만원차감</a>-->
-
             </li>
             <li>
                 <label for="cr_coin" class="sound_only"> (필수)최종지급수량</label>

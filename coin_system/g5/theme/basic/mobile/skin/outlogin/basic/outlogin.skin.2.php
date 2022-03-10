@@ -21,8 +21,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
 	    </div>
     </div>
 
-    <!--<ul id="ol_after_private">
-        <li id="ol_after_memo">
+    <ul id="ol_after_private">
+        <!--<li id="ol_after_memo">
             <a href="<?php /*echo G5_BBS_URL */?>/memo.php" target="_blank" class="win_memo">
             	<i class="fa fa-envelope-o" aria-hidden="true"></i>
                 <span class="sound_only">안 읽은</span>쪽지
@@ -40,8 +40,15 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
             <a href="<?php /*echo G5_BBS_URL */?>/scrap.php" target="_blank" class="win_scrap">
 				<i class="fa fa-thumb-tack" aria-hidden="true"></i>스크랩
             </a>
+        </li>-->
+        <li id="ol_after_pt">
+            <a href="<?php echo G5_BBS_URL ?>/coin_request.php" class="win_point">
+                <i class="fa fa-database" aria-hidden="true"></i>
+                COIN
+                <strong><?php echo $coin ?></strong>
+            </a>
         </li>
-    </ul>-->
+    </ul>
 
 </aside>
 

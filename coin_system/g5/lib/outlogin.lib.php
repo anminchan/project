@@ -14,6 +14,9 @@ function outlogin($skin_dir='basic')
     if (array_key_exists('mb_point', $member)) {
         $point = number_format($member['mb_point']);
     }
+    if (array_key_exists('mb_coin', $member)) {
+        $coin = number_format($member['mb_coin']);
+    }
 
     if(preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
         if (G5_IS_MOBILE) {

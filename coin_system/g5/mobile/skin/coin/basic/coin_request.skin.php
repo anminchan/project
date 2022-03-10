@@ -63,7 +63,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
             <?php if (count($list) == 0) { echo '<li class="empty_table">게시물이 없습니다.</li>'; } ?>
         </ul>
     </div>
-3
 </div>
 
 </form>
