@@ -70,7 +70,7 @@ $sql  = " select *
           $sql_common
           order by mb_id
           limit $from_record, $rows ";
-echo $sql;
+//echo $sql;
 $result = sql_query($sql);
 
 $sql  = " select sum(cc_sum_price1)as sum_price1,
@@ -81,7 +81,7 @@ $sql  = " select sum(cc_sum_price1)as sum_price1,
             sum(cc_sum6)as sum_coin6
           from {$g5['coin_sum_table']}
           where cc_date = '$fr_date' ";
-echo $sql;
+//echo $sql;
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;

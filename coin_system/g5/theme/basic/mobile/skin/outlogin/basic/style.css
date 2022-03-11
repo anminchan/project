@@ -11,7 +11,7 @@
 .ol_before_btn a {color:#fff;display:inline-block;width:50%;float:left}
 #ol_password_lost {border-left:1px solid #777}
 
-#ol_after_hd {position:relative;background:#212020;padding:10px 15px}
+#ol_after_hd {position:relative;background:#0B173B;padding:10px 15px}
 #ol_after_hd:after {display:block;visibility:hidden;clear:both;content:""}
 #ol_after_hd strong {display:block;float:left;color:#fff;padding:0 0 0 15px;line-height:40px}
 #ol_after_hd .btn_admin {float:left;display:block;padding:0 !important;text-align:center;color:#fff;margin-right:10px;background:#d13f4a;width:30px}

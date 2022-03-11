@@ -78,7 +78,7 @@ $sql  = " select *
           $sql_common
           order by $sst $sod
           limit $from_record, $rows ";
-echo $sql;
+//echo $sql;
 $result = sql_query($sql);
 
 $sql  = " select sum(if(cr_state=1, cr_price, 0))as sum_price,

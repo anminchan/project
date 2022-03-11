@@ -5,124 +5,100 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
+<link rel="icon" type="image/png" href="<?php echo G5_URL?>/logintemp/images/icons/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="<?php echo G5_URL?>/logintemp/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo G5_URL?>/logintemp/css/util.css">
+<link rel="stylesheet" type="text/css" href="<?php echo G5_URL?>/logintemp/css/main.css">
+
 <!-- 로그인 시작 { -->
-<div id="mb_login" class="mbskin">
-    <div class="mbskin_box">
-        <h1><?php echo $g5['title'] ?></h1>
-        <div class="mb_log_cate">
-            <h2><span class="sound_only">회원</span>로그인</h2>
-            <a href="<?php echo G5_BBS_URL ?>/register.php" class="join">회원가입</a>
-        </div>
-        <form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post">
-        <input type="hidden" name="url" value="<?php echo $login_url ?>">
-        
-        <fieldset id="login_fs">
-            <legend>회원로그인</legend>
-            <label for="login_id" class="sound_only">회원아이디<strong class="sound_only"> 필수</strong></label>
-            <input type="text" name="mb_id" id="login_id" required class="frm_input required" size="20" maxLength="20" placeholder="아이디">
-            <label for="login_pw" class="sound_only">비밀번호<strong class="sound_only"> 필수</strong></label>
-            <input type="password" name="mb_password" id="login_pw" required class="frm_input required" size="20" maxLength="20" placeholder="비밀번호">
-            <button type="submit" class="btn_submit">로그인</button>
-            
-            <div id="login_info">
-                <div class="login_if_auto chk_box">
-                    <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
-                    <label for="login_auto_login"><span></span> 자동로그인</label>  
-                </div>
-                <div class="login_if_lpl">
-                    <a href="<?php echo G5_BBS_URL ?>/password_lost.php">아이디/비밀번호 찾기</a>  
-                </div>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="<?php echo G5_URL?>/logintemp/images/img-01.png" alt="IMG">
             </div>
-        </fieldset> 
-        </form>
-        <?php @include_once(get_social_skin_path().'/social_login.skin.php'); // 소셜로그인 사용시 소셜로그인 버튼 ?>
-    </div>
 
-    <?php // 쇼핑몰 사용시 여기부터 ?>
-    <?php if (isset($default['de_level_sell']) && $default['de_level_sell'] == 1) { // 상품구입 권한 ?>
+            <form class="login100-form validate-form" name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post">
+                <span class="login100-form-title">
+                    LET'S SIGN IN
+                </span>
 
-	<!-- 주문하기, 신청하기 -->
-	<?php if (preg_match("/orderform.php/", $url)) { ?>
-    <section id="mb_login_notmb">
-        <h2>비회원 구매</h2>
-        <p>비회원으로 주문하시는 경우 포인트는 지급하지 않습니다.</p>
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input class="input100 required" type="text" name="mb_id" required placeholder="ID">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
 
-        <div id="guest_privacy">
-            <?php echo conv_content($default['de_guest_privacy'], $config['cf_editor']); ?>
-        </div>
-		
-		<div class="chk_box">
-			<input type="checkbox" id="agree" value="1" class="selec_chk">
-        	<label for="agree"><span></span> 개인정보수집에 대한 내용을 읽었으며 이에 동의합니다.</label>
-		</div>
-		
-        <div class="btn_confirm">
-            <a href="javascript:guest_submit(document.flogin);" class="btn_submit">비회원으로 구매하기</a>
-        </div>
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100 required" type="password" name="mb_password" required placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
 
-        <script>
-        function guest_submit(f)
-        {
-            if (document.getElementById('agree')) {
-                if (!document.getElementById('agree').checked) {
-                    alert("개인정보수집에 대한 내용을 읽고 이에 동의하셔야 합니다.");
-                    return;
-                }
-            }
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">Login</button>
+                </div>
 
-            f.url.value = "<?php echo $url; ?>";
-            f.action = "<?php echo $url; ?>";
-            f.submit();
-        }
-        </script>
-    </section>
+                <div class="text-left p-t-12">
+                    <input type="checkbox" name="auto_login" id="login_auto_login" >
+                    <label for="login_auto_login"><span class="txt2"> 자동로그인</span></label>
+                    <!--<span class="txt1"></span>-->
+                    <!--<a class="txt2" href="#">
+                        Username / Password?
+                    </a>-->
+                </div>
 
-    <?php } else if (preg_match("/orderinquiry.php$/", $url)) { ?>
-    <div id="mb_login_od_wr">
-        <h2>비회원 주문조회 </h2>
+                <div class="text-left p-t-12">
+                    <?php
+                    include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
+                    $captcha_html = captcha_html();
+                    $captcha_js   = chk_captcha_js();
+                    echo $captcha_html;
+                    ?>
+                </div>
 
-        <fieldset id="mb_login_od">
-            <legend>비회원 주문조회</legend>
-
-            <form name="forderinquiry" method="post" action="<?php echo urldecode($url); ?>" autocomplete="off">
-
-            <label for="od_id" class="od_id sound_only">주문서번호<strong class="sound_only"> 필수</strong></label>
-            <input type="text" name="od_id" value="<?php echo $od_id; ?>" id="od_id" required class="frm_input required" size="20" placeholder="주문서번호">
-            <label for="od_pwd" class="od_pwd sound_only">비밀번호 <strong>필수</strong></label>
-            <input type="password" name="od_pwd" size="20" id="od_pwd" required class="frm_input required" placeholder="비밀번호">
-            <button type="submit" class="btn_submit">확인</button>
-
+                <div class="text-center p-t-136">
+                    <span class="txt2">Welecome, P2P Coin Purchasing System.</span>
+                    <!--<a class="txt2" href="#">
+                        Create your Account
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>-->
+                </div>
             </form>
-        </fieldset>
-
-        <section id="mb_login_odinfo">
-            <p>메일로 발송해드린 주문서의 <strong>주문번호</strong> 및 주문 시 입력하신 <strong>비밀번호</strong>를 정확히 입력해주십시오.</p>
-        </section>
-
+        </div>
     </div>
-    <?php } ?>
-
-    <?php } ?>
-    <?php // 쇼핑몰 사용시 여기까지 반드시 복사해 넣으세요 ?>
-
 </div>
 
-<script>
-jQuery(function($){
-    $("#login_auto_login").click(function(){
-        if (this.checked) {
-            this.checked = confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?");
-        }
-    });
-});
+<script src="<?php echo G5_URL?>/logintemp/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="<?php echo G5_URL?>/logintemp/vendor/tilt/tilt.jquery.min.js"></script>
 
-function flogin_submit(f)
-{
-    if( $( document.body ).triggerHandler( 'login_sumit', [f, 'flogin'] ) !== false ){
-        return true;
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    });
+
+    jQuery(function($){
+        $("#login_auto_login").click(function(){
+            if (this.checked) {
+                this.checked = confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?");
+            }
+        });
+    });
+
+    function flogin_submit(f)
+    {
+
+        <?php echo $captcha_js; // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함  ?>
+
+        if( $( document.body ).triggerHandler( 'login_sumit', [f, 'flogin'] ) !== false ){
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 </script>
 <!-- } 로그인 끝 -->
 
