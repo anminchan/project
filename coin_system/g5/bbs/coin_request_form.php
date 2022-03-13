@@ -24,6 +24,9 @@ $result_acc = sql_fetch($sql_acc);
 
 $register_action_url = G5_BBS_URL.'/coin_request_form_update.php';
 
+// accesslog
+insert_accesslog('', '');
+
 include_once('./_head.php');
 
 include_once($coin_skin_path.'/coin_rquest_form.skin.php');
