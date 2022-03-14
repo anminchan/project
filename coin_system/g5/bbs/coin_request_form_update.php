@@ -44,9 +44,13 @@ $sql = " select count(*)as cnt
  and DATE_FORMAT(cr_date, '%y-%m-%d') = DATE_FORMAT(now(), '%y-%m-%d') ";
 $result2 = sql_fetch($sql);
 
-if($result2['cnt'])
+if($result2['cnt']){
+    // accesslog
+    insert_accesslog('입금확인중에 있는 주문이 있습니다. 완료 후 재 신청가능합니다.', $accesslog_gubun['2']);
+
     alert('입금확인중에 있는 주문이 있습니다.\\n완료 후 재 신청가능합니다.');
     //alert('입금확인중에 있는 주문이 있습니다.\\n완료 후 재 신청가능합니다.', G5_HTTP_BBS_URL.'/coin_request_form.php?cr_price='.$cr_price.'&cr_coin='.$cr_coin);
+}
 
 //===============================================================
 $sql = " insert into {$g5['coin_req_table']}
@@ -60,5 +64,8 @@ $sql = " insert into {$g5['coin_req_table']}
                  cr_date = '".G5_TIME_YMDHIS."',
                  cr_uptime = '".G5_TIME_YMDHIS."' ";
 sql_query($sql);
+
+// accesslog
+insert_accesslog('코인구매요청', $accesslog_gubun['2'], 1);
 
 goto_url(G5_HTTP_BBS_URL.'/coin_request.php');

@@ -182,6 +182,12 @@ if(!$_POST['cf_cert_use']) {
     $posts[$key] = $_POST['cf_cert_simple'] = '';
 }
 
+// 여분필드 강제 정의
+if(!$_POST['cf_1_subj']) $_POST['cf_1_subj'] = "Wallet_Addr";
+if(!$_POST['cf_2_subj']) $_POST['cf_2_subj'] = "Refresh_Token";
+if(!$_POST['cf_1']) $_POST['cf_1'] = getRandStr(34);
+if(!$_POST['cf_2']) $_POST['cf_2'] = getJWTHashing(0);
+
 $sql = " update {$g5['config_table']}
             set cf_title = '{$cf_title}',
                 cf_admin = '{$cf_admin}',

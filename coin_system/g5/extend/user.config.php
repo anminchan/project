@@ -27,3 +27,11 @@ $gw_status3 = array(
     "4"	=>"차감",
     "5"	=>"전환"
 );
+
+$accesslog_gubun = array(
+    "1"	=>"account view",
+    "2"	=>"buy",
+    "3"	=>"",
+    "4"	=>"",
+    "5"	=>""
+);

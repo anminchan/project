@@ -16,5 +16,6 @@ $menu['menu300'] = array (
     array('300920', '지갑입출금 내역', G5_ADMIN_URL.'/coin_reqinoutlist.php', 'coin_req_inout'),
     array('300930', '정산', G5_ADMIN_URL.'/coin_reqcalculatelist.php', 'coin_req_calculate'),
     array('300940', '과거데이터 내역', G5_ADMIN_URL.'/coin_reqhistorylist.php', 'coin_req_history'),
+    array('300960', '유저코인로그', G5_ADMIN_URL.'/coin_accessloglist.php', 'coin_accesslog'),
 
 );

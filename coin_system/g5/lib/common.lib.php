@@ -4007,7 +4007,7 @@ function seller_coin_balance($mb_id, $req_coin){
     sql_query(" update g5_member set mb_coin = (mb_coin-$req_coin) where mb_id = '{$mb_id}' ");
 }
 
-function insert_accesslog($log_gubun, $log_memo){
+function insert_accesslog($log_memo, $log_gubun){
     global $g5, $config, $member;
 
     // $_SERVER 배열변수 값의 변조를 이용한 SQL Injection 공격을 막는 코드입니다. 110810
@@ -4024,4 +4024,64 @@ function insert_accesslog($log_gubun, $log_memo){
                     log_ip = '$remote_addr',
                     log_datetime = '".G5_TIME_YMDHIS."' ";
     sql_query($sql);
+}
+
+// 랜덤문자열생성
+function getRandStr($length = 6) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $randomString;
+}
+
+function getJWTHashing($expired=0)
+{
+    global $g5, $config;
+    include_once(G5_PLUGIN_PATH . '/jwt/class.jwt.php');
+
+    $jwt = new JWT();
+
+    $email = $config['cf_admin_email'];
+    $email = base64_encode($email); // .이 들어가도 JWT가 분리되지 않기 위한 base64 인코딩
+
+    $password = "qwe123!@#";
+    $password = base64_encode($password); // .이 들어가도 JWT가 분리되지 않기 위한 base64 인코딩
+
+    if (!$expired)
+        $expired = '9999999999';
+    else
+        $expired = time() + (360 * 30);
+
+    // 유저 정보를 가진 jwt 만들기
+    $token = $jwt->hashing(array(
+        'exp' => time() + (360 * 30), // 만료기간
+        'iat' => time(), // 생성일
+        'id' => 'coinsystem',
+        'email' => $email,
+        'password' => $password
+    ));
+
+    return $token;
+}
+
+function getJWTDehashing($token)
+{
+    global $g5, $config;
+    include_once(G5_PLUGIN_PATH . '/jwt/class.jwt.php');
+
+    $jwt = new JWT();
+
+    // jwt에서 유저 정보 가져오기
+    $data = $jwt->dehashing($token);
+
+    $parted = explode('.', base64_decode($token));
+
+    $payload = json_decode($parted[1], true);
+
+    //var_dump($payload);
+    return $payload;
 }

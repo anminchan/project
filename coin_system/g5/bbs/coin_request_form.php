@@ -25,7 +25,7 @@ $result_acc = sql_fetch($sql_acc);
 $register_action_url = G5_BBS_URL.'/coin_request_form_update.php';
 
 // accesslog
-insert_accesslog('', '');
+insert_accesslog('계좌확인요청', $accesslog_gubun['1'], 1);
 
 include_once('./_head.php');
 
