@@ -15,13 +15,12 @@ if(!in_array($method, $method_approval)) {
     die(json_encode($json_data));
 }
 
-die($requestData['mb_id']);
 $check_required = true;
 //필수항목체크
 $required = array();
 array_push($required, 'tx_id','mb_id','delete_type');
 foreach ($required as $key => $value) {
-    if(!isset($requestData[$value]) || trim($requestData[$value]) == null) {
+    if(!isset($_POST[$value]) || trim($_POST[$value]) == null) {
         $check_required = false;
         $msg = $value.' 필수값이 누락되었습니다.';
         break;
@@ -41,13 +40,18 @@ if( !$mb['mb_id'] ) {
     die(json_encode($json_data));
 }
 
-if( $mb['mb_level']!='2' || $mb['mb_leave_date']!='' || $mb['mb_intercept_date']!='' ) {
-    $json_data = ['success' => true, 'code' => "200", 'message' => '탈퇴/차단 회원이 입니다.', 'error' => null, 'data' => ""];
+if( $mb['mb_level'] > 2 ) {
+    $json_data = ['success' => true, 'code' => "200", 'message' => '해당 회원은 삭제할 수 없습니다.', 'error' => null, 'data' => ""];
+    die(json_encode($json_data));
+}
+
+if( $mb['mb_level'] < 2 && !$mb['mb_password']) {
+    $json_data = ['success' => true, 'code' => "200", 'message' => '이미 삭제된 회원입니다.', 'error' => null, 'data' => ""];
     die(json_encode($json_data));
 }
 
 if (is_admin($mb['mb_id']) == 'super') {
-    $json_data = ['success' => true, 'code' => "200", 'message' => '최고 관리자는 삭제할 수 없습니다.', 'error' => null, 'data' => ""];
+    $json_data = ['success' => true, 'code' => "200", 'message' => '최고관리자는 삭제할 수 없습니다.', 'error' => null, 'data' => ""];
     die(json_encode($json_data));
 } else if ($is_admin != 'super' && $mb['mb_level'] > 2) {
     $json_data = ['success' => true, 'code' => "200", 'message' => '자신보다 권한이 높은 회원은 삭제할 수 없습니다.', 'error' => null, 'data' => ""];

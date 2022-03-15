@@ -47,10 +47,16 @@ if( $mb['mb_level']!='2' || $mb['mb_leave_date']!='' || $mb['mb_intercept_date']
     die(json_encode($json_data));
 }
 
+// 전환코인과 보유코인 체크
+if( $mb['mb_coin'] < $_POST['balance'] ) {
+    $json_data = ['success' => true, 'code' => "200", 'message' => '전환코인이 보유수량보다 많습니다.', 'error' => null, 'data' => ""];
+    die(json_encode($json_data));
+}
+
 $cr_account = $mb['mb_bank_nm'] . ' / ' . $mb['mb_bank_account'] . ' / ' . $mb['mb_bank_holder'];
 
 $sql = " insert into {$g5['coin_req_table']}
-            set mb_id = '$mb_id',
+            set mb_id = '{$mb['mb_id']}',
                 mb_name = '{$mb['mb_name']}',
                 cr_state = 5,
                 cr_coin = '{$_POST['balance']}',
@@ -67,8 +73,16 @@ $hash = $cr_id.$mb['mb_id'].$key.date('ymd');
 $checkkey = hash('sha256', $hash);
 
 $sql_up = " update {$g5['coin_req_table']}
-            set cr_balance = '$checkkey' where cr_id = '$cr_id' and mb_id = '$mb_id' ";
+            set cr_balance = '$checkkey' where cr_id = '$cr_id' and mb_id = '{$mb['mb_id']}' ";
 sql_query($sql_up);
+
+// 사용자 코인 차감
+$rtn = delete_coin($mb['mb_id'], $_POST['balance']);
+if(!$rtn){
+    sql_query(" delete {$g5['coin_req_table']} from where where cr_id = '$cr_id' and mb_id = '{$mb['mb_id']}' ");
+    $json_data = ['success' => false, 'code' => "401", 'message' => '전환신청이 실패하였습니다.', 'error' => null, 'data' => ""];
+    die(json_encode($json_data));
+}
 
 $info = ['tx_id' => $checkkey];
 $json_data = ['success' => true, 'code' => "200", 'message' => '전송되었습니다.', 'error' => null, 'data' => $info];

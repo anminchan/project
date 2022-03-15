@@ -27,7 +27,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
                             <a href="#" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
                         </li>
                         <li>
-                            <a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>
+                            <!--<a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>-->
                             <a href="#" class="price_06" onclick="fnPriceinput(200000);">20만원</a>
                             <a href="#" class="price_07" onclick="fnPriceinput(500000);">50만원</a>
                             <a href="#" class="price_08" onclick="fnPriceinput(1000000);">100만원</a>

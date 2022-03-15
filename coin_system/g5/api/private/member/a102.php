@@ -2,7 +2,7 @@
 
 define('_PURENESS_', true);
 define('IS_RTN_PAGE', 'YES');
-include_once('../../../../common.php');
+include_once('../../../common.php');
 //include_once(TB_LIB_PATH.'/json.lib.php');
 header("Content-Type: application/json; charset=utf-8");
 
@@ -21,9 +21,9 @@ if(!in_array($method, $method_approval)) {
 $check_required = true;
 //필수항목체크
 $required = array();
-array_push($required, 'tx_id','mb_id','mb_password','mb_name','mb_email','mb_hp','mb_bank_nm','mb_bank_account','mb_bank_holder');
+array_push($required, 'tx_id','mb_id','mb_password','mb_name','mb_bank_nm','mb_bank_account','mb_bank_holder');
 foreach ($required as $key => $value) {
-    if(!isset($requestData[$value]) || trim($requestData[$value]) == null) {
+    if(!isset($_POST[$value]) || trim($_POST[$value]) == null) {
         $check_required = false;
         $msg = $value.' 필수값이 누락되었습니다.';
         break;
@@ -55,6 +55,7 @@ $sql = " insert into {$g5['member_table']}
                 set mb_id = '{$_POST['mb_id']}',
                 mb_password = '".get_encrypt_string($_POST['mb_password'])."',
                 mb_name = '{$_POST['mb_name']}',
+                mb_level = 2,
                 mb_email = '{$_POST['mb_email']}',
                 mb_hp = '{$_POST['mb_hp']}',
                 mb_bank_nm = '{$_POST['mb_bank_nm']}',

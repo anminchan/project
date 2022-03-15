@@ -17,8 +17,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
         <ul>
             <li>
                 <label for="cr_price" class="sound_only"> (필수)구매금액</label>
-                <input type="text" id="cr_price" name="cr_price" value="" required class="frm_input required" readonly size="50" placeholder="(필수)구매금액">
-                <ul>
+                <input type="text" id="cr_price" name="cr_price" value="" required class="frm_input required" readonly size="25" placeholder="(필수)구매금액">
+                <ul style="margin-top: 5px">
                     <li>
                         <a href="#" class="price_01" onclick="fnPriceinput(10000);">1만원</a>
                         <a href="#" class="price_02" onclick="fnPriceinput(30000);">3만원</a>
@@ -26,7 +26,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
                         <a href="#" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
                     </li>
                     <li>
-                        <a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>
+                        <!--<a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>-->
                         <a href="#" class="price_06" onclick="fnPriceinput(200000);">20만원</a>
                         <a href="#" class="price_07" onclick="fnPriceinput(500000);">50만원</a>
                         <a href="#" class="price_08" onclick="fnPriceinput(1000000);">100만원</a>
@@ -40,7 +40,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
             </li>
             <li>
                 <label for="cr_coin" class="sound_only"> (필수)최종지급수량</label>
-                <input type="text" id="cr_coin" name="cr_coin" value="" required class="frm_input required" readonly size="50" placeholder="(필수)최종지급수량"> COIN
+                <input type="text" id="cr_coin" name="cr_coin" value="" required class="frm_input required" readonly size="20" placeholder="(필수)최종지급수량"> COIN
             </li>
             <li>
                 <label for="cr_paymethod" class="sound_only"> 결제 수단</label>
