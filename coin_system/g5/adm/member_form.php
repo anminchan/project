@@ -54,6 +54,8 @@ if ($w == '')
     $mb['mb_open'] = 1;
     $mb['mb_level'] = $config['cf_register_level'];
     $html_title = '추가';
+
+    $mb['mb_wallet_addr'] = getRandStr(34);
 }
 else if ($w == 'u')
 {
@@ -235,8 +237,8 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
     <tr>
         <th scope="row"><label for="mb_name">이름(실명)<strong class="sound_only">필수</strong></label></th>
         <td><input type="text" name="mb_name" value="<?php echo $mb['mb_name'] ?>" id="mb_name" required class="required frm_input" size="15"  maxlength="20"></td>
-        <th scope="row"><label for="mb_nick">닉네임<strong class="sound_only">필수</strong></label></th>
-        <td><input type="text" name="mb_nick" value="<?php echo $mb['mb_nick'] ?>" id="mb_nick" required class="required frm_input" size="15"  maxlength="20"></td>
+        <th scope="row"><label for="mb_nick">닉네임</label></th>
+        <td><input type="text" name="mb_nick" value="<?php echo $mb['mb_nick'] ?>" id="mb_nick" class="frm_input" size="15"  maxlength="20"></td>
     </tr>
     <tr>
         <th scope="row"><label for="mb_level">회원 권한</label></th>
@@ -261,15 +263,15 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
 
     <tr>
         <th scope="row"><label for="mb_bank_nm">은행</label></th>
-        <td><input type="text" name="mb_bank_nm" value="<?php echo $mb['mb_bank_nm'] ?>" id="mb_bank_nm" class="frm_input" size="30" maxlength="40"></td>
+        <td><input type="text" name="mb_bank_nm" value="<?php echo $mb['mb_bank_nm'] ?>" id="mb_bank_nm" required class="required frm_input" size="30" maxlength="40"></td>
         <th scope="row"><label for="mb_bank_account">계좌번호</label></th>
-        <td><input type="text" name="mb_bank_account" value="<?php echo $mb['mb_bank_account'] ?>" id="mb_bank_account" class="frm_input" size="30" maxlength="40"></td>
+        <td><input type="text" name="mb_bank_account" value="<?php echo $mb['mb_bank_account'] ?>" id="mb_bank_account" required class="required frm_input" size="30" maxlength="40"></td>
     </tr>
     <tr>
         <th scope="row"><label for="mb_bank_holder">예금주</label></th>
-        <td><input type="text" name="mb_bank_holder" value="<?php echo $mb['mb_bank_holder'] ?>" id="mb_bank_holder" class="frm_input" size="30" maxlength="40"></td>
+        <td><input type="text" name="mb_bank_holder" value="<?php echo $mb['mb_bank_holder'] ?>" id="mb_bank_holder" required class="required frm_input" size="30" maxlength="40"></td>
         <th scope="row"><label for="mb_wallet_addr">지갑주소</label></th>
-        <td><input type="text" name="mb_wallet_addr" value="<?php echo $mb['mb_wallet_addr'] ?>" id="mb_wallet_addr" class="frm_input" size="70"></td>
+        <td><input type="text" name="mb_wallet_addr" value="<?php echo $mb['mb_wallet_addr'] ?>" id="mb_wallet_addr" readonly class="frm_input" size="70"></td>
     </tr>
     
     <!--<tr>

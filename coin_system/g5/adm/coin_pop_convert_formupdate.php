@@ -8,7 +8,8 @@ $_POST = array_map('trim', $_POST);
 
 $mb_id = $_POST['mb_id'];
 $cr_coin = $_POST['cr_coin'];
-$cr_memo = $_POST['cr_coin'];
+$cr_memo = $_POST['cr_memo'];
+$cr_state = $_POST['cr_state'];
 $mb = get_member($mb_id);
 $cr_account = $mb['mb_bank_nm'] . ' / ' . $mb['mb_bank_account'] . ' / ' . $mb['mb_bank_holder'];
 
