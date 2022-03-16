@@ -1,4 +1,10 @@
 <?php
+include_once('../../../common.php');
+//include_once(TB_LIB_PATH.'/json.lib.php');
+header("Content-Type: application/json; charset=utf-8");
+
+error_reporting(E_ALL ^ E_NOTICE);ini_set('display_errors', '1');
+
 function getRealClientIp() {
     $ipaddress = '';
     if (getenv('HTTP_CLIENT_IP')) {
@@ -17,27 +23,33 @@ function getRealClientIp() {
     return $ipaddress;
 }
 
-$headers = apache_request_headers();
-$token_txt = $headers['Authorization'];
+$json_data = array();
 
+$headers = apache_request_headers();
+$auth_txt = $headers['Authorization'];
 $client_ip = getRealClientIp();
+
 $client_server_ip = explode(",", trim($config['cf_4']));
 if( !in_array($client_ip, $client_server_ip) ) {
     $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'The use of the api has been discontinued (unregistered) or the ip is not allowed', 'data' => ""];
     die(json_encode($json_data));
 }
 
-if( $token_txt != trim($config['cf_3']) ) {
+if( $auth_txt != trim($config['cf_2']) ) {
     $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'refresh token 정보가 잘못되었습니다.', 'data' => ""];
     die(json_encode($json_data));
 }
 
-$decrypted = getJWTDehashing($token_txt);
-if(!is_array($decrypted)){
-    $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => $decrypted, 'data' => ""];
-    die(json_encode($json_data));
-}
+// accesstoken 생성
+$accesstoken = getJWTHashing(1);
 
-$requestData = file_get_contents('php://input');
-$requestData = json_decode($requestData, true);
+$sql = " update {$g5['config_table']} set cf_3 = '{$accesstoken}' ";
+sql_query($sql);
+
+$info = ['access_token' => $accesstoken];
+$json_data = ['success' => true, 'code' => "200", 'message' => '전송되었습니다.', 'error' => null, 'data' => $info];
+
+die(json_encode($json_data));
+//print_r($requestData); 
+exit;
 ?>

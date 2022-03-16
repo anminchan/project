@@ -23,7 +23,7 @@ $check_required = true;
 $required = array();
 array_push($required, 'tx_id','mb_id');
 foreach ($required as $key => $value) {
-    if(!isset($requestData[$value]) || trim($requestData[$value]) == null) {
+    if(!isset($_POST[$value]) || trim($_POST[$value]) == null) {
         $check_required = false;
         $msg = $value.' 필수값이 누락되었습니다.';
         break;

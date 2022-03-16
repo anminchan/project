@@ -4054,11 +4054,11 @@ function getJWTHashing($expired=0)
     if (!$expired)
         $expired = '9999999999';
     else
-        $expired = time() + (360 * 30);
+        $expired = time() + 3600;
 
     // 유저 정보를 가진 jwt 만들기
     $token = $jwt->hashing(array(
-        'exp' => time() + (360 * 30), // 만료기간
+        'exp' => $expired, // 만료기간
         'iat' => time(), // 생성일
         'id' => 'coinsystem',
         'email' => $email,
@@ -4078,10 +4078,9 @@ function getJWTDehashing($token)
     // jwt에서 유저 정보 가져오기
     $data = $jwt->dehashing($token);
 
-    $parted = explode('.', base64_decode($token));
-
-    $payload = json_decode($parted[1], true);
+    /*$parted = explode('.', base64_decode($token));
+    $payload = json_decode($parted[1], true);*/
 
     //var_dump($payload);
-    return $payload;
+    return $data;
 }
