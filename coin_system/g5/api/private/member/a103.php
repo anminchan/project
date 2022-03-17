@@ -47,19 +47,28 @@ if( $mb['mb_level']!='2' || $mb['mb_leave_date']!='' || $mb['mb_intercept_date']
     die(json_encode($json_data));
 }
 
-$sql = " update {$g5['member_table']}
-                set mb_id = '{$_POST['mb_id']}',
-                mb_password = '".get_encrypt_string($_POST['mb_password'])."',
-                mb_name = '{$_POST['mb_name']}',
-                mb_email = '{$_POST['mb_email']}',
-                mb_hp = '{$_POST['mb_hp']}',
-                mb_bank_nm = '{$_POST['mb_bank_nm']}',
-                mb_bank_account = '{$_POST['mb_bank_account']}',
-                mb_bank_holder = '{$_POST['mb_bank_holder']}',
-                mb_ip = '{$_SERVER['REMOTE_ADDR']}',
-                mb_wallet_addr = '{$mb_address}',
-                mb_datetime = '".G5_TIME_YMDHIS."' ";
-sql_query($sql);
+$common_query = '';
+if($_POST['mb_password'])
+    $common_query .= " mb_password = '".get_encrypt_string($_POST['mb_password'])."' ";
+if($_POST['mb_name'])
+    $common_query .= " mb_name = '".$_POST['mb_name']."' ";
+if($_POST['mb_email'])
+    $common_query .= " mb_email = '".$_POST['mb_email']."' ";
+if($_POST['mb_hp'])
+    $common_query .= " mb_hp = '".$_POST['mb_hp']."' ";
+if($_POST['mb_bank_nm'])
+    $common_query .= " mb_bank_nm = '".$_POST['mb_bank_nm']."' ";
+if($_POST['mb_bank_account'])
+    $common_query .= " mb_bank_account = '".$_POST['mb_bank_account']."' ";
+if($_POST['mb_bank_holder'])
+    $common_query .= " mb_bank_holder = '".$_POST['mb_bank_holder']."' ";
+
+if($common_query){
+    $sql = " update {$g5['member_table']}
+                set {$common_query}
+        where mb_id = '{$_POST['mb_id']}' ";
+    sql_query($sql);
+}
 
 $json_data = ['success' => true, 'code' => "200", 'message' => '회원 수정 되었습니다.', 'error' => null, 'data' => ''];
 

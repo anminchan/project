@@ -14,7 +14,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
             <?php /*echo get_member_profile_img($member['mb_id']); */?>
             <a href="<?php /*echo G5_BBS_URL */?>/member_confirm.php?url=register_form.php" id="ol_after_info"><i class="fa fa-cog fa-3x fa-fw"></i><span class="sound_only">정보수정</span></a>
         </span>-->
-        <strong><?php echo $nick ?>님</strong>
+        <!--<strong><?php /*echo $nick */?>님</strong>-->
+        <strong><?php echo $member['mb_name']; ?>님</strong>
         <div id="ol_after_btn">
 	        <?php /*if ($is_admin == 'super' || $is_auth) { */?><!--<a href="<?php /*echo G5_ADMIN_URL */?>" class="btn_admin"><i class="fa fa-cog fa-spin fa-fw"></i><span class="sound_only">관리자</span></a>--><?php /*} */?>
 	        <a href="<?php echo G5_BBS_URL ?>/logout.php" id="ol_after_logout">로그아웃</a>

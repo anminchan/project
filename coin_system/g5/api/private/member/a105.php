@@ -13,7 +13,7 @@ if(!in_array($method, $method_approval)) {
     die(json_encode($json_data));
 }
 
-$tx_id = isset($_POST['tx_id']) ? trim($_POST['tx_id']) : '';
+$tx_id = isset($requestData['tx_id']) ? trim($requestData['tx_id']) : '';
 
 if( !$tx_id) {
     $json_data = ['success' => false, 'code' => "400", 'message' => 'Bad Request', 'error' => '필수 키가 정보가 없습니다.', 'data' => ""];

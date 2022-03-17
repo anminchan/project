@@ -5,7 +5,7 @@ header("Content-Type: application/json; charset=utf-8");
 
 include_once('../../access-token/include.php');
 
-$tx_id = isset($_POST['tx_id']) ? trim($_POST['tx_id']) : '';
+$tx_id = isset($requestData['tx_id']) ? trim($requestData['tx_id']) : '';
 
 $method = $_SERVER["REQUEST_METHOD"];
 $method_approval[] = "POST";

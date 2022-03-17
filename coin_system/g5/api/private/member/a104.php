@@ -20,7 +20,7 @@ $check_required = true;
 $required = array();
 array_push($required, 'tx_id','mb_id','delete_type');
 foreach ($required as $key => $value) {
-    if(!isset($_POST[$value]) || trim($_POST[$value]) == null) {
+    if(!isset($requestData[$value]) || trim($requestData[$value]) == null) {
         $check_required = false;
         $msg = $value.' 필수값이 누락되었습니다.';
         break;
@@ -34,7 +34,7 @@ if(!$check_required) {
     die(json_encode($json_data));
 }
 
-$mb = get_member($_POST['mb_id']);
+$mb = get_member($requestData['mb_id']);
 if( !$mb['mb_id'] ) {
     $json_data = ['success' => true, 'code' => "200", 'message' => '등록된 회원이 아닙니다.', 'error' => null, 'data' => ""];
     die(json_encode($json_data));
@@ -58,14 +58,14 @@ if (is_admin($mb['mb_id']) == 'super') {
     die(json_encode($json_data));
 }
 
-if($_POST['delete_type']=='D'){
+if($requestData['delete_type']=='D'){
     // 회원자료 삭제
     member_delete($mb['mb_id']);
-}elseif ($_POST['delete_type']=='H'){
+}elseif ($requestData['delete_type']=='H'){
     $sql = " update {$g5['member_table']}
                 set mb_intercept_date = '".str_replace('-', '', G5_TIME_YMD)."' where mb_id = '{$mb['mb_id']}' ";
     sql_query($sql);
-}elseif ($_POST['delete_type']=='R'){
+}elseif ($requestData['delete_type']=='R'){
     $sql = " update {$g5['member_table']}
                 set mb_intercept_date = '' where mb_id = '{$mb['mb_id']}' ";
     sql_query($sql);
