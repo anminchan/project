@@ -2284,6 +2284,46 @@ function is_mobile()
         return '';
 }
 
+// User Agent 체크
+function get_device_agent()
+{
+    $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+    $str = 'pc';
+    $mobile_os = explode('|', G5_MOBILE_AGENT);
+    foreach($mobile_os as $key=>$val) {
+        if(preg_match("/$val/i", $ua)) {
+            $str = 'mobile';
+            break;
+        }
+    }
+
+    return $str;
+}
+
+function chk_mobile() {
+    switch (get_device_agent()) {
+        //모바일
+        case "mobile" :
+            if($_REQUEST['device']=='pc'){ //PC파라메터 체크
+                $is_mobile = false;
+            }else{ //일반적인 모바일 진입
+                $is_mobile = true;
+            }
+            break;
+        //PC
+        default :
+            //모바일 파라메터
+            if($_REQUEST['device']=='mobile'){
+                $is_mobile = true;
+            }else{ //일반적인 PC 진입
+                $is_mobile = false;
+            }
+            break;
+    }
+
+    return $is_mobile;
+}
 
 /*******************************************************************************
     유일한 키를 얻는다.

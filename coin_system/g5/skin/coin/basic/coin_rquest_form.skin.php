@@ -7,9 +7,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 
 <div class="register">
 	<form id="fregisterform" name="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
-    <input type="hidden" name="ac_name" value="<?php echo $member['mb_bank_nm'] ?>">
-    <input type="hidden" name="account" value="<?php echo $member['mb_bank_account'] ?>">
-    <input type="hidden" name="ac_holder" value="<?php echo $member['mb_bank_holder'] ?>">
+    <input type="hidden" name="mb_bank_nm" value="<?php echo $member['mb_bank_nm'] ?>">
+    <input type="hidden" name="mb_bank_account" value="<?php echo $member['mb_bank_account'] ?>">
+    <input type="hidden" name="mb_bank_holder" value="<?php echo $member['mb_bank_holder'] ?>">
     <input type="hidden" name="mb_name" value="<?php echo $member['mb_name'] ?>">
 
 	<div id="register_form" class="form_01">

@@ -17,7 +17,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
 ?>
 
-<img src="<?php echo G5_IMG_URL;?>/sample_main_MO.png">
+<img src="<?php echo G5_IMG_URL;?>/sample_main_MO.png" width="100%">
 
 <?php
 include_once(G5_THEME_MOBILE_PATH.'/tail.php');

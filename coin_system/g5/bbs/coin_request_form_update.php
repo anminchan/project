@@ -12,10 +12,10 @@ if(!$mb_id)
 $cr_price           = isset($_POST['cr_price'])            ? preg_replace("/[^0-9]*/s", "", trim($_POST['cr_price']))          : "";
 $cr_coin            = isset($_POST['cr_coin'])             ? preg_replace("/[^0-9]*/s", "", trim($_POST['cr_coin']))           : "";
 $mb_name            = isset($_POST['mb_name'])             ? trim($_POST['mb_name'])           : "";
-$ac_name            = isset($_POST['ac_name'])             ? trim($_POST['ac_name'])           : "";
-$account            = isset($_POST['account'])             ? trim($_POST['account'])           : "";
-$ac_holder          = isset($_POST['ac_holder'])           ? trim($_POST['ac_holder'])         : "";
-$cr_account = $ac_name.'/'.$account.'/'.$ac_holder;
+$mb_bank_nm         = isset($_POST['mb_bank_nm'])          ? trim($_POST['mb_bank_nm'])        : "";
+$mb_bank_account    = isset($_POST['mb_bank_account'])     ? trim($_POST['mb_bank_account'])   : "";
+$mb_bank_holder     = isset($_POST['mb_bank_holder'])      ? trim($_POST['mb_bank_holder'])    : "";
+$mb_account = $mb_bank_nm.'/'.$mb_bank_account.'/'.$mb_bank_holder;
 
 if (!$cr_price)
     alert('구매금액이 넘어오지 않았습니다.');
@@ -59,7 +59,7 @@ $sql = " insert into {$g5['coin_req_table']}
                  cr_price = '{$cr_price}',
                  cr_coin = '{$cr_coin}',
                  cr_state = 0,
-                 cr_account = '{$cr_account}',
+                 cr_account = '{$mb_account}',
                  cr_ip = '{$_SERVER['REMOTE_ADDR']}',
                  cr_date = '".G5_TIME_YMDHIS."',
                  cr_uptime = '".G5_TIME_YMDHIS."' ";
