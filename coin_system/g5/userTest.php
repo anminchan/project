@@ -1,6 +1,8 @@
 <?php
 include_once('./_common.php');
 
+echo "::".$_SERVER['HTTP_USER_AGENT']."::";
+
 define('_INDEX_', true);
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
@@ -53,6 +55,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             <li>
                 <label>AccessToken발행</label>
                 <input type="text" id="access_token" name="access_token" value="<?php echo $config['cf_3'] ?>" size="100" class="frm_input">
+                <textarea id="access_result"></textarea>
                 <button type="button" onclick="fnMove('ac');" style="width: 55px;height: 27px;">발행</button>
             </li>
         </ul>
@@ -104,6 +107,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 <input type="text" id="mb_wallet_addr" name="mb_wallet_addr" value="" class="frm_input">
                 <input type="text" id="mb_coin" name="mb_coin" value="" readonly class="frm_input"> Coin
                 <button type="button" onclick="fnMove('cv');" style="width: 55px;height: 27px;">조회</button>
+                <textarea id="wallet_result"></textarea>
             </li>
 
             <li>
@@ -156,7 +160,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             }
         }
 
-        if(gubun=='md' && gubun=='mv' && gubun=='cb' && $("#mb_id").val() == ''){
+        if((gubun=='md' || gubun=='mv' || gubun=='cb') && $("#mb_id").val() == ''){
             alert("사용할 아이디를 입력 바랍니다.");
             $("#mb_id").focus();
             return false;
@@ -164,7 +168,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
         if(gubun=='cv' && $("#mb_wallet_addr").val() == ''){
             alert("사용자코인주소가 없습니다.");
-            $("#cr_coin").focus();
+            $("#mb_wallet_addr").focus();
             return false;
         }
 
@@ -175,8 +179,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         }
 
         //console.log($("#refresh_token").val());
-        console.log($("#access_token").val());
+        //console.log($("#access_token").val());
         console.log($("#mb_id").val());
+        console.log($("#mb_wallet_addr").val());
 
         $.ajax({
             url: g5_url+'/ajax.userTest.php',
@@ -199,28 +204,47 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 console.log(data.code);
                 console.log(data.message);
                 console.log(data.error);
+                console.log(JSON.stringify(data.data));
 
-                if(gubun=='ac' && data.success)
-                    $("#access_token").val(data.data.access_token);
-
-                if(gubun=='mc' && data.success){
-                    $("#add_result").text('');
-                    $("#add_result").text(JSON.stringify(data));
+                switch (gubun){
+                    case "ac" :
+                        $("#access_token").val(data.data.access_token);
+                        $("#access_result").text('');
+                        $("#access_result").text(JSON.stringify(data));
+                        break;
+                    case "mc" :
+                        $("#add_result").text('');
+                        $("#add_result").text(JSON.stringify(data));
+                        break;
+                    case "mv" :
+                        $("#view_result").text('');
+                        $("#view_result").text(JSON.stringify(data));
+                        break;
+                    case "md" :
+                        $("#del_result").text('');
+                        $("#del_result").text(JSON.stringify(data));
+                        break;
+                    case "ml" :
+                        $("#list_result").text('');
+                        $("#list_result").text(JSON.stringify(data));
+                        break;
+                    case "cv" :
+                        $("#wallet_result").text('');
+                        $("#wallet_result").text(JSON.stringify(data));
+                        $("#mb_coin").val(data.data.mb_coin);
+                        break;
+                    case "cb" :
+                        $("#balance_result").text('');
+                        $("#balance_result").text(JSON.stringify(data));
+                        break;
+                    case "cl" :
+                        $("#membercoin_result").text('');
+                        $("#membercoin_result").text(JSON.stringify(data));
+                        break;
+                    default :
+                        return;
                 }
 
-                if(gubun=='mv' && data.success){
-                    $("#view_result").text('');
-                    $("#view_result").text(JSON.stringify(data));
-                }
-
-                if(gubun=='ml' && data.success){
-                    $("#list_result").text('');
-                    $("#list_result").text(JSON.stringify(data));
-                }
-
-                if(gubun=='cv' && data.success){
-                    $("#mb_coin").val(data.data.mb_coin);
-                }
 
             },
             error : function(request, status, error){

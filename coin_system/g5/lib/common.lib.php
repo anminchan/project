@@ -4060,7 +4060,7 @@ function getJWTHashing($expired=0)
     $token = $jwt->hashing(array(
         'exp' => $expired, // 만료기간
         'iat' => time(), // 생성일
-        'id' => 'coinsystem',
+        'id' => 'coinmarket',
         'email' => $email,
         'password' => $password
     ));

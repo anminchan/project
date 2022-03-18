@@ -727,6 +727,10 @@ if (G5_USE_MOBILE && $set_device) {
     $set_device = false;
 }
 
+// 모바일설정 체크 chk_mobile() 함수를 이후 조건체크시 계속 호출하지 않기위해 상수에 담음.
+/*$is_mobile = (chk_mobile() == 'mobile') ? true : false;
+unset($is_mobile);*/
+
 $_SESSION['ss_is_mobile'] = $is_mobile;
 define('G5_IS_MOBILE', $is_mobile);
 define('G5_DEVICE_BUTTON_DISPLAY', $set_device);
