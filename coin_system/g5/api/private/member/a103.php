@@ -2,7 +2,7 @@
 
 define('_PURENESS_', true);
 define('IS_RTN_PAGE', 'YES');
-include_once('../../../../common.php');
+include_once('../../../common.php');
 //include_once(TB_LIB_PATH.'/json.lib.php');
 header("Content-Type: application/json; charset=utf-8");
 
@@ -23,7 +23,7 @@ $check_required = true;
 $required = array();
 array_push($required, 'tx_id','mb_id');
 foreach ($required as $key => $value) {
-    if(!isset($_POST[$value]) || trim($_POST[$value]) == null) {
+    if(!isset($requestData[$value]) || trim($requestData[$value]) == null) {
         $check_required = false;
         $msg = $value.' 필수값이 누락되었습니다.';
         break;
@@ -36,7 +36,7 @@ if(!$check_required) {
     die(json_encode($json_data));
 }
 
-$mb = get_member($_POST['mb_id']);
+$mb = get_member($requestData['mb_id']);
 if( !$mb['mb_id'] ) {
     $json_data = ['success' => true, 'code' => "200", 'message' => '등록된 회원이 아닙니다.', 'error' => null, 'data' => ""];
     die(json_encode($json_data));
@@ -48,25 +48,25 @@ if( $mb['mb_level']!='2' || $mb['mb_leave_date']!='' || $mb['mb_intercept_date']
 }
 
 $common_query = '';
-if($_POST['mb_password'])
-    $common_query .= " mb_password = '".get_encrypt_string($_POST['mb_password'])."' ";
-if($_POST['mb_name'])
-    $common_query .= " mb_name = '".$_POST['mb_name']."' ";
-if($_POST['mb_email'])
-    $common_query .= " mb_email = '".$_POST['mb_email']."' ";
-if($_POST['mb_hp'])
-    $common_query .= " mb_hp = '".$_POST['mb_hp']."' ";
-if($_POST['mb_bank_nm'])
-    $common_query .= " mb_bank_nm = '".$_POST['mb_bank_nm']."' ";
-if($_POST['mb_bank_account'])
-    $common_query .= " mb_bank_account = '".$_POST['mb_bank_account']."' ";
-if($_POST['mb_bank_holder'])
-    $common_query .= " mb_bank_holder = '".$_POST['mb_bank_holder']."' ";
+if($requestData['mb_password'])
+    $common_query .= " mb_password = '".get_encrypt_string($requestData['mb_password'])."' ";
+if($requestData['mb_name'])
+    $common_query .= " mb_name = '".$requestData['mb_name']."' ";
+if($requestData['mb_email'])
+    $common_query .= " mb_email = '".$requestData['mb_email']."' ";
+if($requestData['mb_hp'])
+    $common_query .= " mb_hp = '".$requestData['mb_hp']."' ";
+if($requestData['mb_bank_nm'])
+    $common_query .= " mb_bank_nm = '".$requestData['mb_bank_nm']."' ";
+if($requestData['mb_bank_account'])
+    $common_query .= " mb_bank_account = '".$requestData['mb_bank_account']."' ";
+if($requestData['mb_bank_holder'])
+    $common_query .= " mb_bank_holder = '".$requestData['mb_bank_holder']."' ";
 
 if($common_query){
     $sql = " update {$g5['member_table']}
                 set {$common_query}
-        where mb_id = '{$_POST['mb_id']}' ";
+        where mb_id = '{$requestData['mb_id']}' ";
     sql_query($sql);
 }
 

@@ -96,6 +96,9 @@ if(!$rtn){
 $info = ['tx_id' => $checkkey];
 $json_data = ['success' => true, 'code' => "200", 'message' => '전송되었습니다.', 'error' => null, 'data' => $info];
 
+// accesslog
+insert_accesslog('코인전환요청', $accesslog_gubun['4']);
+
 die(json_encode($json_data));
 exit;
 ?>

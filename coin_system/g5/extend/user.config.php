@@ -31,7 +31,7 @@ $gw_status3 = array(
 $accesslog_gubun = array(
     "1"	=>"account view",
     "2"	=>"buy",
-    "3"	=>"",
-    "4"	=>"",
+    "3"	=>"coin view",
+    "4"	=>"balance",
     "5"	=>""
 );
