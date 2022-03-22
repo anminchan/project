@@ -44,10 +44,10 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         <caption>추가배송비 내역</caption>
         <thead>
         <tr>
-            <!--<th scope="col">
+            <th scope="col">
                 <label for="chkall" class="sound_only">내역 전체</label>
                 <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-            </th>-->
+            </th>
             <th scope="col">은행명</th>
             <th scope="col">예금주</th>
             <th scope="col">계좌번호</th>
@@ -61,10 +61,10 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         $bg = 'bg'.($i%2);
         ?>
         <tr class="<?php echo $bg; ?>">
-            <!--<td class="td_chk">
-                <input type="hidden" id="ac_id_<?php /*echo $i; */?>" name="ac_id[<?php /*echo $i; */?>]" value="<?php /*echo $row['ac_id']; */?>">
-                <input type="checkbox" id="chk_<?php /*echo $i; */?>" name="chk[]" value="<?php /*echo $i; */?>" title="내역선택">
-            </td>-->
+            <td class="td_chk">
+                <input type="hidden" id="ac_id_<?php echo $i; ?>" name="ac_id[<?php echo $i; ?>]" value="<?php echo $row['ac_id']; ?>">
+                <input type="checkbox" id="chk_<?php echo $i; ?>" name="chk[]" value="<?php echo $i; ?>" title="내역선택">
+            </td>
             <td class="td_center"><?php echo $row['ac_name']; ?></td>
             <td class="td_center"><?php echo $row['ac_holder']; ?></td>
             <td class="td_center"><?php echo $row['account']; ?></td>
@@ -75,15 +75,15 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         }
 
         if ($i == 0)
-            echo '<tr><td colspan="5" class="empty_table">자료가 없습니다.</td></tr>';
+            echo '<tr><td colspan="6" class="empty_table">자료가 없습니다.</td></tr>';
         ?>
         </tbody>
         </table>
     </div>
 
-    <!--<div class="btn_list01 btn_list">
-        <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn_frmline">
-    </div>-->
+    <div class="btn_list01 btn_list">
+        <input type="submit" name="act_button" value="계좌정지" onclick="document.pressed=this.value" class="btn_frmline">
+    </div>
 
     </form>
 </section>

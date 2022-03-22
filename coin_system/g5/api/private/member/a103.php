@@ -49,23 +49,26 @@ if( $mb['mb_level']!='2' || $mb['mb_leave_date']!='' || $mb['mb_intercept_date']
 
 $common_query = '';
 if($requestData['mb_password'])
-    $common_query .= " mb_password = '".get_encrypt_string($requestData['mb_password'])."' ";
-if($requestData['mb_name'])
-    $common_query .= " mb_name = '".$requestData['mb_name']."' ";
+    $common_query .= " , mb_password = '".get_encrypt_string($requestData['mb_password'])."' ";
+if($requestData['mb_name']){
+    $common_query .= " , mb_name = '".$requestData['mb_name']."' ";
+    $common_query .= " , mb_nick = '".$requestData['mb_name']."' ";
+}
 if($requestData['mb_email'])
-    $common_query .= " mb_email = '".$requestData['mb_email']."' ";
+    $common_query .= " , mb_email = '".$requestData['mb_email']."' ";
 if($requestData['mb_hp'])
-    $common_query .= " mb_hp = '".$requestData['mb_hp']."' ";
+    $common_query .= " , mb_hp = '".$requestData['mb_hp']."' ";
 if($requestData['mb_bank_nm'])
-    $common_query .= " mb_bank_nm = '".$requestData['mb_bank_nm']."' ";
+    $common_query .= " , mb_bank_nm = '".$requestData['mb_bank_nm']."' ";
 if($requestData['mb_bank_account'])
-    $common_query .= " mb_bank_account = '".$requestData['mb_bank_account']."' ";
+    $common_query .= " , mb_bank_account = '".$requestData['mb_bank_account']."' ";
 if($requestData['mb_bank_holder'])
-    $common_query .= " mb_bank_holder = '".$requestData['mb_bank_holder']."' ";
+    $common_query .= " , mb_bank_holder = '".$requestData['mb_bank_holder']."' ";
 
 if($common_query){
     $sql = " update {$g5['member_table']}
-                set {$common_query}
+                set mb_memo = concat(mb_memo, \"\n회원정보수정(".G5_TIME_YMDHIS.")\")
+                    {$common_query}
         where mb_id = '{$requestData['mb_id']}' ";
     sql_query($sql);
 }

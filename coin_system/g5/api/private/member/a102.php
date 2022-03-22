@@ -55,6 +55,7 @@ $sql = " insert into {$g5['member_table']}
                 set mb_id = '{$requestData['mb_id']}',
                 mb_password = '".get_encrypt_string($requestData['mb_password'])."',
                 mb_name = '{$requestData['mb_name']}',
+                mb_nick = '{$requestData['mb_name']}',
                 mb_level = 2,
                 mb_email = '{$requestData['mb_email']}',
                 mb_hp = '{$requestData['mb_hp']}',

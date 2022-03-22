@@ -19,6 +19,9 @@ if (is_array($files)) {
 
 include_once(G5_PATH.'/head.sub.php');
 
+//ajax 알람
+include_once(G5_PLUGIN_PATH.'/alarm/alarm.php');
+
 function print_menu1($key, $no='')
 {
     global $menu;

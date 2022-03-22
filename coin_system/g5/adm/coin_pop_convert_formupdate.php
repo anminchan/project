@@ -16,8 +16,12 @@ $cr_account = $mb['mb_bank_nm'] . ' / ' . $mb['mb_bank_account'] . ' / ' . $mb['
 if ($cr_coin <= 0)
     alert_close('코인값이 잘못되었습니다.');
 
-if ($mb['mb_coin'] < $cr_coin)
+if ($cr_state == '4' && $mb['mb_coin'] < $cr_coin)
     alert_close('잔액이 부족합니다.');
+
+// 판매자 보유코인으로 증가 시 체크 기능 START
+// 필요하면 여기에 추가
+// 판매자 보유코인으로 증가 시 체크 기능 END
 
 $sql = " insert into {$g5['coin_req_table']}
             set mb_id = '$mb_id',
