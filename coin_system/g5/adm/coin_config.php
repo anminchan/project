@@ -41,7 +41,7 @@ include_once ('./admin.head.php');
     <p>
         API 문서정보를 확인 해주시기 바랍니다. 위 토큰 정보는 필수이며, 변경되지 않습니다<br>
     </p>
-    <a href="<?php echo G5_URL ?>/document/api_doc_v1.pdf" class="btn btn_01">API DOCUMENTATION DOWNLOAD</a>
+    <a href="<?php echo G5_URL ?>/document/api_doc_v1.pdf" download="api_doc_v1" class="btn btn_01">API DOCUMENTATION DOWNLOAD</a>
 </div>
 
 <?php

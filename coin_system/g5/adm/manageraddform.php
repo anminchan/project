@@ -71,7 +71,7 @@ include_once('./admin.head.php');
                 }
 
                 if ($i == 0)
-                    echo '<tr><td colspan="3" class="empty_table">자료가 없습니다.</td></tr>';
+                    echo '<tr><td colspan="4" class="empty_table">자료가 없습니다.</td></tr>';
                 ?>
                 </tbody>
             </table>

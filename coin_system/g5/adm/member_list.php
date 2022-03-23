@@ -29,7 +29,7 @@ if ($stx) {
 
 if ($is_admin != 'super') {
     $sql_search .= " and mb_level <= '{$member['mb_level']}' ";
-    $sql_search .= " and (mb_1 is null or m_1 = '') "; // 판매자, view관리자 제외
+    $sql_search .= " and (mb_1 is null or mb_1 = '') "; // 판매자, view관리자 제외
 }
 
 if ($coin_yn)
@@ -68,6 +68,7 @@ $g5['title'] = '회원관리';
 include_once('./admin.head.php');
 
 $sql = " select * {$sql_common} {$sql_search} {$sql_order} limit {$from_record}, {$rows} ";
+//echo $sql;
 $result = sql_query($sql);
 
 $colspan = 16;
