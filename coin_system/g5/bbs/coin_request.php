@@ -1,15 +1,15 @@
 <?php
 include_once('./_common.php');
 
-if (!$is_member)
-    alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
-
-$g5['title'] = '신청현황';
-include_once('./_head.php');
+/*if (!$is_member)
+    alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));*/
 
 // 접근 권한 검사
 if (!$is_member)
-    alert('로그인 후 이용하여 주십시오.', G5_URL);
+    alert('로그인 후 이용하여 주십시오.', G5_BBS_URL.'/login.php');
+
+$g5['title'] = '신청현황';
+include_once('./_head.php');
 
 $list = array();
 

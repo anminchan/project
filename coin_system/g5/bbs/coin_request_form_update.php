@@ -15,6 +15,7 @@ $mb_name            = isset($_POST['mb_name'])             ? trim($_POST['mb_nam
 $mb_bank_nm         = isset($_POST['mb_bank_nm'])          ? trim($_POST['mb_bank_nm'])        : "";
 $mb_bank_account    = isset($_POST['mb_bank_account'])     ? trim($_POST['mb_bank_account'])   : "";
 $mb_bank_holder     = isset($_POST['mb_bank_holder'])      ? trim($_POST['mb_bank_holder'])    : "";
+$cr_paymethod       = isset($_POST['cr_paymethod'])      ? trim($_POST['cr_paymethod'])        : "";
 $mb_account = $mb_bank_nm.'/'.$mb_bank_account.'/'.$mb_bank_holder;
 
 if (!$cr_price)
@@ -60,6 +61,7 @@ $sql = " insert into {$g5['coin_req_table']}
                  cr_coin = '{$cr_coin}',
                  cr_state = 0,
                  cr_account = '{$mb_account}',
+                 cr_paymethod = '{$cr_paymethod}',
                  cr_ip = '{$_SERVER['REMOTE_ADDR']}',
                  cr_date = '".G5_TIME_YMDHIS."',
                  cr_uptime = '".G5_TIME_YMDHIS."' ";

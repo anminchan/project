@@ -24,7 +24,7 @@ include_once(G5_THEME_PATH.'/head.php');
 $sql = " select * from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' order by cr_id desc limit 5 ";
 $result = sql_query($sql);
 
-$sql = " select sum(if(cr_state='2', cr_coin, 0))as s_coin_sum, sum(if(cr_state='5', cr_coin, 0))as b_coin_sum from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' ";
+$sql = " select ifnull(sum(if(cr_state='2', cr_coin, 0)), 0)as s_coin_sum, ifnull(sum(if(cr_state='5', cr_coin, 0)), 0)as b_coin_sum from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' ";
 $coin_sum = sql_fetch($sql);
 
 ?>
@@ -149,9 +149,7 @@ $coin_sum = sql_fetch($sql);
                         <span class="c_data_table_col coin"><?php echo number_format($row['cr_coin']); ?> COIN</span>
                         <span class="c_data_table_col amount">￦ <?php echo number_format($row['cr_price']); ?> KRW</span>
                     </div>
-                <?php
-                    }
-                ?>
+                <?php } ?>
             </div>
         </div>
     </section>

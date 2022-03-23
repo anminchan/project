@@ -1,7 +1,10 @@
 <?php
 include_once('./_common.php');
-include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
-include_once(G5_LIB_PATH.'/register.lib.php');
+//include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
+//include_once(G5_LIB_PATH.'/register.lib.php');
+
+if (!$is_member)
+    alert('로그인 후 이용하여 주십시오.', G5_BBS_URL.'/login.php');
 
 // 불법접근을 막도록 토큰생성
 $token = md5(uniqid(rand(), true));
@@ -12,9 +15,6 @@ set_session("ss_cert_type", "");
 
 // 리퍼러 체크
 referer_check();
-
-if (!$is_member)
-    alert('로그인 후 이용하여 주십시오.', G5_URL);
 
 $g5['title'] = '코인구매';
 
