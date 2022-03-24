@@ -62,11 +62,11 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <ul>
             <li>
                 <label>아이디</label>
-                <input type="text" id="user_id" name="user_id" value="" class="frm_input">
+                <input type="text" id="user_id" name="user_id" value="" size="30" class="frm_input" placeholder="아이디 입력">
             </li>
             <li>
                 <label>패스워드</label>
-                <input type="password" id="user_password" name="user_password" value="" class="frm_input">
+                <input type="password" id="user_password" name="user_password" value="" size="30" class="frm_input" placeholder="패스워드 입력">
                 <button type="button" onclick="fnMove('mc');" style="width: 55px;height: 27px;">등록</button>
             </li>
             <li>
@@ -75,7 +75,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             </li>
             <li>
                 <label>사용할 아이디</label>
-                <input type="text" id="mb_id" name="mb_id" value="" class="frm_input">
+                <input type="text" id="mb_id" name="mb_id" value="" class="frm_input" size="30" placeholder="아이디 입력">
             </li>
         </ul>
         
@@ -102,15 +102,15 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <ul>
             <li>
                 <label>사용자코인주소</label>
-                <input type="text" id="mb_wallet_addr" name="mb_wallet_addr" value="" class="frm_input">
-                <input type="text" id="mb_coin" name="mb_coin" value="" readonly class="frm_input"> Coin
+                <input type="text" id="mb_wallet_addr" name="mb_wallet_addr" value="" class="frm_input" size="50" placeholder="지갑주소입력">
+                <input type="text" id="mb_coin" name="mb_coin" value="" readonly class="frm_input" size="20"> Coin
                 <button type="button" onclick="fnMove('cv');" style="width: 55px;height: 27px;">조회</button>
                 <textarea id="wallet_result"></textarea>
             </li>
 
             <li>
                 <label for="cr_price">전환</label>
-                <input type="text" id="cr_coin" name="cr_coin" value="" class="frm_input" size="50">
+                <input type="text" id="cr_coin" name="cr_coin" value="" class="frm_input" size="20" placeholder="전환코인입력"> Coin
                 <button type="button" onclick="fnMove('cb');" style="width: 55px;height: 27px;">신청</button>
                 <textarea id="balance_result"></textarea>
             </li>

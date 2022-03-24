@@ -17,7 +17,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 $sql = " select * from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' order by cr_id desc limit 5 ";
 $result = sql_query($sql);
 
-$sql = " select ifnull(sum(if(cr_state='2', cr_coin, 0)), 0)as s_coin_sum, ifnull(sum(if(cr_state='5', cr_coin, 0)), 0)as b_coin_sum from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' ";
+$sql = " select ifnull(sum(if(cr_state='1', cr_coin, 0)), 0)as s_coin_sum, ifnull(sum(if(cr_state='5', cr_coin, 0)), 0)as b_coin_sum from `{$g5['coin_req_table']}` where mb_id = '{$member['mb_id']}' ";
 $coin_sum = sql_fetch($sql);
 
 ?>

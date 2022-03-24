@@ -1429,6 +1429,8 @@ function get_sideview($mb_id, $name='', $email='', $homepage='')
     if($is_admin == "super" && $mb_id) {
         $str2 .= "<a href=\"".G5_ADMIN_URL."/member_form.php?w=u&amp;mb_id=".$mb_id."\" target=\"_blank\">회원정보변경</a>\n";
         //$str2 .= "<a href=\"".G5_ADMIN_URL."/point_list.php?sfl=mb_id&amp;stx=".$mb_id."\" target=\"_blank\">포인트내역</a>\n";
+    }
+    if($member['mb_level'] >= 9 && $mb_id) {
         $str2 .= "<a href=\"javascript:;\" onclick=\"window.open('".G5_ADMIN_URL."/coin_pop_historylist.php?mb_id=".$mb_id."', '', 'width=650,height=750,scrollbars=1,menus=0');\">코인내역</a>\n";
         $str2 .= "<a href=\"javascript:;\" onclick=\"window.open('".G5_ADMIN_URL."/coin_pop_convert_form.php?mb_id=".$mb_id."', '', 'width=500,height=350,scrollbars=1,menus=0');\">변환</a>\n";
     }

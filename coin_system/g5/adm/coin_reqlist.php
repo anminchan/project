@@ -88,7 +88,7 @@ $sql  = " select sum(if(cr_state=1, cr_price, 0))as sum_price,
             sum(if(cr_state=3, cr_coin, 0))as sum_coin3, 
             sum(if(cr_state=4, cr_coin, 0))as sum_coin4,
             sum(if(cr_state=5, cr_coin, 0))as sum_coin5,
-            (select sum(mb_coin)as sum_coin from {$g5['member_table']} where mb_leave_date = '')as sum_coin6
+            (select sum(mb_coin)as sum_coin from {$g5['member_table']} where mb_leave_date = '' and mb_intercept_date = '' and mb_1 = '')as sum_coin6
           from {$g5['coin_req_table']}
           where cr_uptime between '$fr_date 00:00:00' and '$to_date 23:59:59'";
 //echo $sql;

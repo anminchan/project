@@ -1,6 +1,15 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가;
 
+$member_gubun = array(
+    "1"	=>"비회원",
+    "2"	=>"회원",
+    "4"	=>"VIEW ADMIN",
+    "5"	=>"판매자",
+    "9"	=>"운영자",
+    "10" =>"관리자"
+);
+
 // 주문단계
 $gw_status = array(
     "0"	=>"입금요청",

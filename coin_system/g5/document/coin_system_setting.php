@@ -1,12 +1,12 @@
 <?php
 include_once('../common.php');
 
-sql_query(" insert into {$g5['member_table']} set mb_id = 'nimda1', mb_name = '관리자1', mb_nick = '관리자1',
+sql_query(" insert into {$g5['member_table']} set mb_id = 'nimda1', mb_name = '관리자1', mb_nick = '관리자1', mb_level = 9,
 mb_password = '".get_encrypt_string('nimda1!')."',
 mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}',
  mb_email_certify = '".G5_TIME_YMDHIS."', mb_wallet_addr = '".getRandStr(34)."' ");
 
-sql_query(" insert into {$g5['member_table']} set mb_id = 'nimda2', mb_name = '관리자2', mb_nick = '관리자2',
+sql_query(" insert into {$g5['member_table']} set mb_id = 'nimda2', mb_name = '관리자2', mb_nick = '관리자2', mb_level = 9,
 mb_password = '".get_encrypt_string('nimda2@')."',
 mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}',
  mb_email_certify = '".G5_TIME_YMDHIS."', mb_wallet_addr = '".getRandStr(34)."' ");
