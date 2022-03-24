@@ -46,13 +46,13 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 <div id="register_form" class="form_01">
     <div class="tbl_frm01 tbl_wrap register_form_inner">
         <form name="userform" id="userform">
-        <input type="hidden" id="refresh_token" name="refresh_token" value="<?php echo $config['cf_2'] ?>" readonly class="frm_input">
+        <input type="hidden" id="refresh_token" name="refresh_token" value="<?php echo $config['cf_2'] ?>" class="frm_input">
 
         <h2>토큰</h2>
         <ul>
             <li>
                 <label>AccessToken발행</label>
-                <input type="text" id="access_token" name="access_token" value="<?php echo $config['cf_3'] ?>" size="100" class="frm_input">
+                <input type="text" id="access_token" name="access_token" value="<?php echo $config['cf_3'] ?>" readonly size="100" class="frm_input">
                 <textarea id="access_result"></textarea>
                 <button type="button" onclick="fnMove('ac');" style="width: 55px;height: 27px;">발행</button>
             </li>

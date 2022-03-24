@@ -3,8 +3,11 @@ include_once('./_common.php');
 //include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 //include_once(G5_LIB_PATH.'/register.lib.php');
 
+/*if (!$is_member)
+    goto_url(G5_BBS_URL."/login.php?url=".urlencode(G5_BBS_URL."/coin_request_form.php"));*/
+
 if (!$is_member)
-    alert('로그인 후 이용하여 주십시오.', G5_BBS_URL.'/login.php');
+    alert('회원 전용 서비스 입니다.', G5_BBS_URL."/login.php?url=".urlencode(G5_BBS_URL."/coin_request_form.php"));
 
 // 불법접근을 막도록 토큰생성
 $token = md5(uniqid(rand(), true));

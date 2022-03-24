@@ -118,3 +118,8 @@ if i_Req_Cnt <= 0 then
 end if;
 
 END
+
+
+g5_config테이블 추가 필드 사이즈 늘림
+`cf_2` varchar(512) NOT NULL DEFAULT '',
+`cf_3` varchar(512) NOT NULL DEFAULT '',
