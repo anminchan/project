@@ -99,6 +99,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_state
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a>';
+
+$acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left join {$g5['member_table']} b on a.mb_id = b.mb_id where a.ac_state = 1 and a.mb_id != '' order by ac_id desc limit 1");
 ?>
 
 <div class="admin_pg_notice od_test_caution">(주의!) 당일 신청 내역만 승인 가능합니다. 당일 승인하지 못한 건들은 취소처리됩니다.</div>
@@ -113,6 +115,9 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
         <?php echo option_selected('100', $page_rows, '100줄 정렬'); ?>
         <?php echo option_selected('150', $page_rows, '150줄 정렬'); ?>
     </select>
+
+    <span class="btn_ov01"><span class="ov_txt"> <?php echo $acc_rst['mb_id'].' : '.$acc_rst['ac_name'].'/'.$acc_rst['account'].'/'.$acc_rst['ac_holder']; ?></span>
+    <span class="ov_num"> <?php echo '보유 - '.number_format($acc_rst['mb_coin']); ?> Coin</span></span>
 </div>
 
 <form class="local_sch03 local_sch">

@@ -33,7 +33,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 ?>
 
 <section id="scp_list">
-    <h2>추가배송비 내역</h2>
+    <h2>계좌 내역</h2>
 
     <form name="faccount" id="faccount" method="post" action="./accountupdate.php" onsubmit="return faccount_submit(this);">
     <input type="hidden" name="w" value="d">
@@ -91,7 +91,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <section id="account_postal">
-    <h2 class="h2_frm">추가배송비 등록</h2>
+    <h2 class="h2_frm">계좌 등록</h2>
 
     <form name="faccount2" method="post" id="faccount2" action="./accountupdate.php" autocomplete="off">
     <input type="hidden" name="token" value="">
