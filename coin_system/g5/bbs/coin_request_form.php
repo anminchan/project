@@ -27,6 +27,9 @@ $result_acc = sql_fetch($sql_acc);
 if (!$result_acc)
     alert('입금계좌정보가 존재하지 않습니다.', G5_URL);
 
+$sql = " select if(ifnull(cf_5, 0)='', 0, ifnull(cf_5, 0))as cf_5, if(ifnull(cf_6, 0)='', 0, ifnull(cf_6, 0))as cf_6 from {$g5['config_table']} ";
+$sale_limit = sql_fetch($sql);
+
 $register_action_url = G5_BBS_URL.'/coin_request_form_update.php';
 
 // accesslog

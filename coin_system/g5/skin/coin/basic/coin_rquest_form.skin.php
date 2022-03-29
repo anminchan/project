@@ -21,17 +21,17 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 	                <input type="text" id="cr_price" name="cr_price" value="" required class="frm_input required" readonly size="50" placeholder="금액을 선택하세요.">
                     <ul>
                         <li>
-                            <a href="#" class="price_01" onclick="fnPriceinput(10000);">1만원</a>
-                            <a href="#" class="price_02" onclick="fnPriceinput(30000);">3만원</a>
-                            <a href="#" class="price_03" onclick="fnPriceinput(50000);">5만원</a>
-                            <a href="#" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
+                            <a href="javascript:;" class="price_01" onclick="fnPriceinput(10000);">1만원</a>
+                            <a href="javascript:;" class="price_02" onclick="fnPriceinput(30000);">3만원</a>
+                            <a href="javascript:;" class="price_03" onclick="fnPriceinput(50000);">5만원</a>
+                            <a href="javascript:;" class="price_04" onclick="fnPriceinput(100000);">10만원</a>
                         </li>
                         <li>
-                            <!--<a href="#" class="price_05" onclick="fnPriceinput(150000);">15만원</a>-->
-                            <a href="#" class="price_06" onclick="fnPriceinput(200000);">20만원</a>
-                            <a href="#" class="price_07" onclick="fnPriceinput(500000);">50만원</a>
-                            <a href="#" class="price_08" onclick="fnPriceinput(1000000);">100만원</a>
-                            <a href="#" class="price_09" onclick="fnPriceinput(0);">정정</a>
+                            <!--<a href="javascript:;" class="price_05" onclick="fnPriceinput(150000);">15만원</a>-->
+                            <a href="javascript:;" class="price_06" onclick="fnPriceinput(200000);">20만원</a>
+                            <a href="javascript:;" class="price_07" onclick="fnPriceinput(500000);">50만원</a>
+                            <a href="javascript:;" class="price_08" onclick="fnPriceinput(1000000);">100만원</a>
+                            <a href="javascript:;" class="price_09" onclick="fnPriceinput(0);">정정</a>
                         </li>
                     </ul>
                     <!--<a href="#" class="price_07" onclick="fnPriceinput(10000000);">1000만원</a>
@@ -104,6 +104,12 @@ function fregisterform_submit(f)
         return false;
     }
 
+    if('<?php echo $sale_limit['cf_5']; ?>' > 0 && '<?php echo $sale_limit['cf_5']; ?>' < Number($("#cr_price").val().replace(/,/g, ""))){
+        alert("1회구매요청한도 <?php echo number_format($sale_limit['cf_5']); ?> 만원을 넘을 수 없습니다.");
+        f.cr_price.focus();
+        return false;
+    }
+
     if(!confirm("코인을 구매하시겠습니까?"))
         return false;
     
@@ -114,12 +120,12 @@ function fregisterform_submit(f)
 
 // 금액계산
 function fnPriceinput(price){
-    console.log(price);
+    //console.log(price);
     var price_sum = coint_sum = '';
     if(price > 0 || price < 0){
-        console.log($("#cr_price").val());
-        console.log($("#cr_price").val().replace(/,/g, ""));
-        console.log(Number($("#cr_price").val().replace(/,/g, "")));
+        //console.log($("#cr_price").val());
+        //console.log($("#cr_price").val().replace(/,/g, ""));
+        //console.log(Number($("#cr_price").val().replace(/,/g, "")));
         price_sum = Number($("#cr_price").val().replace(/,/g, ""))+price;
         coint_sum = price_sum/10000;
     }

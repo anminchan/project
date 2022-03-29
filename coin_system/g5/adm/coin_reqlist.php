@@ -117,7 +117,7 @@ $acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left 
     </select>
 
     <span class="btn_ov01"><span class="ov_txt"> <?php echo $acc_rst['mb_id'].' : '.$acc_rst['ac_name'].'/'.$acc_rst['account'].'/'.$acc_rst['ac_holder']; ?></span>
-    <span class="ov_num"> <?php echo '보유 - '.number_format($acc_rst['mb_coin']); ?> Coin</span></span>
+    <span class="ov_num"> <?php echo '보유 : '.number_format($acc_rst['mb_coin']); ?> Coin</span></span>
 </div>
 
 <form class="local_sch03 local_sch">

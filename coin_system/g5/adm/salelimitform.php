@@ -27,11 +27,11 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         <tbody>
         <tr>
             <th scope="row"><label for="cf_5">1회구매한도<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_5" value="<?php echo number_format($result['cf_5']); ?>" id="cf_5" class="frm_input" size="30"></td>
+            <td><input type="text" name="cf_5" value="<?php echo $result['cf_5'] ? number_format($result['cf_5']) : ''; ?>" id="cf_5" class="frm_input" size="30"></td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_6">1일구매한도<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_6" value="<?php echo number_format($result['cf_6']); ?>" id="cf_6" class="frm_input" size="30"></td>
+            <td><input type="text" name="cf_6" value="<?php echo $result['cf_6'] ? number_format($result['cf_6']) : ''; ?>" id="cf_6" class="frm_input" size="30"></td>
         </tr>
         </tbody>
         </table>
