@@ -124,6 +124,15 @@ $colspan = 16;
 <input type="hidden" name="q1" value="<?php echo $qstr; ?>">
 <input type="hidden" name="token" value="">
 
+    <div class="btn_fixed_top">
+        <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
+        <?php if ($is_admin == 'super') { ?>
+            <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
+            <!--<a href="./member_form.php" id="member_add" class="btn btn_01">회원추가</a>-->
+        <?php } ?>
+        <a href="./member_form.php" id="member_add" class="btn btn_01">회원추가</a>
+    </div>
+
 <div class="tbl_head01 tbl_wrap">
     <table>
     <caption><?php echo $g5['title']; ?> 목록</caption>
@@ -235,15 +244,6 @@ $colspan = 16;
     ?>
     </tbody>
     </table>
-</div>
-
-<div class="btn_fixed_top">
-    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
-    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
-    <?php if ($is_admin == 'super') { ?>
-    <a href="./member_form.php" id="member_add" class="btn btn_01">회원추가</a>
-    <?php } ?>
-
 </div>
 
 

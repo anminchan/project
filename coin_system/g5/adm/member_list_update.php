@@ -17,6 +17,7 @@ $msg = '';
 
 if ($_POST['act_button'] == "선택수정") {
 
+
     for ($i=0; $i<count($_POST['chk']); $i++)
     {
         // 실제 번호를 넘김
@@ -58,6 +59,8 @@ if ($_POST['act_button'] == "선택수정") {
 
 } else if ($_POST['act_button'] == "선택삭제") {
 
+    auth_check_menu($auth, $sub_menu, 'd');
+
     for ($i=0; $i<count($_POST['chk']); $i++)
     {
         // 실제 번호를 넘김
@@ -80,9 +83,10 @@ if ($_POST['act_button'] == "선택수정") {
     }
 }
 
-if ($msg)
+if ($msg){
     //echo '<script> alert("'.$msg.'"); </script>';
     alert($msg);
+}
 
 run_event('admin_member_list_update', $_POST['act_button'], $mb_datas);
 
