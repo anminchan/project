@@ -243,6 +243,9 @@ $acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left 
             case 5:
                 $str = "<span class=\"status_01 color_05\">".$gw_status[$row['cr_state']]."</span>";
                 break;
+            case 7:
+                $str = "<span class=\"status_01 color_06\">".$gw_status[$row['cr_state']]."</span>";
+                break;
             default :
                 $str = "<span class=\"status_01 color_01\">".$gw_status[$row['cr_state']]."</span>";
                 break;

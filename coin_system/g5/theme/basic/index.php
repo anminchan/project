@@ -84,7 +84,7 @@ $coin_sum = sql_fetch($sql);
             <span class="main_top_title_line">Global newfound Coin 구매 결제 사이트</span>
         </div>
         <div class="main_top_btn_wrap">
-            <button type="button" class="btn_main_type01">
+            <button type="button" class="btn_main_type01" onclick="location.href='<?php echo G5_BBS_URL ?>/coin_change_form.php'">
                 <i class="icon_usd1"></i>
                 <span class="cnt_wrap">
                 <span class="title_btn">Availiable Balance</span>
@@ -114,7 +114,7 @@ $coin_sum = sql_fetch($sql);
             <button type="button" class="btn_main_type01">
                 <i class="icon_refresh"></i>
                 <span class="cnt_wrap">
-                <span class="title_btn">코인 전송</span>
+                <span class="title_btn">총 코인 전환</span>
                 <span class="cnt_btn c_red"><span class="number_st_big"><?php echo $coin_sum['b_coin_sum']; ?></span> coin</span>
             </span>
             </button>
@@ -141,6 +141,9 @@ $coin_sum = sql_fetch($sql);
                         if ( $row['cr_state'] == 0 ) $state_val = "<span class=\"custom_circle type01 \">".$gw_status[$row['cr_state']]."</span>";
                         if ( $row['cr_state'] == 1 ) $state_val = "<span class=\"custom_circle type02 \">".$gw_status[$row['cr_state']]."</span>";
                         if ( $row['cr_state'] == 2 ) $state_val = "<span class=\"custom_circle type03 \">".$gw_status[$row['cr_state']]."</span>";
+                        if ( $row['cr_state'] == 5 ) $state_val = "<span class=\"custom_circle type01 \">".$gw_status[$row['cr_state']]."</span>";
+                        if ( $row['cr_state'] == 6 ) $state_val = "<span class=\"custom_circle type02 \">".$gw_status[$row['cr_state']]."</span>";
+                        if ( $row['cr_state'] == 7 ) $state_val = "<span class=\"custom_circle type03 \">".$gw_status[$row['cr_state']]."</span>";
                 ?>
                     <div class="c_data_table_row">
                         <span class="c_data_table_col date"><?php echo $row['cr_date']; ?></span>

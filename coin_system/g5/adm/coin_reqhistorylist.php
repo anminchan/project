@@ -50,7 +50,7 @@ if ($cr_status != "") {
         $where[] = " cr_state = 5 ";
     }
 }
-$where[] = " cr_state != 0 ";
+$where[] = " cr_state not in (0, 6, 7) ";
 
 if ($fr_date && $to_date) {
     $where[] = " cr_date between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
@@ -200,6 +200,9 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
                         break;
                     case 5:
                         $str = "<span class=\"status_01 color_05\">".$gw_status3[$row['cr_state']]."</span>";
+                        break;
+                    case 7:
+                        $str = "<span class=\"status_01 color_06\">".$gw_status3[$row['cr_state']]."</span>";
                         break;
                     default :
                         $str = "<span class=\"status_01 color_01\"></span>";

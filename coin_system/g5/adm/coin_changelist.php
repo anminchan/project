@@ -1,10 +1,10 @@
 <?php
-$sub_menu = '300920';
+$sub_menu = '300980';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
 
-$g5['title'] = '지갑입출금 내역';
+$g5['title'] = '코인 전환관리';
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
 
@@ -39,19 +39,11 @@ if ($sca != "") {
     $where[] = " ca_id like '$sca%' ";
 }
 
-if ($cr_status != "") {
-    if ($cr_status == 'S'){
-        $where[] = " cr_state in(1, 2) ";
-    }elseif($cr_status == 'U'){
-        $where[] = " cr_state = 3 ";
-    }elseif($cr_status == 'D'){
-        $where[] = " cr_state = 4 ";
-    }elseif($cr_status == 'C'){
-        $where[] = " cr_state = 5 ";
-    }
+if ($cr_state != "") {
+    $where[] = " cr_state = '$cr_state' ";
+}else{
+    $where[] = " cr_state in (5,6,7) ";
 }
-$where[] = " cr_state not in (0, 6, 7) ";
-//$where[] = " cr_state != 0 ";
 
 if ($fr_date && $to_date) {
     $where[] = " cr_date between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
@@ -91,14 +83,12 @@ $sql  = " select *
 //echo $sql;
 $result = sql_query($sql);
 
-//$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
-$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_status='.$cr_status.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date.'&amp;page_rows='.$page_rows;
+$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_state='.$cr_state.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date.'&amp;page_rows='.$page_rows;
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
-$listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a>';
 ?>
 
-<div class="admin_pg_notice od_test_caution">(주의!) 당일부터 7일치까지 조회 가능합니다.</div>
+<div class="admin_pg_notice od_test_caution">(주의!) 당일 신청 내역만 승인 가능합니다. 당일 승인하지 못한 건들은 취소처리됩니다.</div>
 
 <div class="local_ov01 local_ov">
     <?php echo $listall; ?>
@@ -114,50 +104,49 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
 
 <form class="local_sch03 local_sch">
     <input type="hidden" name="page" value="<?php echo $page; ?>">
-    <input type="hidden" name="save_stx" value="<?php echo $stx; ?>">
     <input type="hidden" name="page_rows" value="<?php echo $page_rows; ?>">
+    <input type="hidden" name="save_stx" value="<?php echo $stx; ?>">
 
     <div>
-        <label for="sfl" class="sound_only">검색대상</label>
-        <select name="sfl" id="sfl">
-            <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
-            <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
-            <option value="cr_price" <?php echo get_selected($sfl, 'cr_price'); ?>>금액</option>
-        </select>
-
-        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-        <input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
-    </div>
-    <div>
-        <strong>신청상태</strong>
-        <input type="radio" name="cr_status" value="" id="cr_status_all" <?php echo get_checked($cr_status, '');     ?>>
-        <label for="cr_status_all">전체</label>
-        <input type="radio" name="cr_status" value="S" id="cr_status_req" <?php echo get_checked($cr_status, 'S'); ?>>
-        <label for="cr_status_req">판매</label>
-        <input type="radio" name="cr_status" value="U" id="cr_status_app" <?php echo get_checked($cr_status, 'U'); ?>>
-        <label for="cr_status_app">증가</label>
-        <input type="radio" name="cr_status" value="D" id="cr_status_hold" <?php echo get_checked($cr_status, 'D'); ?>>
-        <label for="cr_status_hold">차감</label>
-        <input type="radio" name="cr_status" value="C" id="cr_status_hold" <?php echo get_checked($cr_status, 'C'); ?>>
-        <label for="cr_status_hold">전환</label>
-    </div>
-
-    <div class="sch_last">
         <strong>일자</strong>
-        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10"> ~
-        <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
+        <?php echo $fr_date; ?> ~ <?php echo $to_date; ?>
+        <!--<input type="text" id="fr_date"  name="fr_date" value="<?php /*echo $fr_date; */?>" readonly class="frm_input" size="10" maxlength="10"> ~
+        <input type="text" id="to_date"  name="to_date" value="<?php /*echo $to_date; */?>" readonly class="frm_input" size="10" maxlength="10">
         <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
-        <!--<button type="button" onclick="javascript:set_date('어제');">어제</button>
+        <button type="button" onclick="javascript:set_date('어제');">어제</button>
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
         <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
         <button type="button" onclick="javascript:set_date('지난달');">지난달</button>
         <button type="button" onclick="javascript:set_date('전체');">전체</button>-->
+    </div>
+
+    <div>
+        <strong>신청상태</strong>
+        <input type="radio" name="cr_state" value="" id="cr_state_all" <?php echo get_checked($cr_state, ''); ?>>
+        <label for="cr_state_all">전체</label>
+        <input type="radio" name="cr_state" value="0" id="cr_state_req" <?php echo get_checked($cr_state, '6'); ?>>
+        <label for="cr_state_req">전환요청</label>
+        <input type="radio" name="cr_state" value="1" id="cr_state_app" <?php echo get_checked($cr_state, '5'); ?>>
+        <label for="cr_state_app">전환완료</label>
+        <input type="radio" name="cr_state" value="2" id="cr_state_hold" <?php echo get_checked($cr_state, '7'); ?>>
+        <label for="cr_state_hold">전환취소</label>
+    </div>
+
+    <div class="sch_last">
+        <label for="sfl" class="sound_only">검색대상</label>
+        <select name="sfl" id="sfl">
+            <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
+            <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
+            <option value="cr_price" <?php echo get_selected($sfl, 'cr_coin'); ?>>금액</option>
+        </select>
+        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+        <input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
         <input type="submit" value="검색" class="btn_submit">
     </div>
 </form>
 
-<form name="fcoin_reqlist" method="post" action="./coin_reqlistupdate.php" onsubmit="return fcoin_reqlist_submit(this);" autocomplete="off">
+<form name="fcoin_reqlist" method="post" action="./coin_changelistupdate.php" onsubmit="return fcoin_reqlist_submit(this);" autocomplete="off">
 <input type="hidden" name="sca" value="<?php echo $sca; ?>">
 <input type="hidden" name="sst" value="<?php echo $sst; ?>">
 <input type="hidden" name="sod" value="<?php echo $sod; ?>">
@@ -166,18 +155,23 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
 <input type="hidden" name="page" value="<?php echo $page; ?>">
 <input type="hidden" name="q1" value="<?php echo $qstr; ?>">
 
-<div class="tbl_head01 tbl_wrap" id="coin_reqinoutlist">
+<div class="tbl_head01 tbl_wrap" id="coin_reqlist">
     <table>
     <caption><?php echo $g5['title']; ?> 목록</caption>
     <thead>
     <tr>
+        <th scope="col">
+            <label for="chkall" class="sound_only">상품문의 전체</label>
+            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+        </th>
         <th scope="col">번호</th>
         <th scope="col"><?php echo subject_sort_link('mb_id'); ?>아이디</a></th>
         <th scope="col">이름</th>
+        <th scope="col">전환코인</th>
         <th scope="col">상태</th>
-        <th scope="col">입금금액</th>
-        <th scope="col">Coin</th>
-        <th scope="col">거래일자</th>
+        <th scope="col">요청일자</th>
+        <th scope="col">관리</th>
+        <th scope="col">처리일자</th>
     </tr>
     </thead>
     <tbody>
@@ -187,50 +181,56 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
         $bg = 'bg'.($i%2);
 
         switch($row['cr_state']) {
-            case 1:
-                $str = "<span class=\"status_01 color_02\">".$gw_status3[$row['cr_state']]."</span>";
-                break;
-            case 2:
-                $str = "<span class=\"status_01 color_06\">".$gw_status3[$row['cr_state']]."</span>";
-                break;
-            case 3:
-                $str = "<span class=\"status_01 color_03\">".$gw_status3[$row['cr_state']]."</span>";
-                break;
-            case 4:
-                $str = "<span class=\"status_01 color_04\">".$gw_status3[$row['cr_state']]."</span>";
-                break;
             case 5:
-                $str = "<span class=\"status_01 color_05\">".$gw_status3[$row['cr_state']]."</span>";
+                $str = "<span class=\"status_01 color_05\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             case 7:
-                $str = "<span class=\"status_01 color_06\">".$gw_status3[$row['cr_state']]."</span>";
+                $str = "<span class=\"status_01 color_06\">".$gw_status[$row['cr_state']]."</span>";
                 break;
             default :
-                $str = "<span class=\"status_01 color_01\"></span>";
+                $str = "<span class=\"status_01 color_01\">".$gw_status[$row['cr_state']]."</span>";
                 break;
         }
 
      ?>
     <tr class="<?php echo $bg; ?>">
+        <td class="td_chk">
+            <label for="chk_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['mb_id']) ?></label>
+            <?php if($row['cr_state']=='6'){ ?>
+                <input type="checkbox" name="chk[]" value="<?php echo $i ?>" id="chk_<?php echo $i; ?>">
+            <?php } ?>
+            <input type="hidden" name="cr_id[<?php echo $i; ?>]" value="<?php echo $row['cr_id']; ?>">
+        </td>
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><?php echo $row['mb_id']; ?></td>
         <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
         <td class="td_name"><?php echo $name; ?></td>
-        <td class="td_stat"><?php echo $str; ?></td>
-        <td class="td_price"><?php echo number_format($row['cr_price']); ?></td>
         <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
+        <td class="td_stat"><?php echo $str; ?></td>
+        <td class="td_datetime"><?php echo $row['cr_date']; ?></td>
+        <td class="td_mng">
+            <?php if($row['cr_state']=='6'){ ?>
+                <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '5');" class="btn btn_01">승인</a>
+                <a href="javascript:fnstateupdate('<?php echo $row['cr_id']; ?>', '7');" class="btn btn_03">취소</a>
+            <?php } ?>
+        </td>
         <td class="td_datetime"><?php echo $row['cr_uptime']; ?></td>
     </tr>
     <?php
     }
     if ($i == 0) {
-        echo '<tr><td colspan="7" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
+        echo '<tr><td colspan="9" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
     }
     ?>
     </tbody>
     </table>
 </div>
 
+<div class="btn_fixed_top">
+    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
+    <input type="submit" name="act_button" value="일괄승인" onclick="document.pressed=this.value" class="btn btn_01">
+    <input type="submit" name="act_button" value="일괄취소" onclick="document.pressed=this.value" class="btn btn_03">
+</div>
 </form>
 
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
@@ -252,8 +252,29 @@ function fcoin_reqlist_submit(f)
     return true;
 }
 
+function fnstateupdate(cr_id, cr_state){
+    var f = document.createElement('form');
+    var input = document.createElement('input');
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "cr_id");
+    input.setAttribute("value", cr_id);
+    f.appendChild(input);
+    input = document.createElement('input');
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "cr_state");
+    input.setAttribute("value", cr_state);
+    f.appendChild(input);
+
+    document.body.appendChild(f);
+    f.charset = 'UTF-8';
+    f.method = 'post';
+    f.action = './coin_stateupdate2.php';
+
+    f.submit();
+}
+
 $(function(){
-    $("#fr_date, #to_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "-7d", maxDate: "0d" });
+    //$("#fr_date, #to_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" });
 
     $(".qa_href").click(function(){
         var $content = $("#qa_div"+$(this).attr("target"));
@@ -298,11 +319,6 @@ function set_date(today)
     }
 }
 
-// 결과처리 - 결과엑셀저장
-$("#frmExcel").on("click", function() {
-    var qstr = $("#fcoin_reqlist").find("input[name=q1]").val();
-    location.href = "./coin_reqinout_excel.php?" + qstr;
-});
 </script>
 
 <?php
