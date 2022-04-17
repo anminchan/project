@@ -1,9 +1,10 @@
 var show_alarm_exist=false;
 
-function check_alarm(){
+function check_alarm(gubun){
+	console.log(gubun);
 	$.ajax({
 		type:'POST',
-		data : ({act : 'alarm'}),
+		data : ({act : 'alarm', gubun : gubun}),
 		url: memo_alarm_url + '/get-events.php',
 		dataType:'json',
 		async:true,

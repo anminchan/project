@@ -26,6 +26,7 @@ $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_m
 $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300920', au_auth = 'r' ", FALSE);
 $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300930', au_auth = 'r' ", FALSE);
 $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300940', au_auth = 'r' ", FALSE);
+$result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '300980', au_auth = 'r,d,w' ", FALSE);
 
 //goto_url('./manageraddform.php');
 alert('생성되었습니다.', './manageraddform.php');

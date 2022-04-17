@@ -8,16 +8,36 @@ $alarm_url = G5_PLUGIN_URL."/alarm";
 ?>
 
 <?php 
-//특정 페이지에서 alarm 표시안함 
-$except_alarm_page = array('auth_list.php',
-					'config_form.php',
-					'member_list.php',
-					'visit_search.php',
-					'visit_list.php');
-if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page)) 
+//특정 페이지에서 alarm 표시안함
+$except_alarm_page = '';
+if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
+    $except_alarm_page = array('auth_list.php',
+        'config_form.php',
+        'member_list.php',
+        'visit_search.php',
+        'visit_list.php',
+        'coin_changelist.php');
+
+    $gubun = 'admin';
+} else {
+    $except_alarm_page = array('auth_list.php',
+        'config_form.php',
+        'member_list.php',
+        'visit_search.php',
+        'visit_list.php',
+        'coin_reqlist.php',
+        'coin_reqinoutlist.php',
+        'coin_reqcalculatelist.php',
+        'coin_reqhistorylist.php');
+
+    $gubun = 'view_admin';
+}
+
+print_r($except_alarm_page);
+if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page))
 { 
 	if ($member['mb_id'])
-	{		
+	{
 ?>
 
 <link rel="stylesheet" href="<?php echo $alarm_url ?>/alarm.css">
@@ -28,10 +48,12 @@ var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더
 <script src="<?php echo $alarm_url ?>/alarm.js"></script>
 <script type="text/javascript">
     $(function() {
+        var gubun = "<?php echo $gubun; ?>";
+
         setInterval(function() {
-            check_alarm();
+            check_alarm(gubun);
         }, <?php echo $wset['delay'] ?>);
-        check_alarm();
+        check_alarm(gubun);
     });
 </script>
 <?php } ?>
