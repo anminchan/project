@@ -60,12 +60,17 @@ ALTER TABLE g5_member ADD COLUMN mb_coin int(11) default 0 COMMENT '보유코인
 
 
 CREATE EVENT e_coin_req_del
-ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:05:00'
+ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:01:00'
 DO update g5_coin_req set cr_state = 2 where cr_state = 0 and date_format(cr_date, '%y-%m-%d') <= DATE_ADD(CURDATE(), INTERVAL -1 DAY);
 
 
+CREATE EVENT e_coin_change_del
+ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:02:00'
+DO update g5_coin_req set cr_state = 7 where cr_state = 6 and date_format(cr_convert_date, '%y-%m-%d') <= DATE_ADD(CURDATE(), INTERVAL -1 DAY);
+
+
 CREATE EVENT e_coin_total_sum
-ON SCHEDULE EVERY 1 DAY STARTS '2022-03-09 00:00:00'
+ON SCHEDULE EVERY 1 DAY STARTS '2022-03-09 00:03:00'
 DO call coin_total_sum();
 
 

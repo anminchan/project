@@ -59,9 +59,9 @@ if (!$sst) {
     $sod = "desc";
 }
 
-/*$sql_common = "  from {$g5['coin_req_table']} a
-                 left join {$g5['member_table']} b on (a.mb_id = b.mb_id) ";*/
-$sql_common = "  from {$g5['coin_req_table']} ";
+$sql_common = "  from {$g5['coin_req_table']} a
+                 left join {$g5['member_table']} b on (a.mb_id = b.mb_id) ";
+//$sql_common = "  from {$g5['coin_req_table']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
@@ -192,7 +192,11 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
                 break;
         }
 
-     ?>
+        $coinValue = '';
+        if($row['cr_state'] == '6')
+            $coinValue = '<span>(보유코인 : '.number_format($row['mb_coin']).' Coin)</span>';
+
+    ?>
     <tr class="<?php echo $bg; ?>">
         <td class="td_chk">
             <label for="chk_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['mb_id']) ?></label>
@@ -204,7 +208,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><?php echo $row['mb_id']; ?></td>
         <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
-        <td class="td_name"><?php echo $name; ?></td>
+        <td class="td_name2"><?php echo $name; ?> <?php echo $coinValue;?></td>
         <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
         <td class="td_stat"><?php echo $str; ?></td>
         <td class="td_datetime"><?php echo $row['cr_date']; ?></td>
