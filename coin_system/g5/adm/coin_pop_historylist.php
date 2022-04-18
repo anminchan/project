@@ -13,7 +13,7 @@ $g5['title'] = $html_title;
 include_once(G5_PATH.'/head.sub.php');
 
 $sql_common = " from {$g5['coin_req_table']} ";
-$sql_where = " where mb_id = '$mb_id' and cr_state != 0 ";
+$sql_where = " where mb_id = '$mb_id' and cr_state not in (0, 2, 6, 7) "; // 구매요청/취소, 전환요청/취소 제외
 
 // 테이블의 전체 레코드수만 얻음
 $sql = " select count(*) as cnt " . $sql_common . $sql_where;

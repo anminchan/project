@@ -276,7 +276,7 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         <th scope="row"><label for="mb_wallet_addr">지갑주소</label></th>
         <td><input type="text" name="mb_wallet_addr" value="<?php echo $mb['mb_wallet_addr'] ?>" id="mb_wallet_addr" readonly class="frm_input" size="70"></td>
     </tr>
-    
+
     <!--<tr>
         <th scope="row">본인확인방법</th>
         <td colspan="3">
@@ -423,6 +423,15 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         </td>
     </tr>-->
 
+    <tr>
+        <th scope="row">정보 공개</th>
+        <td colspan="3">
+            <input type="radio" name="mb_open" value="1" id="mb_open_yes" <?php echo $mb_open_yes; ?>>
+            <label for="mb_open_yes">예</label>
+            <input type="radio" name="mb_open" value="0" id="mb_open_no" <?php echo $mb_open_no; ?>>
+            <label for="mb_open_no">아니오</label>
+        </td>
+    </tr>
     <tr>
         <th scope="row"><label for="mb_memo">메모</label></th>
         <td colspan="3"><textarea name="mb_memo" id="mb_memo"><?php echo $mb['mb_memo'] ?></textarea></td>

@@ -20,8 +20,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <tr>
             <th scope="row"><i class="fa fa-star-o" aria-hidden="true"></i>  회원권한</th>
             <td><?php echo $mb['mb_level'] ?></td>
-            <th scope="row"><i class="fa fa-database" aria-hidden="true"></i> 포인트</th>
-            <td><?php echo number_format($mb['mb_point']) ?></td>
+            <!--<th scope="row"><i class="fa fa-database" aria-hidden="true"></i> 포인트</th>
+            <td><?php /*echo number_format($mb['mb_point']) */?></td>-->
+            <th scope="row"><i class="fa fa-database" aria-hidden="true"></i> 코인</th>
+            <td><?php echo number_format($mb['mb_coin']) ?> Coin</td>
         </tr>
         <tr>
             <th scope="row"><i class="fa fa-clock-o" aria-hidden="true"></i> 회원가입일</th>
