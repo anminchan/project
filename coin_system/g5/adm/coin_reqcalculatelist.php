@@ -116,10 +116,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <label for="cr_status_app">증가</label>
         <input type="radio" name="cr_status" value="D" id="cr_status_hold" <?php echo get_checked($cr_status, 'D'); ?>>
         <label for="cr_status_hold">차감</label>
-        <input type="radio" name="cr_status" value="C" id="cr_status_hold" <?php echo get_checked($cr_status, 'C'); ?>>
-        <label for="cr_status_hold">전환</label>
-        <input type="radio" name="cr_status" value="N" id="cr_status_hold" <?php echo get_checked($cr_status, 'N'); ?>>
-        <label for="cr_status_hold">미전환</label>
+        <input type="radio" name="cr_status" value="C" id="cr_status_change" <?php echo get_checked($cr_status, 'C'); ?>>
+        <label for="cr_status_change">전환</label>
+        <input type="radio" name="cr_status" value="N" id="cr_status_nochange" <?php echo get_checked($cr_status, 'N'); ?>>
+        <label for="cr_status_nochange">미전환</label>
     </div>
 
     <div class="sch_last">

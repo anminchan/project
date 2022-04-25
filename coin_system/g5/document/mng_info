@@ -1,0 +1,66 @@
+1.카페24
+ssh911010 / coinmarket1!!
+
+2. 업체명칭 및 도메인 체크
+
+3. 서버 설치 후
+. 루트 디렉토리 변경하기
+# vi /etc/httpd/conf/httpd.conf
+DocumentRoot "/var/www/html"     /*원하는 경로로 바꿔준다*/
+
+ex) DocumentRoot "home/www"
+
+2. selinux 정책을 변경
+# chcon -R -t httpd_sys_content_t /var/www
+
+// data폴더 권한
+chcon -R -t httpd_sys_rw_content_t /var/www/data/
+
+!!!! 중요 !!!
+/etc/httpd/conf.d/
+mod_security.conf
+SecRuleEngine Off 해야한다.
+
+cd /etc/httpd/conf
+vi httpd.conf
+apachectl restart
+apachectl status
+
+systemctl enable mariadb
+systemctl status mariadb
+systemctl stop mariadb
+systemctl start mariadb
+
+##########업체############
+1. blue코인
+신청 아이디 : coinmarketblue / coinmarketblue!
+임시 root 비밀번호 : coinmarketblue@
+도메인 : blue-gc.com
+
+
+
+CREATE USER 'test'@localhost IDENTIFIED BY 'qwe123!@#'; // coinmarketblue 계정 생성, qwe123!@# 비밀번호 부여
+grant all privileges on test.* to 'test'@'localhost' IDENTIFIED BY 'qwe123!@#';
+FLUSH PRIVILEGES;
+
+
+CREATE DATABASE coinmarketblue default CHARACTER SET UTF8;
+CREATE USER 'coinmarketblue'@localhost IDENTIFIED BY 'qwe123!@#'; // coinmarketblue 계정 생성, qwe123!@# 비밀번호 부여
+grant all privileges on coinmarketblue.* to 'coinmarketblue'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmarketblue.* to 'coinmarketblue'@'211.230.48.26' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'211.230.48.26' IDENTIFIED BY 'coinmarketblue@';
+FLUSH PRIVILEGES;
+
+
+
+delete from g5_accesslog;
+delete from g5_coin_req;
+delete from g5_coin_sum;
+delete from g5_account;
+delete from g5_visit;
+delete from g5_visit_sum;
+
+덤프
+mysqldump -uroot -p db명 > /저장경로/mydump220421.sql
+
+소스백업

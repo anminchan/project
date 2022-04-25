@@ -137,8 +137,8 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
         <label for="cr_status_app">증가</label>
         <input type="radio" name="cr_status" value="D" id="cr_status_hold" <?php echo get_checked($cr_status, 'D'); ?>>
         <label for="cr_status_hold">차감</label>
-        <input type="radio" name="cr_status" value="C" id="cr_status_hold" <?php echo get_checked($cr_status, 'C'); ?>>
-        <label for="cr_status_hold">전환</label>
+        <input type="radio" name="cr_status" value="C" id="cr_status_change" <?php echo get_checked($cr_status, 'C'); ?>>
+        <label for="cr_status_change">전환</label>
     </div>
 
     <div class="sch_last">

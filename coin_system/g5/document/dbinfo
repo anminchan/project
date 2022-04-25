@@ -60,12 +60,12 @@ ALTER TABLE g5_member ADD COLUMN mb_coin int(11) default 0 COMMENT '보유코인
 
 
 CREATE EVENT e_coin_req_del
-ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:01:00'
+ON SCHEDULE EVERY 1 DAY STARTS '2022-04-03 00:01:00'
 DO update g5_coin_req set cr_state = 2 where cr_state = 0 and date_format(cr_date, '%y-%m-%d') <= DATE_ADD(CURDATE(), INTERVAL -1 DAY);
 
 
 CREATE EVENT e_coin_change_del
-ON SCHEDULE EVERY 1 DAY STARTS '2022-03-03 00:02:00'
+ON SCHEDULE EVERY 1 DAY STARTS '2022-04-03 00:02:00'
 DO update g5_coin_req set cr_state = 7 where cr_state = 6 and date_format(cr_convert_date, '%y-%m-%d') <= DATE_ADD(CURDATE(), INTERVAL -1 DAY);
 
 
@@ -116,6 +116,54 @@ if i_Req_Cnt <= 0 then
 	ifnull(sum(if(cr_state=6, cr_coin, 0)),0)as cc_sum6
 	from g5_coin_req
 	where cr_uptime between concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 00:00:00') and concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 23:59:59')
+	group by mb_id) b
+	on a.mb_id = b.mb_id
+	where (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
+
+end if;
+
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `coinmarketblue`.`coin_total_sum2`(in sdate  VARCHAR(10))
+BEGIN
+
+	DECLARE i_Req_Cnt INT DEFAULT 0;
+
+	set i_Req_Cnt = 0;
+
+select count(*)
+into i_Req_Cnt
+from g5_coin_sum
+where cc_date = sdate;
+
+if i_Req_Cnt <= 0 then
+
+	insert into g5_coin_sum(mb_id, mb_name, cc_date, cc_sum_price0, cc_sum_price1, cc_sum_price2, cc_sum0, cc_sum1, cc_sum2, cc_sum3, cc_sum4, cc_sum5, cc_sum6)
+	select a.mb_id, a.mb_name, sdate as cc_date,
+	ifnull(b.cc_sum_price0, 0),
+	ifnull(b.cc_sum_price1, 0),
+	ifnull(b.cc_sum_price2, 0),
+	ifnull(b.cc_sum0, 0),
+	ifnull(b.cc_sum1, 0),
+	ifnull(b.cc_sum2, 0),
+	ifnull(b.cc_sum3, 0),
+	ifnull(b.cc_sum4, 0),
+	ifnull(b.cc_sum5, 0),
+	ifnull(a.mb_coin, 0) as cc_sum6
+	from g5_member a
+	left join (select mb_id,
+	ifnull(sum(if(cr_state=0, cr_price, 0)),0)as cc_sum_price0,
+	ifnull(sum(if(cr_state=1, cr_price, 0)),0)as cc_sum_price1,
+	ifnull(sum(if(cr_state=2, cr_price, 0)),0)as cc_sum_price2,
+	ifnull(sum(if(cr_state=0, cr_coin, 0)),0)as cc_sum0,
+	ifnull(sum(if(cr_state=1, cr_coin, 0)),0)as cc_sum1,
+	ifnull(sum(if(cr_state=2, cr_coin, 0)),0)as cc_sum2,
+	ifnull(sum(if(cr_state=3, cr_coin, 0)),0)as cc_sum3,
+	ifnull(sum(if(cr_state=4, cr_coin, 0)),0)as cc_sum4,
+	ifnull(sum(if(cr_state=5, cr_coin, 0)),0)as cc_sum5,
+	ifnull(sum(if(cr_state=6, cr_coin, 0)),0)as cc_sum6
+	from g5_coin_req
+	where cr_uptime between concat(sdate,' 00:00:00') and concat(sdate,' 23:59:59')
 	group by mb_id) b
 	on a.mb_id = b.mb_id
 	where (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
