@@ -41,6 +41,8 @@ if ($sca != "") {
 
 if ($cr_state != "") {
     $where[] = " cr_state = '$cr_state' ";
+}else{
+    $where[] = " cr_state in ('0','1','2') ";
 }
 
 if ($fr_date && $to_date) {
@@ -310,10 +312,25 @@ function fcoin_reqlist_submit(f)
         }
     }
 
+    if(document.pressed  == "일괄승인") {
+        if(!confirm("선택한 자료를 구매승인 하시겠습니까?")) {
+            return false;
+        }
+    }
+
+    if(document.pressed  == "일괄취소") {
+        if(!confirm("선택한 자료를 구매취소 하시겠습니까?")) {
+            return false;
+        }
+    }
+
     return true;
 }
 
 function fnstateupdate(cr_id, cr_state){
+    if (!confirm("구매 승인/취소 하시겠습니까?"))
+        return false;
+
     var f = document.createElement('form');
     var input = document.createElement('input');
     input.setAttribute("type", "hidden");

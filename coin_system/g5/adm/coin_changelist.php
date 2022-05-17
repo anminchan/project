@@ -253,10 +253,25 @@ function fcoin_reqlist_submit(f)
         }
     }
 
+    if(document.pressed  == "일괄승인") {
+        if(!confirm("선택한 자료를 전환승인 하시겠습니까?")) {
+            return false;
+        }
+    }
+
+    if(document.pressed  == "일괄취소") {
+        if(!confirm("선택한 자료를 전환취소 하시겠습니까?")) {
+            return false;
+        }
+    }
+
     return true;
 }
 
 function fnstateupdate(cr_id, cr_state){
+    if (!confirm("전환 승인/취소 하시겠습니까?"))
+        return false;
+    
     var f = document.createElement('form');
     var input = document.createElement('input');
     input.setAttribute("type", "hidden");
