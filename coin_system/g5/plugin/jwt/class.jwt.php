@@ -15,7 +15,7 @@ class JWT
     }
 
 //    jwt 발급하기
-    function hashing(array $data): string
+    function hashing(array $data)
     {
         // 헤더 - 사용할 알고리즘과 타입 명시
         $header = json_encode(array(

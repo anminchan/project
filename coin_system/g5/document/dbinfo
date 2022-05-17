@@ -176,3 +176,7 @@ END
 g5_config테이블 추가 필드 사이즈 늘림
 `cf_2` varchar(512) NOT NULL DEFAULT '',
 `cf_3` varchar(512) NOT NULL DEFAULT '',
+
+
+SET GLOBAL event_scheduler = ON;
+SHOW VARIABLES LIKE 'event%';
