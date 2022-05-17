@@ -4065,14 +4065,16 @@ function insert_accesslog($log_memo, $log_gubun){
     if (isset($_SERVER['HTTP_REFERER']))
         $referer = escape_trim(clean_xss_tags(strip_tags($_SERVER['HTTP_REFERER'])));
 
-    $sql = " insert into {$g5['accesslog_table']}
+    if($member['mb_level'] <= 2){
+        $sql = " insert into {$g5['accesslog_table']}
                 set mb_id = '{$member['mb_id']}',
                     log_gubun = '$log_gubun',
                     log_memo = '$log_memo',
                     log_referer = '$referer',
                     log_ip = '$remote_addr',
                     log_datetime = '".G5_TIME_YMDHIS."' ";
-    sql_query($sql);
+        sql_query($sql);
+    }
 }
 
 // 랜덤문자열생성

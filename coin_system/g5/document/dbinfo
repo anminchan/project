@@ -127,9 +127,9 @@ END
 CREATE DEFINER=`root`@`localhost` PROCEDURE `coinmarketblue`.`coin_total_sum2`(in sdate  VARCHAR(10))
 BEGIN
 
-	DECLARE i_Req_Cnt INT DEFAULT 0;
+DECLARE i_Req_Cnt INT DEFAULT 0;
 
-	set i_Req_Cnt = 0;
+set i_Req_Cnt = 0;
 
 select count(*)
 into i_Req_Cnt
