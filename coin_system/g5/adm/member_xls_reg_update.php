@@ -80,7 +80,10 @@ if($_FILES['excelfile']['tmp_name']) {
         $succ_count++;
     }
 }
+
+goto_url('./member_list.php');
 ?>
+
 
 <h2>총 건수</h2>
 <div class="tbl_frm02">
