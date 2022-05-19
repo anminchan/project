@@ -18,6 +18,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 	        <ul>
 	            <li>
 	                <label for="cr_price"> (필수)구매금액</label>
+                    <?php if($sale_limit['cf_5']>0){?>
+                        <p style="color: red;">*1회 구매한도는 <?php echo number_format($sale_limit['cf_5']);?> 입니다.</p>
+                    <?php }?>
 	                <input type="text" id="cr_price" name="cr_price" value="" required class="frm_input required" readonly size="50" placeholder="금액을 선택하세요.">
                     <ul>
                         <li>

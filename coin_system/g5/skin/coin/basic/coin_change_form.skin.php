@@ -19,10 +19,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/form_style.css">
 	        <ul>
                 <li>
                     <label> 보유코인</label>
-                    <sapn><?php echo number_format($result['mb_coin']); ?></sapn> COIN
+                    <p style="color: red;"><b><?php echo number_format($result['mb_coin']); ?> COIN</b></p>
                 </li>
 	            <li>
-	                <label for="cr_price"> (필수)구매금액</label>
+	                <label for="cr_price"> (필수)전환코인</label>
 	                <input type="text" id="cr_coin" name="cr_coin" value="" required class="frm_input required" readonly size="50" placeholder="전환할 코인을 입력하세요.">
                     <ul>
                         <li>

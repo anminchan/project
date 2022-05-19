@@ -121,6 +121,29 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktace@';
 FLUSH PRIVILEGES;
 
 
+6.업체명 : 스타트
+    gc-start.com
+    gc-start.com/adm
+신청 아이디 : coinmktstart / coinmktstart!
+임시 root 비밀번호 : coinmktstart@
+
+CREATE DATABASE coinmktstart default CHARACTER SET UTF8;
+CREATE USER 'coinmktstart'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktstart.* to 'coinmktstart'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktstart.* to 'coinmktstart'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktstart@';
+FLUSH PRIVILEGES;
+
+
+7.업체명 : OB
+    gc-ob.com
+    gc-ob.com/adm
+신청 아이디 : coinmktob / coinmktob!
+임시 root 비밀번호 : coinmktob@
+
+
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 

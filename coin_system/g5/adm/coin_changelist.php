@@ -125,11 +125,11 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <strong>신청상태</strong>
         <input type="radio" name="cr_state" value="" id="cr_state_all" <?php echo get_checked($cr_state, ''); ?>>
         <label for="cr_state_all">전체</label>
-        <input type="radio" name="cr_state" value="0" id="cr_state_req" <?php echo get_checked($cr_state, '6'); ?>>
+        <input type="radio" name="cr_state" value="6" id="cr_state_req" <?php echo get_checked($cr_state, '6'); ?>>
         <label for="cr_state_req">전환요청</label>
-        <input type="radio" name="cr_state" value="1" id="cr_state_app" <?php echo get_checked($cr_state, '5'); ?>>
+        <input type="radio" name="cr_state" value="5" id="cr_state_app" <?php echo get_checked($cr_state, '5'); ?>>
         <label for="cr_state_app">전환완료</label>
-        <input type="radio" name="cr_state" value="2" id="cr_state_hold" <?php echo get_checked($cr_state, '7'); ?>>
+        <input type="radio" name="cr_state" value="7" id="cr_state_hold" <?php echo get_checked($cr_state, '7'); ?>>
         <label for="cr_state_hold">전환취소</label>
     </div>
 
@@ -194,7 +194,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
         $coinValue = '';
         if($row['cr_state'] == '6')
-            $coinValue = '<span>(보유코인 : '.number_format($row['mb_coin']).' Coin)</span>';
+            $coinValue = '<span>(보유코인 : <b style="color: red;">'.number_format($row['mb_coin']).'</b> Coin)</span>';
 
     ?>
     <tr class="<?php echo $bg; ?>">
@@ -206,10 +206,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <input type="hidden" name="cr_id[<?php echo $i; ?>]" value="<?php echo $row['cr_id']; ?>">
         </td>
         <td class="td_num"><?php echo $total_count--; ?></td>
-        <td class="td_id"><?php echo $row['mb_id']; ?></td>
+        <td class="td_id"><b><?php echo $row['mb_id']; ?></b></td>
         <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
         <td class="td_name2"><?php echo $name; ?> <?php echo $coinValue;?></td>
-        <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
+        <td class="td_price"><b style="color: blue;"><?php echo number_format($row['cr_coin']); ?></b><?php echo ' Coin ('.number_format(($row['cr_coin'])*10000).' KRW)'; ?></td>
         <td class="td_stat"><?php echo $str; ?></td>
         <td class="td_datetime"><?php echo $row['cr_date']; ?></td>
         <td class="td_mng">

@@ -263,10 +263,10 @@ $acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left 
             <input type="hidden" name="cr_id[<?php echo $i; ?>]" value="<?php echo $row['cr_id']; ?>">
         </td>
         <td class="td_num"><?php echo $total_count--; ?></td>
-        <td class="td_id"><?php echo $row['mb_id']; ?></td>
+        <td class="td_id"><b><?php echo $row['mb_id']; ?></b></td>
         <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
         <td class="td_name"><?php echo $name; ?></td>
-        <td class="td_price"><?php echo number_format($row['cr_price']); ?></td>
+        <td class="td_price"><b style="color: blue;"><?php echo number_format($row['cr_price']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
         <td class="td_bank"><?php echo $row['cr_account']; ?></td>
         <td class="td_stat"><?php echo $str; ?></td>

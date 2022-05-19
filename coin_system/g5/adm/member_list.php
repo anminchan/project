@@ -131,6 +131,7 @@ $colspan = 16;
             <!--<a href="./member_form.php" id="member_add" class="btn btn_01">회원추가</a>-->
         <?php } ?>
         <a href="./member_form.php" id="member_add" class="btn btn_01">회원추가</a>
+        <a href="./member_xls_reg.php" id="member_add" class="btn btn_01">회원일괄등록</a>
     </div>
 
 <div class="tbl_head01 tbl_wrap">
