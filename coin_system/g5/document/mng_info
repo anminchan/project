@@ -56,24 +56,33 @@ define('G5_MYSQL_SET_MODE', true);
 임시 root 비밀번호 : coinmarketblue@
 도메인 : blue-gc.com
 
+CREATE USER 'coinmktbluelink'@localhost IDENTIFIED BY 'coinmktbluelink';
+grant all privileges on coinmarketblue.* to 'coinmktbluelink'@'%' IDENTIFIED BY 'coinmktbluelink';
+FLUSH PRIVILEGES;
+
+
 2.업체명 : SBS
    api연동 X
    gc-sbs.com
-   gc-sbs.com/admcoin_logo
+   gc-sbs.com/adm
    신청 아이디 : coinmktsbs / coinmktsbs!
    임시 root 비밀번호 : coinmktsbs@
 
-   CREATE DATABASE coinmktsbs default CHARACTER SET UTF8;
-   CREATE USER 'coinmktsbs'@localhost IDENTIFIED BY 'qwe123!@#';
-   grant all privileges on coinmktsbs.* to 'coinmktsbs'@'localhost' IDENTIFIED BY 'qwe123!@#';
-   grant all privileges on coinmktsbs.* to 'coinmktsbs'@'%' IDENTIFIED BY 'qwe123!@#';
-   grant all privileges on coinmktsbs.* to 'coinmktsbs'@'211.230.48.26' IDENTIFIED BY 'qwe123!@#';
-   grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktsbs@';
-   grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmktsbs@';
-   FLUSH PRIVILEGES;
+CREATE DATABASE coinmktsbs default CHARACTER SET UTF8;
+CREATE USER 'coinmktsbs'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktsbs.* to 'coinmktsbs'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktsbs.* to 'coinmktsbs'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktsbs.* to 'coinmktsbs'@'211.230.48.26' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktsbs@';
+grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmktsbs@';
 
-   show databases;
-   select user, host, password from user;
+CREATE USER 'coinmktsbslink'@localhost IDENTIFIED BY 'coinmktsbslink';
+grant all privileges on coinmktsbs.* to 'coinmktsbslink'@'%' IDENTIFIED BY 'coinmktsbslink';
+
+FLUSH PRIVILEGES;
+
+show databases;
+select user, host, password from user;
 
 3.업체명 : 쿠팡
    api연동 O
@@ -87,6 +96,10 @@ CREATE USER 'coinmktcoopang'@localhost IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktcoopang.* to 'coinmktcoopang'@'localhost' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktcoopang.* to 'coinmktcoopang'@'%' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktcoopang@';
+
+CREATE USER 'coinmktcoopanglink'@localhost IDENTIFIED BY 'coinmktcoopanglink';
+grant all privileges on coinmktcoopang.* to 'coinmktcoopanglink'@'%' IDENTIFIED BY 'coinmktcoopanglink';
+
 FLUSH PRIVILEGES;
 
 show databases;
@@ -99,12 +112,16 @@ select user, host, password from user;
    신청 아이디 : coinmktup / coinmktup!
    임시 root 비밀번호 : coinmktup@
 
-    CREATE DATABASE coinmktup default CHARACTER SET UTF8;
-    CREATE USER 'coinmktup'@localhost IDENTIFIED BY 'qwe123!@#';
-    grant all privileges on coinmktup.* to 'coinmktup'@'localhost' IDENTIFIED BY 'qwe123!@#';
-    grant all privileges on coinmktup.* to 'coinmktup'@'%' IDENTIFIED BY 'qwe123!@#';
-    grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktup@';
-    FLUSH PRIVILEGES;
+CREATE DATABASE coinmktup default CHARACTER SET UTF8;
+CREATE USER 'coinmktup'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktup.* to 'coinmktup'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktup.* to 'coinmktup'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktup@';
+
+CREATE USER 'coinmktuplink'@localhost IDENTIFIED BY 'coinmktuplink';
+grant all privileges on coinmktup.* to 'coinmktuplink'@'%' IDENTIFIED BY 'coinmktuplink';
+
+FLUSH PRIVILEGES;
 
 5.업체명 : 따봉
    api연동 미정
@@ -118,12 +135,17 @@ CREATE USER 'coinmktace'@localhost IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktace.* to 'coinmktace'@'localhost' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktace.* to 'coinmktace'@'%' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktace@';
+
+CREATE USER 'coinmktacelink'@localhost IDENTIFIED BY 'coinmktacelink';
+grant all privileges on coinmktace.* to 'coinmktacelink'@'%' IDENTIFIED BY 'coinmktacelink';
+
 FLUSH PRIVILEGES;
 
 
 6.업체명 : 스타트
-    gc-start.com
-    gc-start.com/adm
+api연동 X
+gc-start.com
+gc-start.com/adm
 신청 아이디 : coinmktstart / coinmktstart!
 임시 root 비밀번호 : coinmktstart@
 
@@ -132,14 +154,52 @@ CREATE USER 'coinmktstart'@localhost IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktstart.* to 'coinmktstart'@'localhost' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmktstart.* to 'coinmktstart'@'%' IDENTIFIED BY 'qwe123!@#';
 grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktstart@';
+
+CREATE USER 'coinmktstartlink'@localhost IDENTIFIED BY 'coinmktstartlink';
+grant all privileges on coinmktstart.* to 'coinmktstartlink'@'%' IDENTIFIED BY 'coinmktstartlink';
+
 FLUSH PRIVILEGES;
 
 
 7.업체명 : OB
-    gc-ob.com
-    gc-ob.com/adm
+api연동 X
+gc-ob.com
+gc-ob.com/adm
 신청 아이디 : coinmktob / coinmktob!
 임시 root 비밀번호 : coinmktob@
+
+CREATE DATABASE coinmktob default CHARACTER SET UTF8;
+CREATE USER 'coinmktob'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktob.* to 'coinmktob'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktob.* to 'coinmktob'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktob@';
+
+CREATE USER 'coinmktoblink'@localhost IDENTIFIED BY 'coinmktoblink';
+grant all privileges on coinmktob.* to 'coinmktoblink'@'%' IDENTIFIED BY 'coinmktoblink';
+
+FLUSH PRIVILEGES;
+
+
+
+8.업체명 : 타이거
+api연동 X
+gc-tiger-115.com
+gc-tiger-115.com/adm
+신청 아이디 : coinmkttiger115 / coinmkttiger115!
+임시 root 비밀번호 : coinmkttiger115@
+
+CREATE DATABASE coinmkttiger115 default CHARACTER SET UTF8;
+CREATE USER 'coinmkttiger115'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkttiger115.* to 'coinmkttiger115'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkttiger115.* to 'coinmkttiger115'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkttiger115@';
+
+CREATE USER 'coinmkttiger115link'@localhost IDENTIFIED BY 'coinmkttiger115link';
+grant all privileges on coinmkttiger115.* to 'coinmkttiger115link'@'%' IDENTIFIED BY 'coinmkttiger115link';
+
+FLUSH PRIVILEGES;
+
+
 
 
 
@@ -203,6 +263,22 @@ insert into g5_auth set mb_id = 'nimda2', au_menu = '300960', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300970', au_auth = 'r,w,d';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300980', au_auth = 'r';
 
+insert into g5_auth set mb_id = 'mng365', au_menu = '300900', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '200810', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '200100', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '200800', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '100600', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300950', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300910', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300920', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300930', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300940', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300960', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300970', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300980', au_auth = 'r';
+
+
+
 덤프
 mysqldump -uroot -p db명 > /저장경로/mydump220421.sql
 
@@ -226,5 +302,41 @@ DO update g5_coin_req set cr_state = 7 where cr_state = 6 and date_format(cr_con
 CREATE EVENT e_coin_total_sum
 ON SCHEDULE EVERY 1 DAY STARTS '2022-05-18 00:03:00'
 DO call coin_total_sum();
+
+
+// 업체정산
+CREATE TABLE `g5_coin_mng_sum` (
+  `cc_date` date NOT NULL,
+  `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
+  `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
+  `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
+  `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
+  `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
+  `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
+  `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
+  `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
+  `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
+  `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+  KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+
+
+CREATE TABLE `g5_coin_mng_sum_{업체명}` (
+  `cc_date` date NOT NULL,
+  `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
+  `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
+  `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
+  `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
+  `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
+  `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
+  `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
+  `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
+  `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
+  `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+  KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
+) ENGINE=FEDERATED DEFAULT CHARSET=utf8 CONNECTION='mysql://coinmkt{업체명}link:coinmkt{업체명}link@175.125.92.247:3306/coinmkt{업체명}/g5_coin_mng_sum';
+
+
 
 소스백업

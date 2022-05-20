@@ -27,7 +27,7 @@ $sql_search = "";
 
 if ($stx != "") {
     if ($sfl != "") {
-        $where[] = " $sfl like '%$stx%' ";
+        $where[] = " a.$sfl like '%$stx%' ";
     }
 
     if ($save_stx != $stx) {
@@ -138,7 +138,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <select name="sfl" id="sfl">
             <option value="mb_id" <?php echo get_selected($sfl, 'mb_id'); ?>>아이디</option>
             <option value="mb_name" <?php echo get_selected($sfl, 'mb_name'); ?>>이름</option>
-            <option value="cr_price" <?php echo get_selected($sfl, 'cr_coin'); ?>>금액</option>
+            <option value="cr_coin" <?php echo get_selected($sfl, 'cr_coin'); ?>>전환코인</option>
         </select>
         <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
         <input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">

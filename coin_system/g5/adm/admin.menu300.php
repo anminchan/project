@@ -19,5 +19,9 @@ $menu['menu300'] = array (
     array('300930', '정산', G5_ADMIN_URL.'/coin_reqcalculatelist.php', 'coin_req_calculate'),
     array('300940', '과거데이터 내역', G5_ADMIN_URL.'/coin_reqhistorylist.php', 'coin_req_history'),
     array('300960', '유저코인로그', G5_ADMIN_URL.'/coin_accessloglist.php', 'coin_accesslog'),
+    array('300940', '기간별매출현황', G5_ADMIN_URL.'/coin_reqcalculate_duration.php', 'coin_reqcalculate_duration'),
+    /*array('301000', '업체등록', G5_ADMIN_URL.'/seller_form.php', 'seller'),
+    array('301001', '업체영업등록', G5_ADMIN_URL.'/seller_manager_form.php', 'seller_manager'),
+    array('301002', '업체정산', G5_ADMIN_URL.'/seller_calculate_list.php', 'seller_calculate'),*/
 
 );

@@ -145,8 +145,8 @@ $colspan = 16;
         </th>
         <th scope="col" id="mb_list_id" colspan="2"><?php echo subject_sort_link('mb_id') ?>아이디</a></th>
         <th scope="col" id="mb_list_mobile">휴대폰</th>
-        <th scope="col" rowspan="2" id="mb_list_point"><?php echo subject_sort_link('mb_point', '', 'desc') ?> 보유코인</a></th>
-        <th scope="col" rowspan="2" id="mb_list_point">등록계좌</a></th>
+        <th scope="col" rowspan="2" id="mb_list_coin"><?php echo subject_sort_link('mb_coin', '', 'desc') ?> 보유코인</a></th>
+        <th scope="col" rowspan="2">등록계좌</a></th>
         <th scope="col" id="mb_list_auth" rowspan="2" ><?php echo subject_sort_link('mb_intercept_date', '', 'desc') ?>접근차단</a></th>
         <th scope="col" id="mb_list_auth">상태</th>
         <th scope="col" id="mb_list_lastcall"><?php echo subject_sort_link('mb_today_login', '', 'desc') ?>최종접속</a></th>
@@ -207,7 +207,7 @@ $colspan = 16;
             <?php echo $mb_id ?>
         </td>
         <td headers="mb_list_mobile" class="td_tel"><?php echo get_text($row['mb_hp']); ?></td>
-        <td headers="mb_list_point" rowspan="2" class="td_num"><a href="point_list.php?sfl=mb_id&amp;stx=<?php echo $row['mb_id'] ?>"><?php echo number_format($row['mb_coin']); ?></a></td>
+        <td headers="mb_list_coin" rowspan="2" class="td_num"><a href="point_list.php?sfl=mb_id&amp;stx=<?php echo $row['mb_id'] ?>"><?php echo number_format($row['mb_coin']); ?></a></td>
         <td headers="" rowspan="2" class="td_bank">
             <?php echo ($row['mb_bank_nm'] && $row['mb_bank_account']) ? $row['mb_bank_nm'].' / '.$row['mb_bank_account'].' / '.$row['mb_bank_holder'] : ''; ?>
         </td>

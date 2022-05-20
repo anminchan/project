@@ -52,8 +52,12 @@ var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더
 
         setInterval(function() {
             check_alarm(gubun);
+            //console.log("2");
+            location.reload();
         }, <?php echo $wset['delay'] ?>);
+        //console.log("1");
         check_alarm(gubun);
+
     });
 </script>
 <?php } ?>

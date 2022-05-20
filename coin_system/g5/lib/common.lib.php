@@ -1082,7 +1082,7 @@ function delete_coin($mb_id, $coin)
     $mb_coin = $mb['mb_coin'];
     $sum_mb_coin = $mb_coin - $coin;
 
-    if($sum_mb_coin <= 0) $po_mb_coin = 0;
+    if($sum_mb_coin <= 0) $sum_mb_coin = 0;
 
     // 코인 UPDATE
     $sql = " update {$g5['member_table']} set mb_coin = '$sum_mb_coin' where mb_id = '$mb_id' ";

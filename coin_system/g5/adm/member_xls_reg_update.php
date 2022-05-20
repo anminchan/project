@@ -2,9 +2,9 @@
 $sub_menu = "200100";
 include_once("./_common.php");
 
-/*auth_check_menu($auth, $sub_menu, 'w');
+auth_check_menu($auth, $sub_menu, 'w');
 
-check_admin_token();*/
+check_admin_token();
 
 if($_FILES['excelfile']['tmp_name']) {
 
@@ -56,7 +56,7 @@ if($_FILES['excelfile']['tmp_name']) {
         $mb = get_member($mb_id);
         if (isset($mb['mb_id']) && $mb['mb_id']){
             $fail_count++;
-            $fail_gcode[] = $mb['mb_id'];
+            $fail_id[] = $mb['mb_id'];
             continue;
         }
 
@@ -81,12 +81,14 @@ if($_FILES['excelfile']['tmp_name']) {
     }
 }
 
-goto_url('./member_list.php');
+//goto_url('./member_list.php');
+
+include_once('./admin.head.php');
 ?>
 
 
 <h2>총 건수</h2>
-<div class="tbl_frm02">
+<div class="tbl_frm01 tbl_wrap">
     <table>
         <colgroup>
             <col class="w180">
@@ -115,19 +117,14 @@ goto_url('./member_list.php');
     </table>
 </div>
 
-<div class="btn_confirm">
-    <a href="<?php echo G5_ADMIN_URL; ?>/member_list.php" class="btn_large">확인</a>
+<div class="btn_confirm01 btn_confirm">
+    <a href="<?php echo G5_ADMIN_URL; ?>/member_list.php" class="btn btn_02">확인</a>
 </div>
 
-<div class="information">
-    <h4>도움말</h4>
-    <div class="content">
-        <div class="desc02">
-            <p>ㆍ엑셀자료는 1회 업로드당 최대 1,000건까지 이므로 1,000건씩 나누어 업로드 하시기 바랍니다.</p>
-            <p>ㆍ엑셀파일을 저장하실 때는 <strong>Excel 97 - 2003 통합문서 (*.xls)</strong> 로 저장하셔야 합니다.</p>
-            <p>ㆍ엑셀데이터는 4번째 라인부터 저장되므로 타이틀은 지우시면 안됩니다.</p>
-        </div>
-    </div>
+<div class="local_desc01 local_desc">
+    <p>ㆍ엑셀자료는 1회 업로드당 최대 1,000건까지 이므로 1,000건씩 나누어 업로드 하시기 바랍니다.</p>
+    <p>ㆍ엑셀파일을 저장하실 때는 <strong>Excel 97 - 2003 통합문서 (*.xls)</strong> 로 저장하셔야 합니다.</p>
+    <p>ㆍ엑셀데이터는 4번째 라인부터 저장되므로 타이틀은 지우시면 안됩니다.</p>
 </div>
 
 <script>
@@ -145,4 +142,6 @@ goto_url('./member_list.php');
         });
     });
 </script>
+<?php
 
+include_once('./admin.tail.php');
