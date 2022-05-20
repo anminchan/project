@@ -249,6 +249,7 @@ insert into g5_auth set mb_id = 'nimda1', au_menu = '300940', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda1', au_menu = '300960', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda1', au_menu = '300970', au_auth = 'r,w,d';
 insert into g5_auth set mb_id = 'nimda1', au_menu = '300980', au_auth = 'r';
+insert into g5_auth set mb_id = 'nimda1', au_menu = '300990', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300900', au_auth = 'r,w,d';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '200810', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '200100', au_auth = 'r,w,d';
@@ -262,7 +263,7 @@ insert into g5_auth set mb_id = 'nimda2', au_menu = '300940', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300960', au_auth = 'r';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300970', au_auth = 'r,w,d';
 insert into g5_auth set mb_id = 'nimda2', au_menu = '300980', au_auth = 'r';
-
+insert into g5_auth set mb_id = 'nimda2', au_menu = '300990', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '300900', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '200810', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '200100', au_auth = 'r';
@@ -276,6 +277,7 @@ insert into g5_auth set mb_id = 'mng365', au_menu = '300940', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '300960', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '300970', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '300980', au_auth = 'r';
+insert into g5_auth set mb_id = 'mng365', au_menu = '300990', au_auth = 'r';
 
 
 
@@ -340,3 +342,9 @@ CREATE TABLE `g5_coin_mng_sum_{업체명}` (
 
 
 소스백업
+
+
+서버 용량 줄이기 위한 로그정리
+// 아파치 로그정리
+cp -f /dev/null /etc/httpd/logs/access_log
+cp -f /dev/null /etc/httpd/logs/error_log

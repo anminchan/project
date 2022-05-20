@@ -1,5 +1,5 @@
 <?php
-$sub_menu = '300930';
+$sub_menu = '300990';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
@@ -86,23 +86,12 @@ $sql  = " select sum(if(cr_state=1, cr_price, 0))as sum_price1,
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
-$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_status='.$cr_status.'&amp;date='.$date.'&amp;page_rows='.$page_rows;
+$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration='.$duration.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date.'&amp;page_rows='.$page_rows;
 
-$listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 ?>
 
-<div class="admin_pg_notice od_test_caution">(주의!) 하루 단위로 조회가 가능합니다.</div>
-
 <div class="local_ov01 local_ov">
-    <?php echo $listall; ?>
     <span class="btn_ov01"><span class="ov_txt"> 전체 문의내역</span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
-
-    <select id="page_rows" onchange="location='<?php echo "{$_SERVER['SCRIPT_NAME']}?{$qstr}&page=1";?>&page_rows='+this.value;">
-        <?php echo option_selected('30',  $page_rows, '30줄 정렬'); ?>
-        <?php echo option_selected('50',  $page_rows, '50줄 정렬'); ?>
-        <?php echo option_selected('100', $page_rows, '100줄 정렬'); ?>
-        <?php echo option_selected('150', $page_rows, '150줄 정렬'); ?>
-    </select>
 </div>
 
 <form class="local_sch03 local_sch">
@@ -198,7 +187,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><?php echo $row['cr_date']; ?></td>
         <td class="td_price"><?php echo number_format($row['sum_qty1']); ?></td>
-        <td class="td_price"><?php echo number_format($row['sum_price1']); ?></td>
+        <td class="td_price"><b style="color: blue;"><?php echo number_format($row['sum_price1']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['sum_coin1']); ?></td>
         <!--<td class="td_price"><?php /*echo number_format($row['sum_price2']); */?></td>-->
         <td class="td_price"><?php echo number_format($row['sum_coin2']); ?></td>
@@ -216,8 +205,6 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 </div>
 
 </form>
-
-<?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <script>
 $(function(){
