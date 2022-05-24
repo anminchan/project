@@ -229,6 +229,12 @@ $acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left 
         $name = get_sideview($row['mb_id'], get_text($row['mb_name']), '', '');
         $bg = 'bg'.($i%2);
 
+        /*$sql_cnt = " select sum(cr_price)as sum_price, count(*)as cnt from {$g5['coin_req_table']} where mb_id = '{$row['mb_id']}' and cr_state = 1 and DATE_FORMAT(cr_uptime, '%Y-%m-%d') = '".G5_TIME_YMD."' ";
+        $cr_res = sql_fetch($sql_cnt);*/
+        $coinValue = '';
+        /*if($cr_res['cnt'] > 0 && $row['cr_state'] == '0')
+            $coinValue = '<p>(오늘입금액 : <b style="color: red;">'.number_format($cr_res['sum_price']).'</b> Coin / 구매건 : '.number_format($cr_res['cnt']).')</p>';*/
+
         switch($row['cr_state']) {
             case 1:
                 $str = "<span class=\"status_01 color_02\">".$gw_status[$row['cr_state']]."</span>";
@@ -265,7 +271,7 @@ $acc_rst = sql_fetch(" select a.*, b.mb_coin from {$g5['account_table']} a left 
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><b><?php echo $row['mb_id']; ?></b></td>
         <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
-        <td class="td_name"><?php echo $name; ?></td>
+        <td class="td_name2"><?php echo $name; ?> <?php echo $coinValue;?></td>
         <td class="td_price"><b style="color: blue;"><?php echo number_format($row['cr_price']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['cr_coin']); ?></td>
         <td class="td_bank"><?php echo $row['cr_account']; ?></td>

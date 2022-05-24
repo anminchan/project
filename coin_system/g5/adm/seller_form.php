@@ -6,7 +6,8 @@ auth_check_menu($auth, $sub_menu, "r");
 
 $sql_common = " from {$g5['seller_table']} ";
 
-$sql_search = " where seller_state = 1 ";
+//$sql_search = " where seller_state = 1 ";
+$sql_search = " where (1) ";
 $sql_order = " order by index_no desc ";
 
 $sql = " select count(*) as cnt
@@ -68,7 +69,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                             <td class="td_center"><?php echo $row['seller_id']; ?></td>
                             <td class="td_center"><?php echo $row['seller_name']; ?></td>
                             <td class="td_center"><?php echo $row['seller_domain']; ?></td>
-                            <td class="td_center"><?php echo $row['seller_api_yn']; ?></td>
+                            <td class="td_center"><?php echo $row['seller_api_yn']?'사용':'미사용'; ?></td>
                             <td class="td_center"><?php echo $row['seller_state']?'사용':'미사용'; ?></td>
                             <td class="td_center"><?php echo preg_replace("/\n/", "<br />", $row['seller_memo']) ?></td>
                         </tr>
@@ -83,7 +84,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
             </div>
 
             <div class="btn_list01 btn_list">
-                <input type="submit" name="act_button" value="계좌정지" onclick="document.pressed=this.value" class="btn_frmline">
+                <input type="submit" name="act_button" value="업체정지" onclick="document.pressed=this.value" class="btn_frmline">
             </div>
 
         </form>
@@ -92,14 +93,14 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
     <section id="account_postal">
-        <h2 class="h2_frm">계좌 등록</h2>
+        <h2 class="h2_frm">업체 등록</h2>
 
         <form name="faccount2" method="post" id="faccount2" action="./seller_form_update.php" autocomplete="off">
             <input type="hidden" name="token" value="">
 
             <div class="tbl_frm01 tbl_wrap">
                 <table>
-                    <caption>계좌 등록</caption>
+                    <caption>업체 등록</caption>
                     <colgroup>
                         <col class="grid_4">
                         <col>
@@ -120,7 +121,10 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                     <tr>
                         <th scope="row"><label for="seller_api_yn">업체API사용유무<strong class="sound_only">필수</strong></label></th>
                         <td>
-                            <input type="text" name="seller_api_yn" id="seller_api_yn" class="frm_input" size="30">
+                            <input type="radio" name="seller_api_yn" value="0" id="seller_api_n" checked>
+                            <label for="cr_status_all">미사용</label>
+                            <input type="radio" name="seller_api_yn" value="1" id="seller_api_y">
+                            <label for="cr_status_req">사용</label>
                         </td>
                     </tr>
                     <tr>

@@ -53,6 +53,7 @@ $g5['coin_req_table'] = G5_TABLE_PREFIX.'coin_req'; // 코인신청테이블
 $g5['coin_sum_table'] = G5_TABLE_PREFIX.'coin_sum'; // 코인sum테이블
 $g5['account_table'] = G5_TABLE_PREFIX.'account'; // 신청계좌관리테이블
 $g5['accesslog_table'] = G5_TABLE_PREFIX.'accesslog'; // accesslog테이블
+$g5['seller_table'] = G5_TABLE_PREFIX.'seller'; // 업체테이블
 
 define('G5_USE_SHOP', false);
 

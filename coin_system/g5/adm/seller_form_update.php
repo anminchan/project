@@ -18,30 +18,25 @@ if($w == 'd') {
     for($i=0; $i<$count; $i++) {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
 
-        $ac_id = isset($_POST['ac_id'][$i]) ? (int) $_POST['ac_id'][$k] : 0;
-        //sql_query(" delete from {$g5['account_table']} where ac_id = '$ac_id' ");
-        sql_query(" update {$g5['account_table']} set ac_state = 0 where ac_id = '$ac_id' ");
+        $index_no = isset($_POST['index_no'][$i]) ? (int) $_POST['index_no'][$k] : 0;
+        sql_query(" update {$g5['seller_table']} set index_no = 0 where index_no = '$index_no' ");
     }
 } else {
-    $ac_name = isset($_POST['ac_name']) ? trim(strip_tags(clean_xss_attributes($_POST['ac_name']))) : '';
-    $ac_holder = isset($_POST['ac_holder']) ? trim(strip_tags(clean_xss_attributes($_POST['ac_holder']))) : '';
-    $ac_memo = $_POST['ac_memo'];
-    $account = isset($_POST['account']) ? preg_replace('/[^0-9]/', '', $_POST['account']) : '';
+    $seller_id = isset($_POST['seller_id']) ? trim(strip_tags(clean_xss_attributes($_POST['seller_id']))) : '';
+    $seller_name = isset($_POST['seller_name']) ? trim(strip_tags(clean_xss_attributes($_POST['seller_name']))) : '';
+    $seller_domain = isset($_POST['seller_domain']) ? trim(strip_tags(clean_xss_attributes($_POST['seller_domain']))) : '';
+    $seller_memo = $_POST['seller_memo'];
 
-    if(!$ac_name)
-        alert('계좌명을 입력해 주십시오.');
-    if(!$ac_holder)
-        alert('예금주를 입력해 주십시오.');
-    if(!$account)
-        alert('계좌번호를 정확히 입력해 주십시오.');
+    if(!$seller_id)
+        alert('업체아이디를 입력해 주십시오.');
+    if(!$seller_name)
+        alert('업체명을 입력해 주십시오.');
 
-    sql_query(" update {$g5['account_table']} set ac_state = 0 where ac_state = 1 ");
-
-    $sql = " insert into {$g5['account_table']}
-                  ( ac_name, account, ac_holder, ac_memo )
+    $sql = " insert into {$g5['seller_table']}
+                  ( seller_id, seller_name, seller_domain, seller_api_yn, seller_memo )
                 values
-                  ( '$ac_name', '$account', '$ac_holder', '$ac_memo' ) ";
+                  ( '$seller_id', '$seller_name', '$seller_domain', '{$_POST['seller_api_yn']}', '$seller_memo' ) ";
     sql_query($sql);
 }
 
-goto_url('./accountlist.php?page='.$page);
+goto_url('./seller_form.php?page='.$page);

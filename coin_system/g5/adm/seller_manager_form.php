@@ -4,10 +4,10 @@ include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
 
-$sql_common = " from {$g5['seller_table']} ";
+$sql_common = " from {$g5['member_table']} ";
 
-$sql_search = " where (1) ";
-$sql_order = " order by index_no desc ";
+$sql_search = " where mb_1 = 'seller_manager' ";
+$sql_order = " order by mb_no desc ";
 
 $sql = " select count(*) as cnt
             {$sql_common}
@@ -29,7 +29,7 @@ $sql = " select *
             limit {$from_record}, {$rows} ";
 $result = sql_query($sql);
 
-$g5['title'] = '업체등록';
+$g5['title'] = '영업VIEW등록';
 include_once('./admin.head.php');
 ?>
 
