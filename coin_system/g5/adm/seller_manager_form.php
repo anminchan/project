@@ -1,5 +1,5 @@
 <?php
-$sub_menu = '300950';
+$sub_menu = '300902';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
@@ -29,14 +29,15 @@ $sql = " select *
             limit {$from_record}, {$rows} ";
 $result = sql_query($sql);
 
-$g5['title'] = '영업VIEW등록';
-include_once('./admin.head.php');
-?>
+$seller_sql = " select * from {$g5['seller_table']} where seller_state = 1 ";
+$seller_result = sql_query($seller_sql);
 
+$g5['title'] = '영업VIEW등록';
+include_once (G5_ADMIN_PATH.'/admin.head.php');
+?>
     <section>
         <h2>VIEW ADMIN 내역</h2>
-
-        <form name="fmanagerlist" id="fmanagerlist" method="post" action="./managerdelete.php" onsubmit="return fmanagerlist_submit(this);">
+        <form name="fmanagerlist" id="fmanagerlist" method="post" action="./seller_manager_delete.php" onsubmit="return fmanagerlist_submit(this);">
             <input type="hidden" name="page" value="<?php echo $page; ?>">
             <input type="hidden" name="token" value="">
             <div class="tbl_head01 tbl_wrap">
@@ -50,6 +51,7 @@ include_once('./admin.head.php');
                         </th>
                         <th scope="col">아이디</th>
                         <th scope="col">이름</th>
+                        <th scope="col">관리업체</th>
                         <th scope="col">등록일</th>
                     </tr>
                     </thead>
@@ -65,13 +67,14 @@ include_once('./admin.head.php');
                             </td>
                             <td class="td_id"><?php echo $row['mb_id']; ?></td>
                             <td class="td_name"><?php echo $row['mb_name']; ?></td>
+                            <td class="td_mng"><?php echo $row['mb_2']; ?></td>
                             <td class="td_datetime"><?php echo $row['mb_datetime']; ?></td>
                         </tr>
                         <?php
                     }
 
                     if ($i == 0)
-                        echo '<tr><td colspan="4" class="empty_table">자료가 없습니다.</td></tr>';
+                        echo '<tr><td colspan="5" class="empty_table">자료가 없습니다.</td></tr>';
                     ?>
                     </tbody>
                 </table>
@@ -88,7 +91,7 @@ include_once('./admin.head.php');
 
     <section>
         <h2 class="h2_frm">VIEW ADMIN 등록</h2>
-        <form name="fmanager" id="fmanager" action="./manageraddupdate.php" method="post">
+        <form name="fmanager" id="fmanager" action="./seller_manager_form_update.php" method="post">
             <input type="hidden" name="token" value="">
 
             <div class="tbl_frm01 tbl_wrap">
@@ -107,6 +110,16 @@ include_once('./admin.head.php');
                         <th scope="row"><label for="view_mb_password">비밀번호<strong class="sound_only">필수</strong></label></th>
                         <td><input type="password" name="view_mb_password" value="" id="view_mb_password" class="required frm_input" size="30" required maxlength="30"></td>
                     </tr>
+                    <tr>
+                        <th scope="row"><label for="view_mb_password">관리업체<strong class="sound_only">필수</strong></label></th>
+                        <td>
+                            <?php for($i=0; $row=sql_fetch_array($seller_result); $i++) { ?>
+                                <input type="checkbox" name="seller_id[]" id="seller_id<?php echo $i;?>" value="<?php echo $row['seller_id'] ?>" class="selec_chk">
+                                <label for="seller_id<?php echo $i;?>"><?php echo strtoupper($row['seller_name']); ?></label>
+                            <?php } ?>
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>

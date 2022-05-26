@@ -10,6 +10,10 @@ $menu['menu300'] = array (
     array('300700', 'FAQ관리', G5_ADMIN_URL.'/faqmasterlist.php', 'scf_faq', 1),
     array('300820', '글,댓글 현황', G5_ADMIN_URL.'/write_count.php', 'scf_write_count'),
 
+    array('300901', '업체등록', G5_ADMIN_URL.'/seller_form.php', 'seller'),
+    array('300902', '영업VIEW등록', G5_ADMIN_URL.'/seller_manager_form.php', 'seller_manager'),
+    array('300903', '업체기간별현황', G5_ADMIN_URL.'/seller_reqcalculate_duration.php', 'seller_reqcalculate_duration'),
+
     array('300970', '구매한도설정', G5_ADMIN_URL.'/salelimitform.php', 'accountlist'),
     array('300900', '계좌관리', G5_ADMIN_URL.'/accountlist.php', 'accountlist'),
     array('300950', 'VIEW ADMIN 등록', G5_ADMIN_URL.'/manageraddform.php', 'managerform'),
@@ -20,8 +24,5 @@ $menu['menu300'] = array (
     array('300940', '과거데이터 내역', G5_ADMIN_URL.'/coin_reqhistorylist.php', 'coin_req_history'),
     array('300960', '유저코인로그', G5_ADMIN_URL.'/coin_accessloglist.php', 'coin_accesslog'),
     array('300990', '기간별매출현황', G5_ADMIN_URL.'/coin_reqcalculate_duration.php', 'coin_reqcalculate_duration'),
-    array('301000', '업체등록', G5_ADMIN_URL.'/seller_form.php', 'seller'),
-    array('301001', '영업VIEW등록', G5_ADMIN_URL.'/seller_manager_form.php', 'seller_manager'),
-    array('301002', '업체정산', G5_ADMIN_URL.'/seller_calculate_list.php', 'seller_calculate'),
 
 );

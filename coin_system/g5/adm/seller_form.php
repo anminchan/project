@@ -1,5 +1,5 @@
 <?php
-$sub_menu = '300900';
+$sub_menu = '300901';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
@@ -108,7 +108,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                     <tbody>
                     <tr>
                         <th scope="row"><label for="seller_id">업체아이디<strong class="sound_only">필수</strong></label></th>
-                        <td><input type="text" name="seller_id" value="" id="seller_name" class="required frm_input" size="30" required></td>
+                        <td><input type="text" name="seller_id" value="" id="seller_name" class="required frm_input" size="30" required>(※ 형식 : gc-업체명.com - 업체명을 기입)</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="seller_name">업체명<strong class="sound_only">필수</strong></label></th>

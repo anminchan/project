@@ -40,8 +40,23 @@ define('G5_MYSQL_HOST', 'localhost');
 define('G5_MYSQL_USER', 'coinmkt{업체명}');
 define('G5_MYSQL_PASSWORD', 'qwe123!@#');
 define('G5_MYSQL_DB', 'coinmkt{업체명}');
-define('G5_MYSQL_SET_MODE', true);
+define('G5_MYSQL_SET_MODE', true);seller_reqcalculate_duration
 ##############dbconfig############
+
+######################################
+gc-company365.com // 업체관리시스템
+신청 아이디 : coinmktcompany / coinmktcompany!
+임시 root 비밀번호 : coinmktcompany@
+######################################
+
+CREATE DATABASE coinmktcompany default CHARACTER SET UTF8;
+CREATE USER 'coinmktcompany'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktcompany.* to 'coinmktcompany'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktcompany.* to 'coinmktcompany'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktcompany.* to 'coinmktcompany'@'211.230.48.26' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktcompany@';
+grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmktcompany@';
+FLUSH PRIVILEGES;
 
 ##########업체############
 ##########형식############
@@ -307,20 +322,18 @@ DO call coin_total_sum();
 
 
 // 업체정산
-CREATE TABLE `g5_coin_mng_sum` (
-  `cc_date` date NOT NULL,
-  `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
-  `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
-  `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
-  `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
-  `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
-  `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
-  `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
-  `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
-  `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
-  `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
-  KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+CREATE TABLE `g5_seller` (
+  `index_no` int(11) NOT NULL AUTO_INCREMENT,
+  `seller_id` varchar(255) NOT NULL DEFAULT '',
+  `seller_name` varchar(255) NOT NULL DEFAULT '',
+  `seller_domain` varchar(255) NOT NULL DEFAULT '',
+  `seller_api_yn` tinyint(4) NOT NULL DEFAULT '0',
+  `seller_state` tinyint(4) NOT NULL DEFAULT '1',
+  `seller_memo` text,
+  PRIMARY KEY (`index_no`),
+  KEY `g5_seller_seller_id_IDX` (`seller_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+
 
 
 
