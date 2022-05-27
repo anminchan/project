@@ -35,26 +35,26 @@ if(!$seller_id) $seller_id = 'blue';
 $sql_search = "";
 
 if ($fr_date && $to_date) {
-    $where[] = " cr_uptime between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
+    $where[] = " cc_date between '$fr_date' and '$to_date' ";
 }
 
-if($seller_count>0)
-    $tables = '_'.$seller_id;
+if($seller_id)
+    $where[] = " seller_id = '$seller_id' ";
 
 if ($where) {
     $sql_search = ' where '.implode(' and ', $where);
 }
 
-$sql_common = "  from {$g5['coin_req_table']}$tables ";
+$sql_common = "  from {$g5['coin_seller_mng_sum']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
 if($duration=='M') {
-    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cr_uptime,'%Y-%m')) a ";
+    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cc_date,'%Y-%m')) a ";
 }else{
-    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cr_uptime,'%Y-%m-%d')) a ";
+    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cc_date,'%Y-%m-%d')) a ";
 }
-//echo $sql;
+echo $sql;
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
@@ -66,46 +66,41 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 if($duration=='M'){
-    $sql  = " select DATE_FORMAT(cr_uptime,'%Y-%m')as cr_date,
-            sum(if(cr_state=1, 1, 0))as sum_qty1,
-            sum(if(cr_state=1, cr_price, 0))as sum_price1,
-            sum(if(cr_state=1, cr_coin, 0))as sum_coin1,
-            -- sum(if(cr_state=1, (cr_coin*10000), 0))as sum_price2, 
-            sum(if(cr_state=5, cr_coin, 0))as sum_coin2,
-            sum(if(cr_state=3, cr_coin, 0))as sum_coin3,
-            sum(if(cr_state=4, cr_coin, 0))as sum_coin4
+    $sql  = " select DATE_FORMAT(cc_date,'%Y-%m')as cr_date,
+            sum(cc_sum_price1)as sum_price1,
+            sum(cc_sum1)as sum_coin1,
+            sum(cc_sum5)as sum_coin2,
+            sum(cc_sum3)as sum_coin3,
+            sum(cc_sum4)as sum_coin4
           $sql_common
-          group by DATE_FORMAT(cr_uptime,'%Y-%m') ";
+          group by DATE_FORMAT(cc_date,'%Y-%m') ";
 }else{
-    $sql  = " select DATE_FORMAT(cr_uptime,'%Y-%m-%d')as cr_date,
-            sum(if(cr_state=1, 1, 0))as sum_qty1,
-            sum(if(cr_state=1, cr_price, 0))as sum_price1,
-            sum(if(cr_state=1, cr_coin, 0))as sum_coin1, 
-            -- sum(if(cr_state=1, (cr_coin*10000), 0))as sum_price2, 
-            sum(if(cr_state=5, cr_coin, 0))as sum_coin2,
-            sum(if(cr_state=3, cr_coin, 0))as sum_coin3,
-            sum(if(cr_state=4, cr_coin, 0))as sum_coin4
+    $sql  = " select cc_date,
+            sum(cc_sum_price1)as sum_price1,
+            sum(cc_sum1)as sum_coin1,
+            sum(cc_sum5)as sum_coin2,
+            sum(cc_sum3)as sum_coin3,
+            sum(cc_sum4)as sum_coin4
           $sql_common
-          group by DATE_FORMAT(cr_uptime,'%Y-%m-%d') ";
+          group by cc_date ";
 }
 echo $sql;
 $result = sql_query($sql);
 
-$sql  = " select sum(if(cr_state=1, cr_price, 0))as sum_price1,
-            sum(if(cr_state=1, cr_coin, 0))as sum_coin1, 
-            -- sum(if(cr_state=1, (cr_coin*10000), 0))as sum_price2, 
-            sum(if(cr_state=5, cr_coin, 0))as sum_coin2,
-            sum(if(cr_state=3, cr_coin, 0))as sum_coin3,
-            sum(if(cr_state=4, cr_coin, 0))as sum_coin4
-          from {$g5['coin_req_table']}$tables
-          where cr_uptime between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
-//echo $sql;
+$sql  = " select sum(cc_sum_price1)as sum_price1,
+            sum(cc_sum1)as sum_coin1, 
+            sum(cc_sum5)as sum_coin2,
+            sum(cc_sum3)as sum_coin3,
+            sum(cc_sum4)as sum_coin4
+          $sql_common ";
+echo $sql;
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
 $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration='.$duration.'&amp;fr_date='.$fr_date.'&amp;to_date='.$to_date.'&amp;page_rows='.$page_rows;
 
 ?>
+<div class="admin_pg_notice od_test_caution">전일 정산내역만 조회 가능합니다.</div>
 
 <div class="local_ov01 local_ov">
     <span class="btn_ov01"><span class="ov_txt"> 전체 문의내역</span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
@@ -138,8 +133,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
         <strong>일자</strong>
         <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
-        <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
-        <button type="button" onclick="javascript:set_date('어제');">어제</button>
+        <!--<button type="button" onclick="javascript:set_date('오늘');">오늘</button>
+        <button type="button" onclick="javascript:set_date('어제');">어제</button>-->
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
         <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
@@ -154,7 +149,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
             <thead>
             <tr>
                 <th scope="col"></th>
-                <th scope="col">입금금액</th>
+                <th scope="col">판매금액</th>
                 <th scope="col">판매코인</th>
                 <!--<th scope="col">전환금액</th>-->
                 <th scope="col">전환코인</th>
@@ -194,10 +189,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <tr>
         <th scope="col">번호</th>
         <th scope="col">일자</th>
-        <th scope="col">구매건수</th>
         <th scope="col">입금금액</th>
         <th scope="col">판매코인</th>
-        <!--<th scope="col">전환금액</th>-->
         <th scope="col">전환코인</th>
         <th scope="col">관리자증가</th>
         <th scope="col">관리자차감</th>
@@ -213,10 +206,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <tr class="<?php echo $bg; ?>">
         <td class="td_num"><?php echo $total_count--; ?></td>
         <td class="td_id"><?php echo $row['cr_date']; ?></td>
-        <td class="td_price"><?php echo number_format($row['sum_qty1']); ?></td>
         <td class="td_price"><b style="color: blue;"><?php echo number_format($row['sum_price1']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['sum_coin1']); ?></td>
-        <!--<td class="td_price"><?php /*echo number_format($row['sum_price2']); */?></td>-->
         <td class="td_price"><?php echo number_format($row['sum_coin2']); ?></td>
         <td class="td_price"><?php echo number_format($row['sum_coin3']); ?></td>
         <td class="td_price"><?php echo number_format($row['sum_coin4']); ?></td>
@@ -224,7 +215,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <?php
     }
     if ($i == 0) {
-        echo '<tr><td colspan="8" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
+        echo '<tr><td colspan="7" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
     }
     ?>
     </tbody>

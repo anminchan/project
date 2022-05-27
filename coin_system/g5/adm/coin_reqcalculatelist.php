@@ -65,6 +65,7 @@ $rows = ($page_rows) ? $page_rows : $config['cf_page_rows'];
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
+$num = $total_count - (($page-1)*$rows);
 
 $sql  = " select *
           $sql_common
@@ -85,7 +86,7 @@ $sql  = " select sum(cc_sum_price1)as sum_price1,
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
-$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_status='.$cr_status.'&amp;date='.$date.'&amp;page_rows='.$page_rows;
+$qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;cr_status='.$cr_status.'&amp;fr_date='.$fr_date.'&amp;page_rows='.$page_rows;
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 ?>
@@ -208,7 +209,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         }
      ?>
     <tr class="<?php echo $bg; ?>">
-        <td class="td_num"><?php echo $total_count--; ?></td>
+        <td class="td_num"><?php echo $num--; ?></td>
         <td class="td_id"><?php echo $row['mb_id']; ?></td>
         <td class="td_name"><?php echo $row['mb_name']; ?></td>
         <td class="td_price"><?php echo number_format($price_sum); ?></td>

@@ -47,6 +47,7 @@ $rows = ($page_rows) ? $page_rows : $config['cf_page_rows'];
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
+$num = $total_count - (($page-1)*$rows);
 
 if($duration=='M'){
     $sql  = " select DATE_FORMAT(cr_uptime,'%Y-%m')as cr_date,
@@ -184,7 +185,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
 
      ?>
     <tr class="<?php echo $bg; ?>">
-        <td class="td_num"><?php echo $total_count--; ?></td>
+        <td class="td_num"><?php echo $num--; ?></td>
         <td class="td_id"><?php echo $row['cr_date']; ?></td>
         <td class="td_price"><?php echo number_format($row['sum_qty1']); ?></td>
         <td class="td_price"><b style="color: blue;"><?php echo number_format($row['sum_price1']); ?></b></td>

@@ -82,6 +82,7 @@ $rows = ($page_rows) ? $page_rows : $config['cf_page_rows'];
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
+$num = $total_count - (($page-1)*$rows);
 
 $sql  = " select *
           $sql_common
@@ -211,7 +212,7 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
 
                 ?>
                 <tr class="<?php echo $bg; ?>">
-                    <td class="td_num"><?php echo $total_count--; ?></td>
+                    <td class="td_num"><?php echo $num--; ?></td>
                     <td class="td_id"><?php echo $row['mb_id']; ?></td>
                     <!--<td class="td_name"><?php /*echo $row['mb_name']; */?></td>-->
                     <td class="td_name"><?php echo $name; ?></td>

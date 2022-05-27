@@ -58,6 +58,13 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktcompany@
 grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmktcompany@';
 FLUSH PRIVILEGES;
 
+CREATE USER 'coinmktcomlink'@localhost IDENTIFIED BY 'coinmktcomlink';
+grant all privileges on coinmktcompany.* to 'coinmktcomlink'@'%' IDENTIFIED BY 'coinmktcomlink';
+
+FLUSH PRIVILEGES;
+
+
+
 ##########업체############
 ##########형식############
 * {업체명}코인
@@ -334,10 +341,8 @@ CREATE TABLE `g5_seller` (
   KEY `g5_seller_seller_id_IDX` (`seller_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
 
-
-
-
-CREATE TABLE `g5_coin_mng_sum_{업체명}` (
+// 업체별 정산데이터 수신되는 테이블, 통합관리시스템에 생성
+CREATE TABLE `g5_coin_seller_mng_sum` (
   `cc_date` date NOT NULL,
   `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
   `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
@@ -349,9 +354,46 @@ CREATE TABLE `g5_coin_mng_sum_{업체명}` (
   `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
   `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
   `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+  `seller_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '업체아이디',
   KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
-) ENGINE=FEDERATED DEFAULT CHARSET=utf8 CONNECTION='mysql://coinmkt{업체명}link:coinmkt{업체명}link@175.125.92.247:3306/coinmkt{업체명}/g5_coin_mng_sum';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 
+
+// 업체별 정산데이터 송신되는 테이블, 각 구매사이트에 생성
+CREATE TABLE `g5_coin_seller_mng_sum` (
+  `cc_date` date NOT NULL,
+    `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
+    `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
+    `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
+    `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
+    `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
+    `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
+    `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
+    `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
+    `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
+    `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+    `seller_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '업체아이디',
+  KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
+)  ENGINE=FEDERATED DEFAULT CHARSET=utf8 CONNECTION='mysql://coinmkt{업체명}link:coinmkt{업체명}link@아이피:3306/coinmkt{업체명}/g5_coin_mng_sum';
+
+
+CREATE TABLE `g5_coin_seller_mng_sum` (
+`cc_date` date NOT NULL,
+  `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
+  `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
+  `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
+  `cc_sum3` int(11) DEFAULT '0' COMMENT '증감',
+  `cc_sum4` int(11) DEFAULT '0' COMMENT '차감',
+  `cc_sum5` int(11) DEFAULT '0' COMMENT '전환',
+  `cc_sum6` int(11) DEFAULT '0' COMMENT '미전환',
+  `cc_sum_price0` int(11) DEFAULT '0' COMMENT '요청금액',
+  `cc_sum_price1` int(11) DEFAULT '0' COMMENT '승인금액',
+  `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
+  `seller_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '업체아이디',
+  KEY `g5_coin_mng_sum_cc_date_IDX` (`cc_date`) USING BTREE
+) ENGINE=FEDERATED DEFAULT CHARSET=utf8 CONNECTION='mysql://coinmktcomlink:coinmktcomlink@175.126.73.232:3306/coinmktcompany/g5_coin_seller_mng_sum';
+
+// 아이디:패스워드@호스트:포트/디비명/테이블명
 
 
 소스백업
