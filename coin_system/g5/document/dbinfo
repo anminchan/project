@@ -118,7 +118,7 @@ if i_Req_Cnt <= 0 then
 	where cr_uptime between concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 00:00:00') and concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 23:59:59')
 	group by mb_id) b
 	on a.mb_id = b.mb_id
-	where (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
+	where a.mb_level = '2' and (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
 
 end if;
 
@@ -166,7 +166,7 @@ if i_Req_Cnt <= 0 then
 	where cr_uptime between concat(sdate,' 00:00:00') and concat(sdate,' 23:59:59')
 	group by mb_id) b
 	on a.mb_id = b.mb_id
-	where (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
+	where a.mb_level = '2' and (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
 
 end if;
 
@@ -180,3 +180,5 @@ g5_config테이블 추가 필드 사이즈 늘림
 
 SET GLOBAL event_scheduler = ON;
 SHOW VARIABLES LIKE 'event%';
+
+
