@@ -17,7 +17,6 @@ include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
             <button type="submit" class="btn_submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </div>
     </form>
-    <p>회원 아이디만 검색 가능</p>
 
     <div id="fnewlist" class="new_list">
         <ul>

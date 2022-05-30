@@ -16,7 +16,6 @@ include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
         <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         <button type="submit" class="btn_submit"><i class="fa fa-search" aria-hidden="true"></i> 검색</button>
-        <p>회원 아이디만 검색 가능</p>
     </form>
 
     <div class="tbl_head01 tbl_wrap">
