@@ -20,6 +20,9 @@ $seller_sql = " select * from {$g5['seller_table']} $sql_search ";
 //echo $seller_sql;
 $seller_result = sql_query($seller_sql);
 $seller_count = sql_num_rows($seller_result);
+$res = sql_fetch_array($seller_result);
+if($seller_count > 0 && !$seller_id) $seller_id = $res['seller_id'];
+$seller_result -> data_seek(0);
 
 $where = array();
 
@@ -30,7 +33,6 @@ if(!$fr_date) $fr_date = date("Y-m")."-01";
 if(!$to_date) $to_date = date("Y-m-d");
 
 if(!$duration) $duration = "D";
-if(!$seller_id) $seller_id = 'blue';
 
 $sql_search = "";
 
@@ -45,7 +47,7 @@ if ($where) {
     $sql_search = ' where '.implode(' and ', $where);
 }
 
-$sql_common = "  from {$g5['coin_seller_mng_sum']} ";
+$sql_common = " from {$g5['coin_seller_mng_sum']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
@@ -54,7 +56,7 @@ if($duration=='M') {
 }else{
     $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cc_date,'%Y-%m-%d')) a ";
 }
-echo $sql;
+//echo $sql;
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
@@ -66,25 +68,31 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 if($duration=='M'){
-    $sql  = " select DATE_FORMAT(cc_date,'%Y-%m')as cr_date,
+    $sql  = " select DATE_FORMAT(cc_date,'%Y-%m')as cc_date,
+            seller_id,
             sum(cc_sum_price1)as sum_price1,
             sum(cc_sum1)as sum_coin1,
             sum(cc_sum5)as sum_coin2,
             sum(cc_sum3)as sum_coin3,
             sum(cc_sum4)as sum_coin4
-          $sql_common
-          group by DATE_FORMAT(cc_date,'%Y-%m') ";
+            $sql_common
+            group by DATE_FORMAT(cc_date,'%Y-%m')
+            order by cc_date desc 
+            limit {$from_record}, {$rows} ";
 }else{
     $sql  = " select cc_date,
+            seller_id,
             sum(cc_sum_price1)as sum_price1,
             sum(cc_sum1)as sum_coin1,
             sum(cc_sum5)as sum_coin2,
             sum(cc_sum3)as sum_coin3,
             sum(cc_sum4)as sum_coin4
-          $sql_common
-          group by cc_date ";
+            $sql_common
+            group by cc_date 
+            order by cc_date desc 
+            limit {$from_record}, {$rows} ";
 }
-echo $sql;
+//echo $sql;
 $result = sql_query($sql);
 
 $sql  = " select sum(cc_sum_price1)as sum_price1,
@@ -93,7 +101,7 @@ $sql  = " select sum(cc_sum_price1)as sum_price1,
             sum(cc_sum3)as sum_coin3,
             sum(cc_sum4)as sum_coin4
           $sql_common ";
-echo $sql;
+//echo $sql;
 $sum_rst = sql_fetch($sql);
 
 //$qstr = 'page='.$page.'&amp;sst='.$sst.'&amp;sod='.$sod.'&amp;stx='.$stx;
@@ -188,6 +196,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <thead>
     <tr>
         <th scope="col">번호</th>
+        <th scope="col">업체</th>
         <th scope="col">일자</th>
         <th scope="col">입금금액</th>
         <th scope="col">판매코인</th>
@@ -205,7 +214,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
      ?>
     <tr class="<?php echo $bg; ?>">
         <td class="td_num"><?php echo $total_count--; ?></td>
-        <td class="td_id"><?php echo $row['cr_date']; ?></td>
+        <td class="td_name"><?php echo $row['seller_id']; ?></td>
+        <td class="td_datetime"><?php echo $row['cc_date']; ?></td>
         <td class="td_price"><b style="color: blue;"><?php echo number_format($row['sum_price1']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['sum_coin1']); ?></td>
         <td class="td_price"><?php echo number_format($row['sum_coin2']); ?></td>
@@ -215,7 +225,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <?php
     }
     if ($i == 0) {
-        echo '<tr><td colspan="7" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
+        echo '<tr><td colspan="8" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
     }
     ?>
     </tbody>
@@ -223,6 +233,8 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
 </div>
 
 </form>
+
+<?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <script>
 $(function(){

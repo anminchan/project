@@ -373,6 +373,8 @@ box-shadow:inset 0 1px 1px rgba(0, 0, 0, .075);
 .td_num {width:50px;text-align:center}
 .td_numbig {width:80px;text-align:center}
 .td_stat {width:60px;text-align:center}
+.td_price {width:110px;text-align:center}
+.td_coin {width:60px;text-align:center}
 
 .txt_active {color:#5d910b}
 .txt_done {color:#e8180c}

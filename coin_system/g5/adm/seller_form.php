@@ -49,6 +49,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                             <label for="chkall" class="sound_only">내역 전체</label>
                             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
                         </th>
+                        <th scope="col">번호</th>
                         <th scope="col">업체아이디</th>
                         <th scope="col">업체명</th>
                         <th scope="col">도메인</th>
@@ -67,6 +68,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                                 <input type="hidden" id="ac_id_<?php echo $i; ?>" name="ac_id[<?php echo $i; ?>]" value="<?php echo $row['ac_id']; ?>">
                                 <input type="checkbox" id="chk_<?php echo $i; ?>" name="chk[]" value="<?php echo $i; ?>" title="내역선택">
                             </td>
+                            <td class="td_num"><?php echo $num--; ?></td>
                             <td class="td_center"><?php echo $row['seller_id']; ?></td>
                             <td class="td_center"><?php echo $row['seller_name']; ?></td>
                             <td class="td_center"><?php echo $row['seller_domain']; ?></td>
@@ -109,7 +111,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                     <tbody>
                     <tr>
                         <th scope="row"><label for="seller_id">업체아이디<strong class="sound_only">필수</strong></label></th>
-                        <td><input type="text" name="seller_id" value="" id="seller_name" class="required frm_input" size="30" required>(※ 형식 : gc-업체명.com - 업체명을 기입)</td>
+                        <td><input type="text" name="seller_id" value="" id="seller_name" class="required frm_input" size="30" required>(※ 형식 : gc-업체명을 기입)</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="seller_name">업체명<strong class="sound_only">필수</strong></label></th>

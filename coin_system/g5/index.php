@@ -17,6 +17,9 @@ if (G5_IS_MOBILE) {
     return;
 }
 
+// 통합관리쪽에서만 사용
+//goto_url(G5_BBS_URL."/coin_reqcalculate_duration.php");
+
 include_once(G5_PATH.'/head.php');
 ?>
 
