@@ -8,6 +8,12 @@ define('G5_MYSQL_PASSWORD', 'qwer123@');
 define('G5_MYSQL_DB', 'chanykingweb');
 define('G5_MYSQL_SET_MODE', true);
 
+/*define('G5_MYSQL_HOST', 'gc-company365.com');
+define('G5_MYSQL_USER', 'coinmktcompany');
+define('G5_MYSQL_PASSWORD', 'qwe123!@#');
+define('G5_MYSQL_DB', 'coinmktcompany');
+define('G5_MYSQL_SET_MODE', true);*/
+
 /*define('G5_MYSQL_HOST', 'localhost');
 define('G5_MYSQL_USER', 'prj_no1');
 define('G5_MYSQL_PASSWORD', 'qwe123!@#');
