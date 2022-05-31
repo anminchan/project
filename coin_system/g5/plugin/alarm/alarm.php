@@ -43,7 +43,8 @@ if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page))
 <link rel="stylesheet" href="<?php echo $alarm_url ?>/alarm.css">
 <script>
 var memo_alarm_url = "<?php echo $alarm_url;?>";
-var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로 
+//var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
+var audio = new Audio("<?php echo $alarm_url;?>/alarm_sound.MP3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
 </script>
 <script src="<?php echo $alarm_url ?>/alarm.js"></script>
 <script type="text/javascript">
