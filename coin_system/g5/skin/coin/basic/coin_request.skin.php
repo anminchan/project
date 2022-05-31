@@ -74,7 +74,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$coin_skin_url.'/list_style.css">
                 ?>
                     <tr class="<?php echo $lt_class ?>">
                         <td class="td_num2">
-                            <?php echo $total_count--; ?>
+                            <?php echo $num--; ?>
                         </td>
                         <td class="td_mng"><?php echo number_format($list[$i]['cr_price']); ?> KRW</td>
                         <td class="td_mng"><?php echo $list[$i]['cr_coin']; ?> COIN</td>

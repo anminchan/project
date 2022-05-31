@@ -222,8 +222,14 @@ grant all privileges on coinmkttiger115.* to 'coinmkttiger115link'@'%' IDENTIFIE
 FLUSH PRIVILEGES;
 
 
+9. 업체명 : go
+api연동 X
+gc-gogo777.com
+gc-gogo777.com/adm
 
-
+// 연속된 자릿수로 인해 7 두개만 사용
+신청 아이디 : coinmktgogo77 / coinmktgogo77!
+임시 root 비밀번호 : coinmktgogo77@
 
 
 ##########디비생성START############
@@ -434,25 +440,38 @@ group by a.cc_date;
 CREATE PROCEDURE coin_total_day_sum()
 BEGIN
 
-	insert into g5_coin_seller_mng_sum(seller_id, cc_date,cc_sum0,cc_sum1,cc_sum2,cc_sum3,cc_sum4,cc_sum5,cc_sum6,cc_sum_price0,cc_sum_price1,cc_sum_price2)
-	select 'gc-up',
-    a.cc_date,
-    sum(a.cc_sum0)as cc_sum0,
-    sum(a.cc_sum1)as cc_sum1,
-    sum(a.cc_sum2)as cc_sum2,
-    sum(a.cc_sum3)as cc_sum3,
-    sum(a.cc_sum4)as cc_sum4,
-    sum(a.cc_sum5)as cc_sum5,
-    sum(a.cc_sum6)as cc_sum6,
-    sum(a.cc_sum_price0)as sum_price0,
-    sum(a.cc_sum_price1)as sum_price1,
-    sum(a.cc_sum_price2)as sum_price2
-    from (select a.*, b.mb_level
-    from g5_coin_sum a left join g5_member b
-    on a.mb_id = b.mb_id
-    where a.cc_date = (CURDATE() - INTERVAL 1 DAY)
-    and b.mb_level = 2)a
-    group by a.cc_date;
+	DECLARE i_Req_Cnt INT DEFAULT 0;
+
+    	set i_Req_Cnt = 0;
+
+    	select count(*)
+    	into i_Req_Cnt
+    	from g5_coin_seller_mng_sum
+    	where cc_date = DATE_ADD(CURDATE(), INTERVAL -1 DAY) and seller_id = 'gc-{업체명}';
+
+    	if i_Req_Cnt <= 0 then
+
+    		insert into g5_coin_seller_mng_sum(seller_id, cc_date,cc_sum0,cc_sum1,cc_sum2,cc_sum3,cc_sum4,cc_sum5,cc_sum6,cc_sum_price0,cc_sum_price1,cc_sum_price2)
+    		select 'gc-{업체명}',
+    	    a.cc_date,
+    	    sum(a.cc_sum0)as cc_sum0,
+    	    sum(a.cc_sum1)as cc_sum1,
+    	    sum(a.cc_sum2)as cc_sum2,
+    	    sum(a.cc_sum3)as cc_sum3,
+    	    sum(a.cc_sum4)as cc_sum4,
+    	    sum(a.cc_sum5)as cc_sum5,
+    	    sum(a.cc_sum6)as cc_sum6,
+    	    sum(a.cc_sum_price0)as sum_price0,
+    	    sum(a.cc_sum_price1)as sum_price1,
+    	    sum(a.cc_sum_price2)as sum_price2
+    	    from (select a.*, b.mb_level
+    	    from g5_coin_sum a left join g5_member b
+    	    on a.mb_id = b.mb_id
+    	    where a.cc_date = (CURDATE() - INTERVAL 1 DAY)
+    	    and b.mb_level = 2)a
+    	    group by a.cc_date;
+
+       	end if;
 
 END
 

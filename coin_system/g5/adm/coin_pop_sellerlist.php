@@ -29,7 +29,7 @@ if($acc['ac_id']){
         alert('이미 존재하는 회원아이디입니다.\\nＩＤ : '.$mb['mb_id'].'\\n이름 : '.$mb['mb_name'].'\\n닉네임 : '.$mb['mb_nick']);
 
     // 판매자 아이디 생성
-    sql_query(" insert into {$g5['member_table']} set mb_id = '{$mb_id}', mb_password = '".get_encrypt_string($mb_id)."', mb_name = '{$mb_id}', mb_nick = '{$mb_id}', mb_level = '5', mb_wallet_addr = '{$wallet}', mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}', mb_1 = 'seller' ");
+    sql_query(" insert into {$g5['member_table']} set mb_id = '{$mb_id}', mb_password = '".get_encrypt_string($mb_id.'qwe123!@#')."', mb_name = '{$mb_id}', mb_nick = '{$mb_id}', mb_level = '5', mb_wallet_addr = '{$wallet}', mb_datetime = '".G5_TIME_YMDHIS."', mb_ip = '{$_SERVER['REMOTE_ADDR']}', mb_1 = 'seller' ");
 
     // 판매자권한
     $result = sql_query(" insert into {$g5['auth_table']} set mb_id = '$mb_id', au_menu = '200100', au_auth = 'r' ", FALSE);
@@ -41,6 +41,10 @@ if($acc['ac_id']){
     // 판매자 추가
     $sql = "update {$g5['account_table']} set mb_id = '$mb_id' where ac_id = '{$acc['ac_id']}' and (mb_id is null or mb_id = '') ";
     sql_query($sql);
+
+    // 중지된 판매자아이디 차단
+    $sql_up = " update g5_member set  mb_intercept_date = '".date('Ymd', G5_SERVER_TIME)."' where mb_id in(select mb_id from g5_account where ac_state = 0) and mb_level = '5' ";
+    sql_query($sql_up);
 }
 
 $sql_common = " from {$g5['account_table']} ";

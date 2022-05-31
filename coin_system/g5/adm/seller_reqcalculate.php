@@ -1,28 +1,12 @@
 <?php
-$sub_menu = '300903';
+$sub_menu = '300904';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");
 
-$g5['title'] = '기간별매출현황';
+$g5['title'] = '업체별매출현황';
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
-
-$sql_search = " where seller_state = '1' ";
-
-$seller_list = array();
-if($member['mb_1'] == 'seller_manager' && $member['mb_2']){
-    $seller_list = explode(",", $member['mb_2']);
-    $sql_search .= " and seller_id in ('".join("', '", $seller_list)."') ";
-}
-
-$seller_sql = " select * from {$g5['seller_table']} $sql_search ";
-//echo $seller_sql;
-$seller_result = sql_query($seller_sql);
-$seller_count = sql_num_rows($seller_result);
-$res = sql_fetch_array($seller_result);
-if($seller_count > 0 && !$seller_id) $seller_id = $res['seller_id'];
-$seller_result -> data_seek(0);
 
 $where = array();
 
@@ -40,8 +24,7 @@ if ($fr_date && $to_date) {
     $where[] = " cc_date between '$fr_date' and '$to_date' ";
 }
 
-if($seller_id)
-    $where[] = " seller_id = '$seller_id' ";
+$where[] = " seller_id in(select seller_id from {$g5['seller_table']} where seller_state = 1) ";
 
 if ($where) {
     $sql_search = ' where '.implode(' and ', $where);
@@ -51,11 +34,7 @@ $sql_common = " from {$g5['coin_seller_mng_sum']} ";
 $sql_common .= $sql_search;
 
 // 테이블의 전체 레코드수만 얻음
-if($duration=='M') {
-    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cc_date,'%Y-%m')) a ";
-}else{
-    $sql = " select count(*) as cnt from(select * " . $sql_common . " group by DATE_FORMAT(cc_date,'%Y-%m-%d')) a ";
-}
+$sql = " select count(*) as cnt from(select * " . $sql_common . " group by seller_id) a ";
 //echo $sql;
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
@@ -68,31 +47,14 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 $num = $total_count - (($page-1)*$rows);
 
-if($duration=='M'){
-    $sql  = " select DATE_FORMAT(cc_date,'%Y-%m')as cc_date,
-            seller_id,
-            sum(cc_sum_price1)as sum_price1,
-            sum(cc_sum1)as sum_coin1,
-            sum(cc_sum5)as sum_coin2,
-            sum(cc_sum3)as sum_coin3,
-            sum(cc_sum4)as sum_coin4
-            $sql_common
-            group by DATE_FORMAT(cc_date,'%Y-%m')
-            order by cc_date desc 
-            limit {$from_record}, {$rows} ";
-}else{
-    $sql  = " select cc_date,
-            seller_id,
-            sum(cc_sum_price1)as sum_price1,
-            sum(cc_sum1)as sum_coin1,
-            sum(cc_sum5)as sum_coin2,
-            sum(cc_sum3)as sum_coin3,
-            sum(cc_sum4)as sum_coin4
-            $sql_common
-            group by cc_date 
-            order by cc_date desc 
-            limit {$from_record}, {$rows} ";
-}
+$sql  = " select seller_id,
+        sum(cc_sum_price1)as sum_price1,
+        sum(cc_sum1)as sum_coin1,
+        sum(cc_sum5)as sum_coin2,
+        sum(cc_sum3)as sum_coin3,
+        sum(cc_sum4)as sum_coin4
+        $sql_common
+        group by seller_id ";
 //echo $sql;
 $result = sql_query($sql);
 
@@ -120,30 +82,12 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <input type="hidden" name="save_stx" value="<?php echo $stx; ?>">
     <input type="hidden" name="page_rows" value="<?php echo $page_rows; ?>">
 
-    <div>
-        <strong>조건</strong>
-        <input type="radio" name="duration" value="D" id="duration_D" <?php echo get_checked($duration, 'D'); ?>>
-        <label for="duration_D">일별</label>
-        <input type="radio" name="duration" value="M" id="duration_M" <?php echo get_checked($duration, 'M'); ?>>
-        <label for="duration_M">월별</label>
-    </div>
-
-    <?php if($seller_count){ ?>
-    <div>
-        <strong>업체</strong>
-        <?php for($i=0; $row=sql_fetch_array($seller_result); $i++) { ?>
-            <input type="radio" name="seller_id" value="<?php echo $row['seller_id'] ?>" id="seller_id<?php echo $i;?>" <?php echo get_checked($seller_id, $row['seller_id']); ?>>
-            <label for="seller_id<?php echo $i;?>"><?php echo strtoupper($row['seller_name']); ?></label>
-        <?php } ?>
-    </div>
-    <?php } ?>
-
     <div class="sch_last">
         <strong>일자</strong>
         <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
-        <!--<button type="button" onclick="javascript:set_date('오늘');">오늘</button>
-        <button type="button" onclick="javascript:set_date('어제');">어제</button>-->
+        <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
+        <button type="button" onclick="javascript:set_date('어제');">어제</button>
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
         <button type="button" onclick="javascript:set_date('지난주');">지난주</button>
@@ -198,7 +142,6 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <tr>
         <th scope="col">번호</th>
         <th scope="col">업체</th>
-        <th scope="col">일자</th>
         <th scope="col">입금금액</th>
         <th scope="col">판매코인</th>
         <th scope="col">전환코인</th>
@@ -216,7 +159,6 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <tr class="<?php echo $bg; ?>">
         <td class="td_num"><?php echo $num--; ?></td>
         <td class="td_name"><?php echo $row['seller_id']; ?></td>
-        <td class="td_datetime"><?php echo $row['cc_date']; ?></td>
         <td class="td_price"><b style="color: blue;"><?php echo number_format($row['sum_price1']); ?></b></td>
         <td class="td_price"><?php echo number_format($row['sum_coin1']); ?></td>
         <td class="td_price"><?php echo number_format($row['sum_coin2']); ?></td>
@@ -226,7 +168,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
     <?php
     }
     if ($i == 0) {
-        echo '<tr><td colspan="8" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
+        echo '<tr><td colspan="7" class="empty_table"><span>자료가 없습니다.</span></td></tr>';
     }
     ?>
     </tbody>
@@ -234,8 +176,6 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
 </div>
 
 </form>
-
-<?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <script>
 $(function(){
