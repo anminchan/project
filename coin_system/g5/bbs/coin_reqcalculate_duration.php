@@ -9,6 +9,23 @@ include_once('./_head.php');
 
 $list = array();
 
+$sql_search = " where seller_state = '1' ";
+
+$seller_list = array();
+if($member['mb_1'] == 'seller_manager' && $member['mb_2']){
+    $seller_list = explode(",", $member['mb_2']);
+    $sql_search .= " and seller_id in ('".join("', '", $seller_list)."') ";
+}
+
+$seller_sql = " select * from {$g5['seller_table']} $sql_search ";
+//echo $seller_sql;
+$seller_result = sql_query($seller_sql);
+$seller_count = sql_num_rows($seller_result);
+$res = sql_fetch_array($seller_result);
+if($seller_count > 0 && !$seller_id) $seller_id = $res['seller_id'];
+$seller_result -> data_seek(0);
+
+
 $fr_date = (isset($_GET['fr_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_GET['fr_date'])) ? $_GET['fr_date'] : '';
 $to_date = (isset($_GET['to_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_GET['to_date'])) ? $_GET['to_date'] : '';
 
@@ -18,12 +35,8 @@ if(!$to_date) $to_date = date("Y-m-d");
 if ($fr_date && $to_date) {
     $where[] = " cc_date between '$fr_date' and '$to_date' ";
 }
-
-$seller_list = array();
-if($member['mb_1'] == 'seller_manager' && $member['mb_2']){
-    $seller_list = explode(",", $member['mb_2']);
-    $where[] = " seller_id in ('".join("', '", $seller_list)."') ";
-}
+if($seller_id)
+    $where[] = " seller_id = '$seller_id' ";
 
 if ($where) {
     $sql_search = ' where '.implode(' and ', $where);

@@ -10,11 +10,21 @@ include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
 ?>
 
 <!-- 전체게시물 검색 시작 { -->
-<fieldset id="new_sch">
+<fieldset id="coin_sch">
     <legend>상세검색</legend>
     <form name="fnew" method="get">
-        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input">
-        ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input">
+        <?php if($seller_count){ ?>
+            <label for="seller_id" class="sound_only">검색대상</label>
+            <select name="seller_id" id="seller_id">
+                <?php for($i=0; $row=sql_fetch_array($seller_result); $i++) { ?>
+                    <option value="<?php echo $row['seller_id'] ?>" <?php echo ($row['seller_id']==$seller_id ? 'selected' : '') ?>><?php echo strtoupper($row['seller_name']); ?></option>
+                <?php } ?>
+            </select>
+        <?php } ?>
+        <label for="fr_date" class="sound_only">시작일<strong class="sound_only"> 필수</strong></label>
+        <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input"> ~
+        <label for="to_date" class="sound_only">종료일<strong class="sound_only"> 필수</strong></label>
+        <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input">
         <button type="submit" class="btn_submit"><i class="fa fa-search" aria-hidden="true"></i> 검색</button>
     </form>
 
