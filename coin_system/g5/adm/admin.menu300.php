@@ -10,10 +10,11 @@ $menu['menu300'] = array (
     array('300700', 'FAQ관리', G5_ADMIN_URL.'/faqmasterlist.php', 'scf_faq', 1),
     array('300820', '글,댓글 현황', G5_ADMIN_URL.'/write_count.php', 'scf_write_count'),
 
-    array('300901', '업체등록', G5_ADMIN_URL.'/seller_form.php', 'seller'),
+    // 통합관리 시스템일 경우 사용하는 메뉴
+    /*array('300901', '업체등록', G5_ADMIN_URL.'/seller_form.php', 'seller'),
     array('300902', '영업VIEW등록', G5_ADMIN_URL.'/seller_manager_form.php', 'seller_manager'),
     array('300903', '판매기간별현황', G5_ADMIN_URL.'/seller_reqcalculate_duration.php', 'seller_reqcalculate_duration'),
-    array('300904', '판매업체별현황', G5_ADMIN_URL.'/seller_reqcalculate.php', 'seller_reqcalculate'),
+    array('300904', '판매업체별현황', G5_ADMIN_URL.'/seller_reqcalculate.php', 'seller_reqcalculate'),*/
 
     array('300970', '구매한도설정', G5_ADMIN_URL.'/salelimitform.php', 'accountlist'),
     array('300900', '계좌관리', G5_ADMIN_URL.'/accountlist.php', 'accountlist'),

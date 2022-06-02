@@ -121,9 +121,9 @@ $coin_sum = sql_fetch($sql);
         </div>
     </section>
 
-    <section class="main_section_bottom">
+    <!--<section class="main_section_bottom">
         <h2 class="main_title">Recent Purchase History</h2>
-        <button type="button" class="btn_more" onclick="location.href='<?php echo G5_BBS_URL ?>/coin_request.php'">더보기</button>
+        <button type="button" class="btn_more" onclick="location.href='<?php /*echo G5_BBS_URL */?>/coin_request.php'">더보기</button>
         <div class="custom_data_table">
             <div class="c_data_table_head">
                 <div class="c_data_table_row">
@@ -136,7 +136,7 @@ $coin_sum = sql_fetch($sql);
             </div>
             <div class="c_data_table_body">
                 <?php
-                    for ($i=0; $row=sql_fetch_array($result); $i++) {
+/*                    for ($i=0; $row=sql_fetch_array($result); $i++) {
                         $state_val = '';
                         if ( $row['cr_state'] == 0 ) $state_val = "<span class=\"custom_circle type01 \">".$gw_status[$row['cr_state']]."</span>";
                         if ( $row['cr_state'] == 1 ) $state_val = "<span class=\"custom_circle type02 \">".$gw_status[$row['cr_state']]."</span>";
@@ -144,18 +144,18 @@ $coin_sum = sql_fetch($sql);
                         if ( $row['cr_state'] == 5 ) $state_val = "<span class=\"custom_circle type01 \">".$gw_status[$row['cr_state']]."</span>";
                         if ( $row['cr_state'] == 6 ) $state_val = "<span class=\"custom_circle type02 \">".$gw_status[$row['cr_state']]."</span>";
                         if ( $row['cr_state'] == 7 ) $state_val = "<span class=\"custom_circle type03 \">".$gw_status[$row['cr_state']]."</span>";
-                ?>
+                */?>
                     <div class="c_data_table_row">
-                        <span class="c_data_table_col date"><?php echo $row['cr_date']; ?></span>
-                        <span class="c_data_table_col sales"><?php echo $gw_status2[$row['cr_state']]; ?></span>
-                        <span class="c_data_table_col state"><?php echo $state_val; ?></span>
-                        <span class="c_data_table_col coin"><?php echo number_format($row['cr_coin']); ?> COIN</span>
-                        <span class="c_data_table_col amount">￦ <?php echo number_format($row['cr_price']); ?> KRW</span>
+                        <span class="c_data_table_col date"><?php /*echo $row['cr_date']; */?></span>
+                        <span class="c_data_table_col sales"><?php /*echo $gw_status2[$row['cr_state']]; */?></span>
+                        <span class="c_data_table_col state"><?php /*echo $state_val; */?></span>
+                        <span class="c_data_table_col coin"><?php /*echo number_format($row['cr_coin']); */?> COIN</span>
+                        <span class="c_data_table_col amount">￦ <?php /*echo number_format($row['cr_price']); */?> KRW</span>
                     </div>
-                <?php } ?>
+                <?php /*} */?>
             </div>
         </div>
-    </section>
+    </section>-->
 </div>
 <?php
 include_once(G5_THEME_PATH.'/tail.php');
