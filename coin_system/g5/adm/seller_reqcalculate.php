@@ -14,7 +14,8 @@ $fr_date = (isset($_GET['fr_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0
 $to_date = (isset($_GET['to_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_GET['to_date'])) ? $_GET['to_date'] : '';
 
 if(!$fr_date) $fr_date = date("Y-m")."-01";
-if(!$to_date) $to_date = date("Y-m-d");
+//if(!$to_date) $to_date = date("Y-m-d");
+if(!$to_date) $to_date = date('Y-m-d', (G5_SERVER_TIME-86400));;
 
 if(!$duration) $duration = "D";
 
@@ -86,7 +87,7 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca.'&amp;save_stx='.$stx.'&amp;duration
         <strong>일자</strong>
         <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
-        <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
+        <!--<button type="button" onclick="javascript:set_date('오늘');">오늘</button>-->
         <button type="button" onclick="javascript:set_date('어제');">어제</button>
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>

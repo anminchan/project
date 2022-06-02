@@ -36,8 +36,10 @@ $seller_result = sql_query($seller_sql);
 $g5['title'] = '영업VIEW등록';
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 ?>
+    <div class="admin_pg_notice od_test_caution">해당 VIEW관리자는 gc-company365.com에서 판매현황 확인가능합니다.</div>
+
     <section>
-        <h2>VIEW ADMIN 내역</h2>
+        <h2>영업VIEW ADMIN 내역</h2>
         <form name="fmanagerlist" id="fmanagerlist" method="post" action="./seller_manager_delete.php" onsubmit="return fmanagerlist_submit(this);">
             <input type="hidden" name="page" value="<?php echo $page; ?>">
             <input type="hidden" name="token" value="">
@@ -91,13 +93,13 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
     <section>
-        <h2 class="h2_frm">VIEW ADMIN 등록</h2>
+        <h2 class="h2_frm">영업VIEW ADMIN 등록</h2>
         <form name="fmanager" id="fmanager" action="./seller_manager_form_update.php" method="post">
             <input type="hidden" name="token" value="">
 
             <div class="tbl_frm01 tbl_wrap">
                 <table>
-                    <caption>VIEW ADMIN  등록</caption>
+                    <caption>영업VIEW ADMIN  등록</caption>
                     <colgroup>
                         <col class="grid_4">
                         <col>

@@ -53,7 +53,7 @@ include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
                 <a href="javascript:;" class="new_board">판매코인 : <?php echo number_format($list[$i]['sum_coin1']); ?></a>
                 <a href="javascript:;" class="new_tit">판매금액 : <?php echo number_format($list[$i]['sum_price1']); ?></a>
                 <div class="new_info">
-                    <span class="sound_only">업체</span><?php echo $list[$i]['seller_id'] ?>
+                    <span class="sound_only">업체</span><b><?php echo $list[$i]['seller_id'] ?></b>
                     <span class="new_date"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $list[$i]['cc_date'] ?></span>
                 </div>
             </li>
