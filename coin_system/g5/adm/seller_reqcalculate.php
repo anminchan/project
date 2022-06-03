@@ -13,9 +13,10 @@ $where = array();
 $fr_date = (isset($_GET['fr_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_GET['fr_date'])) ? $_GET['fr_date'] : '';
 $to_date = (isset($_GET['to_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_GET['to_date'])) ? $_GET['to_date'] : '';
 
-if(!$fr_date) $fr_date = date("Y-m")."-01";
+//if(!$fr_date) $fr_date = date("Y-m")."-01";
+if(!$fr_date) $fr_date = date('Y-m-d', (G5_SERVER_TIME-86400));
 //if(!$to_date) $to_date = date("Y-m-d");
-if(!$to_date) $to_date = date('Y-m-d', (G5_SERVER_TIME-86400));;
+if(!$to_date) $to_date = date('Y-m-d', (G5_SERVER_TIME-86400));
 
 if(!$duration) $duration = "D";
 

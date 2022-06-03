@@ -41,6 +41,8 @@ if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page))
 ?>
 
 <link rel="stylesheet" href="<?php echo $alarm_url ?>/alarm.css">
+
+<iframe src="<?php echo $alarm_url;?>/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
 <script>
 var memo_alarm_url = "<?php echo $alarm_url;?>";
 //var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
@@ -50,7 +52,6 @@ var audio = new Audio("<?php echo $alarm_url;?>/alarm_sound.MP3");  // 임의 �
 <script type="text/javascript">
     $(function() {
         var gubun = "<?php echo $gubun; ?>";
-
         setInterval(function() {
             check_alarm(gubun);
             //console.log("2");
