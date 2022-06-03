@@ -29,7 +29,8 @@ include_once(G5_LIB_PATH.'/popular.lib.php');
     <div id="hd_wrapper">
 
         <div id="logo">
-            <a href="<?php echo G5_URL ?>"><img src="<?php echo G5_IMG_URL ?>/coin_logo.png" alt="<?php echo $config['cf_title']; ?>"></a>
+            <!--<a href="<?php /*echo G5_URL */?>"><img src="<?php /*echo G5_IMG_URL */?>/coin_logo.png" alt="<?php /*echo $config['cf_title']; */?>"></a>-->
+            <span><a style="display:block;color:#fff;font-size:25px;font-weight:bold;" href="<?php echo G5_URL ?>"><?php echo $config['cf_title']; ?></a></span>
         </div>
 
         <button type="button" id="gnb_open" class="hd_opener"><i class="fa fa-bars" aria-hidden="true"></i><span class="sound_only"> 메뉴열기</span></button>
