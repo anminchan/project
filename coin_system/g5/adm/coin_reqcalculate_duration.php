@@ -58,8 +58,9 @@ if($duration=='M'){
             sum(if(cr_state=5, cr_coin, 0))as sum_coin2,
             sum(if(cr_state=3, cr_coin, 0))as sum_coin3,
             sum(if(cr_state=4, cr_coin, 0))as sum_coin4
-          $sql_common
-          group by DATE_FORMAT(cr_uptime,'%Y-%m') ";
+            $sql_common
+            group by DATE_FORMAT(cr_uptime,'%Y-%m')
+            order by cr_date desc ";
 }else{
     $sql  = " select DATE_FORMAT(cr_uptime,'%Y-%m-%d')as cr_date,
             sum(if(cr_state=1, 1, 0))as sum_qty1,
@@ -69,8 +70,9 @@ if($duration=='M'){
             sum(if(cr_state=5, cr_coin, 0))as sum_coin2,
             sum(if(cr_state=3, cr_coin, 0))as sum_coin3,
             sum(if(cr_state=4, cr_coin, 0))as sum_coin4
-          $sql_common
-          group by DATE_FORMAT(cr_uptime,'%Y-%m-%d') ";
+            $sql_common
+            group by DATE_FORMAT(cr_uptime,'%Y-%m-%d') 
+            order by cr_date desc ";
 }
 //echo $sql;
 $result = sql_query($sql);
