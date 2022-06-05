@@ -238,6 +238,21 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktbtg@';
 FLUSH PRIVILEGES;
 
 
+11. 업체명 : 10king
+    gc-btg.com
+    gc-btg.com/adm
+신청 아이디 : coinmkt10king / coinmkt10king!
+임시 root 비밀번호 : coinmkt10king@
+
+
+CREATE DATABASE coinmkt10king default CHARACTER SET UTF8;
+CREATE USER 'coinmkt10king'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt10king.* to 'coinmkt10king'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt10king.* to 'coinmkt10king'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkt10king@';
+FLUSH PRIVILEGES;
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 
@@ -263,10 +278,12 @@ delete from g5_coin_sum;
 delete from g5_account;
 delete from g5_visit;
 delete from g5_visit_sum;
+delete from g5_member where mb_id not in('admin','nimdasys','nimda2','nimda1','mng365');
 -- delete from g5_auth;
 
-// 메뉴 수정
-update g5_menu set me_link = REPLACE(me_link, 'gc-gogo777', 'gc-{업체명}');
+
+-- 메뉴 수정
+update g5_menu set me_link = REPLACE(me_link, 'gc-10king', 'gc-{업체명}');
 
 
 // 매니져권한
@@ -319,7 +336,7 @@ insert into g5_auth set mb_id = 'mng365', au_menu = '300990', au_auth = 'r';
 mysqldump -uroot -p db명 > /저장경로/mydump220421.sql
 
 복구
-mysql -uroot -p coinmkt{업체명} < /var/www/coinmkt{업체명}/document/mydump220421.sql
+mysql -uroot -p coinmkt{업체명} < /var/www/coinmkt{업체명}/document/mydump220604.sql
 
 mysql 스케쥴활성화
 SET GLOBAL event_scheduler = ON;

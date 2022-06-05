@@ -14,8 +14,11 @@ if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
     $except_alarm_page = array('auth_list.php',
         'config_form.php',
         'member_list.php',
+        'member_form.php',
         'visit_search.php',
         'visit_list.php',
+        'accountlist.php',
+        'manageraddform.php',
         'coin_changelist.php');
 
     $gubun = 'admin';
@@ -23,8 +26,11 @@ if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
     $except_alarm_page = array('auth_list.php',
         'config_form.php',
         'member_list.php',
+        'member_form.php',
         'visit_search.php',
         'visit_list.php',
+        'accountlist.php',
+        'manageraddform.php',
         'coin_reqlist.php',
         'coin_reqinoutlist.php',
         'coin_reqcalculatelist.php',
