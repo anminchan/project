@@ -17,8 +17,6 @@ if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
         'member_form.php',
         'visit_search.php',
         'visit_list.php',
-        'accountlist.php',
-        'manageraddform.php',
         'coin_changelist.php');
 
     $gubun = 'admin';
@@ -29,8 +27,6 @@ if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
         'member_form.php',
         'visit_search.php',
         'visit_list.php',
-        'accountlist.php',
-        'manageraddform.php',
         'coin_reqlist.php',
         'coin_reqinoutlist.php',
         'coin_reqcalculatelist.php',
@@ -39,7 +35,12 @@ if ($is_admin == 'super' || $member['mb_level'] >= 9 ) {
     $gubun = 'view_admin';
 }
 
-print_r($except_alarm_page);
+$reload = false;
+if (in_array(basename($_SERVER['PHP_SELF']), array('coin_reqlist.php','coin_changelist.php')))
+{
+    $reload = true;
+}
+
 if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page))
 { 
 	if ($member['mb_id'])
@@ -47,21 +48,25 @@ if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page))
 ?>
 
 <link rel="stylesheet" href="<?php echo $alarm_url ?>/alarm.css">
-
 <iframe src="<?php echo $alarm_url;?>/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
 <script>
 var memo_alarm_url = "<?php echo $alarm_url;?>";
-//var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
-var audio = new Audio("<?php echo $alarm_url;?>/alarm_sound.MP3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
+var audio = new Audio("<?php echo $alarm_url;?>/memo_on.mp3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
+//var audio = new Audio("<?php echo $alarm_url;?>/alarm_sound.MP3");  // 임의 폴더 아래에 사운드 파일을 넣고 자바스크립트 동일경로
 </script>
 <script src="<?php echo $alarm_url ?>/alarm.js"></script>
 <script type="text/javascript">
     $(function() {
         var gubun = "<?php echo $gubun; ?>";
         setInterval(function() {
-            check_alarm(gubun);
             //console.log("2");
-            location.reload();
+            if("<?php echo $reload ?>"){
+                //console.log("!");
+                location.reload();
+            }else{
+                //console.log("@");
+                check_alarm(gubun);
+            }
         }, <?php echo $wset['delay'] ?>);
         //console.log("1");
         check_alarm(gubun);

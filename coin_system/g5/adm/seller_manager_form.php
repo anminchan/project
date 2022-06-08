@@ -40,7 +40,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 
     <section>
         <h2>영업VIEW ADMIN 내역</h2>
-        <form name="fmanagerlist" id="fmanagerlist" method="post" action="./seller_manager_delete.php" onsubmit="return fmanagerlist_submit(this);">
+        <form name="fmanagerlist" id="fmanagerlist" method="post" action="./seller_manager_update.php" onsubmit="return fmanagerlist_submit(this);">
             <input type="hidden" name="page" value="<?php echo $page; ?>">
             <input type="hidden" name="token" value="">
             <div class="tbl_head01 tbl_wrap">
@@ -62,6 +62,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                     <?php
                     for($i=0; $row=sql_fetch_array($result); $i++) {
                         $bg = 'bg'.($i%2);
+                        $myArray = explode(',', $row['mb_2']);
                         ?>
                         <tr class="<?php echo $bg; ?>">
                             <td class="td_chk">
@@ -70,10 +71,16 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                             </td>
                             <td class="td_id"><?php echo $row['mb_id']; ?></td>
                             <td class="td_name"><?php echo $row['mb_name']; ?></td>
-                            <td class="td_mng"><?php echo $row['mb_2']; ?></td>
+                            <td class="td_left">
+                                <?php for($j=0; $row2=sql_fetch_array($seller_result); $j++) { ?>
+                                    <input type="checkbox" name="view_seller_id<?php echo $i ?>[]" id="view_seller_id<?php echo $i.'_'.$j;?>" value="<?php echo $row2['seller_id'] ?>" class="selec_chk" <?php if(in_array($row2['seller_id'], $myArray)){ ?>checked<?php }?>>
+                                    <label for="view_seller_id<?php echo $i.'_'.$j;?>"><?php echo strtoupper($row2['seller_name']); ?></label>
+                                <?php } ?>
+                            </td>
                             <td class="td_datetime"><?php echo $row['mb_datetime']; ?></td>
                         </tr>
                         <?php
+                        $seller_result -> data_seek(0);
                     }
 
                     if ($i == 0)
@@ -85,6 +92,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 
             <div class="btn_list01 btn_list">
                 <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn_frmline">
+                <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn_submit btn">
             </div>
 
         </form>

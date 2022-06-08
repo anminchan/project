@@ -1,7 +1,7 @@
 var show_alarm_exist=false;
 
 function check_alarm(gubun){
-	console.log(gubun);
+	//console.log("gubun : "+gubun);
 	$.ajax({
 		type:'POST',
 		data : ({act : 'alarm', gubun : gubun}),
