@@ -207,7 +207,7 @@ $colspan = 16;
             <?php echo $mb_id ?>
         </td>
         <td headers="mb_list_mobile" class="td_tel"><?php echo get_text($row['mb_hp']); ?></td>
-        <td headers="mb_list_coin" rowspan="2" class="td_num"><a href="point_list.php?sfl=mb_id&amp;stx=<?php echo $row['mb_id'] ?>"><?php echo number_format($row['mb_coin']); ?></a></td>
+        <td headers="mb_list_coin" rowspan="2" class="td_num"><a href="javascript:;" onclick="window.open('./coin_pop_historylist.php?mb_id=<?php echo $row['mb_id'] ?>', '', 'width=500,height=550,scrollbars=1,menus=0');"><?php echo number_format($row['mb_coin']); ?></a></td>
         <td headers="" rowspan="2" class="td_bank">
             <?php echo ($row['mb_bank_nm'] && $row['mb_bank_account']) ? $row['mb_bank_nm'].' / '.$row['mb_bank_account'].' / '.$row['mb_bank_holder'] : ''; ?>
         </td>

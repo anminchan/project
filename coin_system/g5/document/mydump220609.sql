@@ -1,6 +1,6 @@
 -- MySQL dump 10.14  Distrib 5.5.68-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: coinmktgogo77
+-- Host: localhost    Database: coinmktbeast
 -- ------------------------------------------------------
 -- Server version	5.5.68-MariaDB
 
@@ -31,7 +31,7 @@ CREATE TABLE `g5_accesslog` (
   `log_memo` text,
   `log_gubun` varchar(255) DEFAULT '',
   PRIMARY KEY (`index_no`)
-) ENGINE=MyISAM AUTO_INCREMENT=390 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=418 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `g5_account` (
   `ac_memo` text,
   `mb_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ac_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,7 +390,7 @@ CREATE TABLE `g5_coin_req` (
   `cr_balance` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cr_id`),
   KEY `g5_coin_req_cr_state_idx` (`cr_state`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,8 +436,8 @@ DROP TABLE IF EXISTS `g5_coin_sum`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `g5_coin_sum` (
   `cc_date` date NOT NULL,
-  `mb_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `mb_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mb_id` varchar(100) NOT NULL,
+  `mb_name` varchar(100) NOT NULL,
   `cc_sum0` int(11) DEFAULT '0' COMMENT '요청',
   `cc_sum1` int(11) DEFAULT '0' COMMENT '승인',
   `cc_sum2` int(11) DEFAULT '0' COMMENT '취소',
@@ -450,7 +450,7 @@ CREATE TABLE `g5_coin_sum` (
   `cc_sum_price2` int(11) DEFAULT '0' COMMENT '취소금액',
   KEY `g5_coin_sum_cc_date_idx` (`cc_date`) USING BTREE,
   KEY `g5_coin_sum_mb_id_idx` (`mb_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -635,7 +635,7 @@ CREATE TABLE `g5_config` (
 
 LOCK TABLES `g5_config` WRITE;
 /*!40000 ALTER TABLE `g5_config` DISABLE KEYS */;
-INSERT INTO `g5_config` VALUES ('GOGO777코인','basic','nimdasys','admin@domain.com','그누보드5','',1,0,1,0,100,15,60,'basic',15,'basic','basic','basic',0,0,0,0,10,5,'_blank',0,30,'18아,18놈,18새끼,18뇬,18노,18것,18넘,개년,개놈,개뇬,개새,개색끼,개세끼,개세이,개쉐이,개쉑,개쉽,개시키,개자식,개좆,게색기,게색끼,광뇬,뇬,눈깔,뉘미럴,니귀미,니기미,니미,도촬,되질래,뒈져라,뒈진다,디져라,디진다,디질래,병쉰,병신,뻐큐,뻑큐,뽁큐,삐리넷,새꺄,쉬발,쉬밸,쉬팔,쉽알,스패킹,스팽,시벌,시부랄,시부럴,시부리,시불,시브랄,시팍,시팔,시펄,실밸,십8,십쌔,십창,싶알,쌉년,썅놈,쌔끼,쌩쑈,썅,써벌,썩을년,쎄꺄,쎄엑,쓰바,쓰발,쓰벌,쓰팔,씨8,씨댕,씨바,씨발,씨뱅,씨봉알,씨부랄,씨부럴,씨부렁,씨부리,씨불,씨브랄,씨빠,씨빨,씨뽀랄,씨팍,씨팔,씨펄,씹,아가리,아갈이,엄창,접년,잡놈,재랄,저주글,조까,조빠,조쟁이,조지냐,조진다,조질래,존나,존니,좀물,좁년,좃,좆,좇,쥐랄,쥐롤,쥬디,지랄,지럴,지롤,지미랄,쫍빱,凸,퍽큐,뻑큐,빠큐,ㅅㅂㄹㅁ','','','','','','','basic',0,0,0,0,0,0,0,0,0,0,0,0,2,1000,2,0,0,30,10000,1,0,0,0,0,0,0,0,0,'admin,administrator,관리자,운영자,어드민,주인장,webmaster,웹마스터,sysop,시삽,시샵,manager,매니저,메니저,root,루트,su,guest,방문객','',30,180,180,180,'2022-05-31',2,5000,22,22,50000,60,60,10,'gif|jpg|jpeg|png','swf','asx|asf|wmv|wma|mpg|mpeg|mov|avi|mp3',1,15,15,'오늘:1,어제:0,최대:1,전체:1',0,'해당 홈페이지에 맞는 회원가입약관을 입력합니다.','해당 홈페이지에 맞는 개인정보처리방침을 입력합니다.',0,500,'basic','basic','basic','basic','basic','basic','smarteditor2',0,0,'','','','','','','','','',2,0,'','','','','211.172.232.124','7295','','',0,'','','','','','','','','','','','','','','kcaptcha','6Lf5f84eAAAAADL_FIVHhmZpLmNtlJLUez1HvPgO','6Lf5f84eAAAAAMgBZPmEKUX7viSNmySWsEk9aDrK','Wallet_Addr','Refresh_Token','access_token','client_server_ip','1회구매한도','1일구매한도','','','','','eI8OW1vrPXhDcssrRdUd6tlNqxK6uAuIjD','eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifS57ImV4cCI6Ijk5OTk5OTk5OTkiLCJpYXQiOjE2NTM5ODI0OTYsImlkIjoiY29pbm1hcmtldCIsImVtYWlsIjoiWVdSdGFXNUFaRzl0WVdsdUxtTnZiUT09IiwicGFzc3dvcmQiOiJjWGRsTVRJeklVQWoifS5mYzFjYjBiN2I2NmI3MzU1ZDk4ZWUyYjFiNWRjZmU4OGZmZWUzY2M3MWUzZmQ2N2Y3ZjRmNWM3ZmVmYmE3OTNk','','127.0.0.1,211.230.48.26','20000000','','','','','');
+INSERT INTO `g5_config` VALUES ('BEAST코인','basic','nimdasys','admin@domain.com','그누보드5','',1,0,1,0,100,15,60,'basic',15,'basic','basic','basic',0,0,0,0,10,5,'_blank',0,30,'18아,18놈,18새끼,18뇬,18노,18것,18넘,개년,개놈,개뇬,개새,개색끼,개세끼,개세이,개쉐이,개쉑,개쉽,개시키,개자식,개좆,게색기,게색끼,광뇬,뇬,눈깔,뉘미럴,니귀미,니기미,니미,도촬,되질래,뒈져라,뒈진다,디져라,디진다,디질래,병쉰,병신,뻐큐,뻑큐,뽁큐,삐리넷,새꺄,쉬발,쉬밸,쉬팔,쉽알,스패킹,스팽,시벌,시부랄,시부럴,시부리,시불,시브랄,시팍,시팔,시펄,실밸,십8,십쌔,십창,싶알,쌉년,썅놈,쌔끼,쌩쑈,썅,써벌,썩을년,쎄꺄,쎄엑,쓰바,쓰발,쓰벌,쓰팔,씨8,씨댕,씨바,씨발,씨뱅,씨봉알,씨부랄,씨부럴,씨부렁,씨부리,씨불,씨브랄,씨빠,씨빨,씨뽀랄,씨팍,씨팔,씨펄,씹,아가리,아갈이,엄창,접년,잡놈,재랄,저주글,조까,조빠,조쟁이,조지냐,조진다,조질래,존나,존니,좀물,좁년,좃,좆,좇,쥐랄,쥐롤,쥬디,지랄,지럴,지롤,지미랄,쫍빱,凸,퍽큐,뻑큐,빠큐,ㅅㅂㄹㅁ','','','','','','','basic',0,0,0,0,0,0,0,0,0,0,0,0,2,1000,2,0,0,30,10000,1,0,0,0,0,0,0,0,0,'admin,administrator,관리자,운영자,어드민,주인장,webmaster,웹마스터,sysop,시삽,시샵,manager,매니저,메니저,root,루트,su,guest,방문객','',30,180,180,180,'2022-06-09',2,5000,22,22,50000,60,60,10,'gif|jpg|jpeg|png','swf','asx|asf|wmv|wma|mpg|mpeg|mov|avi|mp3',1,15,15,'오늘:1,어제:0,최대:1,전체:1',0,'해당 홈페이지에 맞는 회원가입약관을 입력합니다.','해당 홈페이지에 맞는 개인정보처리방침을 입력합니다.',0,500,'basic','basic','basic','basic','basic','basic','smarteditor2',0,0,'','','','','','','','','',2,0,'','','','','211.172.232.124','7295','','',0,'','','','','','','','','','','','','','','kcaptcha','6Lf5f84eAAAAADL_FIVHhmZpLmNtlJLUez1HvPgO','6Lf5f84eAAAAAMgBZPmEKUX7viSNmySWsEk9aDrK','Wallet_Addr','Refresh_Token','access_token','client_server_ip','1회구매한도','1일구매한도','','','','','bl5fm8YGpV0TUgiGoinxXJQq6A0xa7fltk','eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifS57ImV4cCI6Ijk5OTk5OTk5OTkiLCJpYXQiOjE2NTQ3NDk5ODUsImlkIjoiY29pbm1hcmtldCIsImVtYWlsIjoiWVdSdGFXNUFaRzl0WVdsdUxtTnZiUT09IiwicGFzc3dvcmQiOiJjWGRsTVRJeklVQWoifS5iNDMyNjZiNzBmODFmYzFmZDhjZWU4YjAwYzE4ODBmZTUxMDdjNDUyODNmNzNkOTJlMzkwMmI0MmFmMGE5ZjQw','','127.0.0.1,211.230.48.26','8000000','','','','','');
 /*!40000 ALTER TABLE `g5_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -828,7 +828,7 @@ CREATE TABLE `g5_login` (
 
 LOCK TABLES `g5_login` WRITE;
 /*!40000 ALTER TABLE `g5_login` DISABLE KEYS */;
-INSERT INTO `g5_login` VALUES ('211.230.48.26','nimdasys','2022-05-31 16:41:03','관리자메인',''),('222.175.199.226','','2022-05-31 16:32:00','오류안내 페이지','/');
+INSERT INTO `g5_login` VALUES ('211.230.48.26','nimdasys','2022-06-09 13:46:38','코인 전환관리','');
 /*!40000 ALTER TABLE `g5_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -930,7 +930,7 @@ CREATE TABLE `g5_member` (
   UNIQUE KEY `mb_id` (`mb_id`),
   KEY `mb_today_login` (`mb_today_login`),
   KEY `mb_datetime` (`mb_datetime`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -939,7 +939,7 @@ CREATE TABLE `g5_member` (
 
 LOCK TABLES `g5_member` WRITE;
 /*!40000 ALTER TABLE `g5_member` DISABLE KEYS */;
-INSERT INTO `g5_member` VALUES (1,'admin','sha256:12000:9jLrNqUxHPD8DqKBHgsNQUWgov8nSAXo:0Hn84wLOabvpGIpG72herGHmztIaULEw','*89D7BD71DC445863350CAFF1C3ED93389081D29D','최고관리자','최고관리자','2021-11-19','admin@domain.com','',10,'','','','','',0,'','','','','','','','','',100,'2022-03-04 14:43:05','211.230.48.26','2021-11-19 14:43:16','1.209.128.223','','','2021-11-19 14:43:16','','','',1,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,NULL,0),(2,'nimdasys','sha256:12000:SM+VL5U58xqsj/JLJMSkLs1ugUuZxQ7L:mU6t1E1wQqWnj2IzA7l6cS94WM17A5Ac','','최고관리자','최관자','0000-00-00','nimdasys@domain.com','',10,'','','','','',0,'','','','','','','','','',0,'2022-05-31 16:34:12','211.230.48.26','2022-03-04 15:23:49','211.230.48.26','','','2022-03-04 15:23:49','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','','','','','',0),(11,'nimda1','sha256:12000:X6rtbckVcKqmNnbs+La4WJdCuA4B+Fmx:FgOuixxqTTbDFJJJYjpRo9+TyLtgc2on','','관리자1','관리자1','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'2022-04-21 00:00:09','218.233.19.107','2022-03-23 17:36:25','211.230.48.26','','','2022-03-23 17:36:25','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,'cLxhKMmXXPPMKlv4NaAC1V6J19n93Kfxa9',0),(12,'nimda2','sha256:12000:6y5PbSf5il1tDdU5w023wfucbp/j2G+t:Eex7vWctcMClgDTVd4ZThZNTLjZPvSoH','','관리자2','관리자2','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'2022-04-20 13:06:00','211.230.48.26','2022-03-23 17:36:25','211.230.48.26','','','2022-03-23 17:36:25','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,'AJEhyMymBQr6MO3LKT6QX1GaCOoUyGoDzl',0),(34,'mng365','sha256:12000:bBuHdlPEK0zQIozknlY+8rM5I3/55guO:rvgZMu3xVD0drvSnQwTxTiaUktT/vuGk','','mng365','mng365','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'0000-00-00 00:00:00','','2022-05-31 16:36:30','211.230.48.26','','','2022-05-31 16:36:30','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','','0','기업','운영자','jpkFB4NxrAsWy0GEyZR72dPWhWxSY8nhxH',0);
+INSERT INTO `g5_member` VALUES (1,'admin','sha256:12000:9jLrNqUxHPD8DqKBHgsNQUWgov8nSAXo:0Hn84wLOabvpGIpG72herGHmztIaULEw','*89D7BD71DC445863350CAFF1C3ED93389081D29D','최고관리자','최고관리자','2021-11-19','admin@domain.com','',10,'','','','','',0,'','','','','','','','','',100,'2022-03-04 14:43:05','211.230.48.26','2021-11-19 14:43:16','1.209.128.223','','','2021-11-19 14:43:16','','','',1,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,NULL,0),(2,'nimdasys','sha256:12000:SM+VL5U58xqsj/JLJMSkLs1ugUuZxQ7L:mU6t1E1wQqWnj2IzA7l6cS94WM17A5Ac','','최고관리자','최관자','0000-00-00','nimdasys@domain.com','',10,'','','','','',0,'','','','','','','','','',0,'2022-06-09 13:46:07','211.230.48.26','2022-03-04 15:23:49','211.230.48.26','','','2022-03-04 15:23:49','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','','','','','',0),(11,'nimda1','sha256:12000:X6rtbckVcKqmNnbs+La4WJdCuA4B+Fmx:FgOuixxqTTbDFJJJYjpRo9+TyLtgc2on','','관리자1','관리자1','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'2022-06-04 00:00:05','121.182.215.88','2022-03-23 17:36:25','211.230.48.26','','','2022-03-23 17:36:25','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,'cLxhKMmXXPPMKlv4NaAC1V6J19n93Kfxa9',0),(12,'nimda2','sha256:12000:6y5PbSf5il1tDdU5w023wfucbp/j2G+t:Eex7vWctcMClgDTVd4ZThZNTLjZPvSoH','','관리자2','관리자2','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'2022-04-20 13:06:00','211.230.48.26','2022-03-23 17:36:25','211.230.48.26','','','2022-03-23 17:36:25','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','',NULL,NULL,NULL,'AJEhyMymBQr6MO3LKT6QX1GaCOoUyGoDzl',0),(34,'mng365','sha256:12000:bBuHdlPEK0zQIozknlY+8rM5I3/55guO:rvgZMu3xVD0drvSnQwTxTiaUktT/vuGk','','mng365','mng365','0000-00-00','','',9,'','','','','',0,'','','','','','','','','',0,'0000-00-00 00:00:00','','2022-05-31 16:36:30','211.230.48.26','','','2022-05-31 16:36:30','','','',0,0,1,'0000-00-00','','',0,0,'','','','','','','','','','','0','기업','운영자','jpkFB4NxrAsWy0GEyZR72dPWhWxSY8nhxH',0);
 /*!40000 ALTER TABLE `g5_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1063,7 +1063,7 @@ CREATE TABLE `g5_menu` (
 
 LOCK TABLES `g5_menu` WRITE;
 /*!40000 ALTER TABLE `g5_menu` DISABLE KEYS */;
-INSERT INTO `g5_menu` VALUES (6,'10','구매현황','http://gc-gogo777.com/bbs/coin_request.php','self',0,1,1),(7,'20','코인구매','http://gc-gogo777.com/bbs/coin_request_form.php','self',0,1,1),(8,'30','코인전환','http://gc-gogo777.com/bbs/coin_change_form.php','self',0,1,1);
+INSERT INTO `g5_menu` VALUES (6,'10','구매현황','http://gc-beast.com/bbs/coin_request.php','self',0,1,1),(7,'20','코인구매','http://gc-beast.com/bbs/coin_request_form.php','self',0,1,1),(8,'30','코인전환','http://gc-beast.com/bbs/coin_change_form.php','self',0,1,1);
 /*!40000 ALTER TABLE `g5_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2545,7 +2545,7 @@ CREATE TABLE `g5_visit` (
 
 LOCK TABLES `g5_visit` WRITE;
 /*!40000 ALTER TABLE `g5_visit` DISABLE KEYS */;
-INSERT INTO `g5_visit` VALUES (1,'211.230.48.26','2022-05-31','16:34:08','','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 Edg/89.0.774.68','','','');
+INSERT INTO `g5_visit` VALUES (1,'211.230.48.26','2022-06-09','13:46:02','','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','','','');
 /*!40000 ALTER TABLE `g5_visit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2570,7 +2570,7 @@ CREATE TABLE `g5_visit_sum` (
 
 LOCK TABLES `g5_visit_sum` WRITE;
 /*!40000 ALTER TABLE `g5_visit_sum` DISABLE KEYS */;
-INSERT INTO `g5_visit_sum` VALUES ('2022-05-31',1);
+INSERT INTO `g5_visit_sum` VALUES ('2022-06-09',1);
 /*!40000 ALTER TABLE `g5_visit_sum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2839,4 +2839,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-31 16:41:54
+-- Dump completed on 2022-06-09 13:48:55
