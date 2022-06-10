@@ -2,8 +2,10 @@
 if (!defined('_INDEX_')) define('_INDEX_', true);
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-if (!$is_member)
-    alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+if (!$is_member){
+    //alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+    goto_url(G5_BBS_URL.'/login.php?url='.urlencode($url));
+}
 
 if (G5_IS_MOBILE) {
     include_once(G5_THEME_MOBILE_PATH.'/index.php');
@@ -122,6 +124,14 @@ $coin_sum = sql_fetch($sql);
     </section>
 
     <!--<section class="main_section_bottom">
+        <form name="form" action="<?php /*echo G5_URL */?>/api/sso/sso.php" method="post">
+            <input type="hidden" name="mb_id" value="<?php /*echo $member['mb_id']*/?>"/>
+            <input type="hidden" name="authKey" value="<?php /*echo $config['cf_3']*/?>"/>
+        </form>
+        <a href="javascript:;" onclick="fnsso();">sso</a>
+    </section>-->
+    
+    <!--<section class="main_section_bottom">
         <h2 class="main_title">Recent Purchase History</h2>
         <button type="button" class="btn_more" onclick="location.href='<?php /*echo G5_BBS_URL */?>/coin_request.php'">더보기</button>
         <div class="custom_data_table">
@@ -157,5 +167,13 @@ $coin_sum = sql_fetch($sql);
         </div>
     </section>-->
 </div>
+<script>
+    function fnsso(){
+        var gsWin = window.open("about:blank", "Wincoin");
+        var frm = document.form;
+        frm.target = "Wincoin";
+        frm.submit();
+    }
+</script>
 <?php
 include_once(G5_THEME_PATH.'/tail.php');

@@ -4,8 +4,10 @@ include_once('./_common.php');
 define('_INDEX_', true);
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-if (!$is_member)
-    alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+if (!$is_member){
+    //alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+    goto_url(G5_BBS_URL.'/login.php?url='.urlencode($url));
+}
 
 if(defined('G5_THEME_PATH')) {
     require_once(G5_THEME_PATH.'/index.php');

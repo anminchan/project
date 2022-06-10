@@ -1,8 +1,10 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-if (!$is_member)
-    alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+if (!$is_member){
+    //alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
+    goto_url(G5_BBS_URL.'/login.php?url='.urlencode($url));
+}
 
 /*if(G5_COMMUNITY_USE === false) {
     include_once(G5_THEME_MSHOP_PATH.'/index.php');
