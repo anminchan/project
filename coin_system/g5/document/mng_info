@@ -267,6 +267,37 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktbeast@';
 FLUSH PRIVILEGES;
 
 
+
+13. 업체명 : 170
+    gc-170.com/adm
+    gc-170.com
+신청 아이디 : coinmkt170 / coinmkt170!
+임시 root 비밀번호 : coinmkt170@
+
+CREATE DATABASE coinmkt170 default CHARACTER SET UTF8;
+CREATE USER 'coinmkt170'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt170.* to 'coinmkt170'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt170.* to 'coinmkt170'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkt170@';
+FLUSH PRIVILEGES;
+
+
+14. 업체명 : 270
+    gc-270.com/adm
+    gc-270.com
+신청 아이디 : coinmkt270 / coinmkt270!
+임시 root 비밀번호 : coinmkt270@
+
+CREATE DATABASE coinmkt270 default CHARACTER SET UTF8;
+CREATE USER 'coinmkt270'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt270.* to 'coinmkt270'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt270.* to 'coinmkt270'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkt270@';
+FLUSH PRIVILEGES;
+
+
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 
@@ -522,7 +553,8 @@ if i_Req_Cnt <= 0 then
 
 end if;
 
-END
+END;
+
 
 CREATE PROCEDURE coin_total_day_sum()
 BEGIN
@@ -560,7 +592,7 @@ BEGIN
 
        	end if;
 
-END
+END;
 
 
 소스백업
