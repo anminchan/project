@@ -296,6 +296,19 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkt270@';
 FLUSH PRIVILEGES;
 
 
+15. 업체명 : 마스터
+gc-coinmaster.com
+gc-coinmaster.com/adm
+신청 아이디 : coinmktmaster / coinmktmaster!
+임시 root 비밀번호 : coinmktmaster@
+
+CREATE DATABASE coinmktmaster default CHARACTER SET UTF8;
+CREATE USER 'coinmktmaster'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktmaster.* to 'coinmktmaster'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktmaster.* to 'coinmktmaster'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktmaster@';
+FLUSH PRIVILEGES;
+
 
 
 ##########디비생성START############
