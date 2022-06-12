@@ -1,4 +1,5 @@
 <?php
+$sub_menu = '300920';
 include_once('./_common.php');
 
 auth_check_menu($auth, $sub_menu, "r");

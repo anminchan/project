@@ -158,7 +158,8 @@ $listall .= '<a href="#" id="frmExcel" class="ov_Excelall">엑셀다운로드</a
     </div>
 </form>
 
-<form name="fcoin_reqlist" method="post" action="./coin_reqlistupdate.php" onsubmit="return fcoin_reqlist_submit(this);" autocomplete="off">
+<form name="fcoin_reqlist" id="fcoin_reqlist" method="post" onsubmit="return fcoin_reqlist_submit(this);" autocomplete="off">
+
 <input type="hidden" name="sca" value="<?php echo $sca; ?>">
 <input type="hidden" name="sst" value="<?php echo $sst; ?>">
 <input type="hidden" name="sod" value="<?php echo $sod; ?>">
