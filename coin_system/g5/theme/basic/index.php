@@ -130,7 +130,7 @@ $coin_sum = sql_fetch($sql);
         </form>
         <a href="javascript:;" onclick="fnsso();">sso</a>
     </section>-->
-    
+
     <!--<section class="main_section_bottom">
         <h2 class="main_title">Recent Purchase History</h2>
         <button type="button" class="btn_more" onclick="location.href='<?php /*echo G5_BBS_URL */?>/coin_request.php'">더보기</button>

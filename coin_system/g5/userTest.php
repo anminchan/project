@@ -49,6 +49,12 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <input type="hidden" id="refresh_token" name="refresh_token" value="<?php echo $config['cf_2'] ?>" class="frm_input">
 
         <h2>토큰</h2>
+            <ul>
+                <li>
+                    <label>Refresh Token</label>
+                    <span><textarea><?php echo $config['cf_2'] ?></textarea></span>
+                </li>
+            </ul>
         <ul>
             <li>
                 <label>AccessToken발행</label>
