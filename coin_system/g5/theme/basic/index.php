@@ -124,7 +124,7 @@ $coin_sum = sql_fetch($sql);
     </section>
 
     <!--<section class="main_section_bottom">
-        <form name="form" action="<?php /*echo G5_URL */?>/api/sso/sso.php" method="post">
+        <form name="form" action="<?php /*echo G5_URL */?>/api/sso/s01.php" method="post">
             <input type="hidden" name="mb_id" value="<?php /*echo $member['mb_id']*/?>"/>
             <input type="hidden" name="authKey" value="<?php /*echo $config['cf_3']*/?>"/>
         </form>

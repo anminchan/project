@@ -28,7 +28,7 @@ if( !in_array($client_ip, $client_server_ip) ) {
 }
 
 if( $token_txt != trim($config['cf_3']) ) {
-    $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'refresh token 정보가 잘못되었습니다.', 'data' => ""];
+    $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'accessToken 정보가 잘못되었습니다.', 'data' => ""];
     die(json_encode($json_data));
 }
 
