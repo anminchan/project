@@ -69,7 +69,7 @@ for($i=0; $row=sql_fetch_array($seller_result); $i++) {
         <strong>일자</strong>
         <input type="text" id="fr_date"  name="fr_date" value="<?php echo $fr_date; ?>" readonly class="frm_input" size="10" maxlength="10">
         ~ <input type="text" id="to_date"  name="to_date" value="<?php echo $to_date; ?>" readonly class="frm_input" size="10" maxlength="10">
-        <!--<button type="button" onclick="javascript:set_date('오늘');">오늘</button>-->
+        <button type="button" onclick="javascript:set_date('오늘');">오늘</button>
         <button type="button" onclick="javascript:set_date('어제');">어제</button>
         <button type="button" onclick="javascript:set_date('이번주');">이번주</button>
         <button type="button" onclick="javascript:set_date('이번달');">이번달</button>
