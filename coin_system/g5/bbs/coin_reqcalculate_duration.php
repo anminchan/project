@@ -81,7 +81,7 @@ $sql  = " select sum(cc_sum_price1)as sum_price1,
             $sql_common $sql_search ";
 $sum_rst = sql_fetch($sql);
 
-$write_pages = get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "?fr_date=$fr_date&to_date=$to_date&amp;page=");
+$write_pages = get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "?fr_date=$fr_date&amp;to_date=$to_date&amp;seller_id=$seller_id&amp;page=");
 
 include_once($coin_skin_path.'/coin_reqcalculate_duration.skin.php');
 
