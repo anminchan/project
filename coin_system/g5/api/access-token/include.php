@@ -23,7 +23,7 @@ $token_txt = $headers['Authorization'];
 $client_ip = getRealClientIp();
 $client_server_ip = explode(",", trim($config['cf_4']));
 if( !in_array($client_ip, $client_server_ip) ) {
-    $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'The use of the api has been discontinued (unregistered) or the ip is not allowed', 'data' => ""];
+    $json_data = ['success' => false, 'code' => "401", 'message' => 'Bad Request', 'error' => 'The use of the api has been discontinued (unregistered) or the ip is not allowed('.$client_ip.')', 'data' => ""];
     die(json_encode($json_data));
 }
 

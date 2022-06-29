@@ -44,7 +44,7 @@ if (isset($mb['mb_id']) && $mb['mb_id']){
 
 $mb_address = getRandStr(34);
 for($i=0; $row=100; $i++) {
-    $result = sql_fetch(" select count(*)as cnt from {$g5['member_table']} where mb_wallet_addr = '$mb_address' '");
+    $result = sql_fetch(" select count(*)as cnt from {$g5['member_table']} where mb_wallet_addr = '$mb_address' ");
     if(!$result['cnt']){
         $mb_address = getRandStr(34);
         break;
