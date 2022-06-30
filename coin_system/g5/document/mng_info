@@ -125,6 +125,8 @@ select user, host, password from user;
    api연동 X
    gc-up.com
    gc-up.com/adm
+   gc-ib.com
+   gc-ib.com/adm
    신청 아이디 : coinmktup / coinmktup!
    임시 root 비밀번호 : coinmktup@
 
@@ -158,6 +160,8 @@ FLUSH PRIVILEGES;
 api연동 X
 gc-start.com
 gc-start.com/adm
+gc-startbucks.com
+gc-startbucks.com/adm
 신청 아이디 : coinmktstart / coinmktstart!
 임시 root 비밀번호 : coinmktstart@
 

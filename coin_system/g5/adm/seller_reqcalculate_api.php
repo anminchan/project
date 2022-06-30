@@ -38,7 +38,7 @@ $to_date = (isset($_GET['to_date']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0
 if(!$fr_date) $fr_date = date("Y-m-d");
 if(!$to_date) $to_date = date("Y-m-d");
 
-$seller_sql = " select * from {$g5['seller_table']} ";
+$seller_sql = " select * from {$g5['seller_table']} where seller_state = 1 ";
 $seller_result = sql_query($seller_sql);
 
 $list = array();
