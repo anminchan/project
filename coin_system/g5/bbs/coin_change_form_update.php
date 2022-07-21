@@ -63,6 +63,7 @@ $sql = " insert into {$g5['coin_req_table']}
 sql_query($sql);
 
 // accesslog
-insert_accesslog('코인전환요청', $accesslog_gubun['4'], 1);
+$log_msg = '코인전환요청(보유코인: '.$result_mem['mb_coin'].' / 전환코인: '.$cr_coin.')';
+insert_accesslog('코인전환요청', $accesslog_gubun['4']);
 
 goto_url(G5_HTTP_BBS_URL.'/coin_request.php');

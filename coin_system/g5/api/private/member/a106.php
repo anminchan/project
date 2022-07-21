@@ -43,6 +43,6 @@ for(++$i; $row=sql_fetch_array($result); $i++)
 $info = ['pageIndex' => '1', 'totalPageCount' => $total_count, 'rowsPerPage' => '100', 'member_list' => $data];
 $json_data = ['success' => true, 'code' => "200", 'message' => '정상적으로 조회 되었습니다.', 'error' => null, 'data' => $info];
 die(json_encode($json_data));
-exit();
+exit;
 
 ?>

@@ -68,6 +68,6 @@ $sql = " insert into {$g5['coin_req_table']}
 sql_query($sql);
 
 // accesslog
-insert_accesslog('코인구매요청', $accesslog_gubun['2'], 1);
+insert_accesslog('코인구매요청', $accesslog_gubun['2']);
 
 goto_url(G5_HTTP_BBS_URL.'/coin_request.php');

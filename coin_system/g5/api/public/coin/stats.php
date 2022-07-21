@@ -22,7 +22,7 @@ $sql = " select '{$config['cf_title']}' as coin_system,
         from {$g5['coin_req_table']} a left join  {$g5['member_table']} b
         on a.mb_id = b.mb_id
         where a.cr_date BETWEEN concat('$fr_date',' 00:00:00') and concat('$to_date',' 23:59:59')
-        and b.mb_level = '2' ";
+        and b.mb_level < 3 ";
 $data = sql_query($sql);
 
 foreach ($data as $key => $value) {
@@ -38,6 +38,7 @@ foreach ($data as $key => $value) {
 }
 
 die(json_encode($return, JSON_UNESCAPED_UNICODE));
-exit();
+
+exit;
 
 ?>

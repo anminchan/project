@@ -26,10 +26,8 @@ if(!in_array($method, $method_approval)) {
 $info = ['member_list' => $data];
 $json_data = ['success' => true, 'code' => "200", 'message' => '정상적으로 조회 되었습니다.', 'error' => null, 'data' => $info];
 
-// accesslog
-insert_accesslog('코인조회요청', $accesslog_gubun['3']);
-
 die(json_encode($json_data));
-exit();
+
+exit;
 
 ?>

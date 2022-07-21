@@ -4065,12 +4065,34 @@ function insert_accesslog($log_memo, $log_gubun){
     if (isset($_SERVER['HTTP_REFERER']))
         $referer = escape_trim(clean_xss_tags(strip_tags($_SERVER['HTTP_REFERER'])));
 
-    if($member['mb_level'] <= 2){
+    if($member['mb_level'] < 3){
         $sql = " insert into {$g5['accesslog_table']}
                 set mb_id = '{$member['mb_id']}',
                     log_gubun = '$log_gubun',
                     log_memo = '$log_memo',
                     log_referer = '$referer',
+                    log_ip = '$remote_addr',
+                    log_datetime = '".G5_TIME_YMDHIS."' ";
+        sql_query($sql);
+    }
+}
+
+
+function insert_accesslog_api($log_memo, $log_gubun, $mb=array()){
+    global $g5, $config;
+
+    // $_SERVER 배열변수 값의 변조를 이용한 SQL Injection 공격을 막는 코드입니다. 110810
+    $remote_addr = escape_trim($_SERVER['REMOTE_ADDR']);
+    /*$referer = "";
+    if (isset($_SERVER['HTTP_REFERER']))
+        $referer = escape_trim(clean_xss_tags(strip_tags($_SERVER['HTTP_REFERER'])));*/
+
+    if($mb['mb_level'] < 3){
+        $sql = " insert into {$g5['accesslog_table']}
+                set mb_id = '{$mb['mb_id']}',
+                    log_gubun = '$log_gubun',
+                    log_memo = '$log_memo',
+                    log_referer = '/api/',
                     log_ip = '$remote_addr',
                     log_datetime = '".G5_TIME_YMDHIS."' ";
         sql_query($sql);

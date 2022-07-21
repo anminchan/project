@@ -33,7 +33,7 @@ if ($result['mb_coin']<=0)
 $register_action_url = G5_BBS_URL.'/coin_change_form_update.php';
 
 // accesslog
-insert_accesslog('코인전환요청', $accesslog_gubun['4'], 1);
+//insert_accesslog('코인전환요청', $accesslog_gubun['4']);
 
 include_once('./_head.php');
 

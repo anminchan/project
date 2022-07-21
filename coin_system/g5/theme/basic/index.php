@@ -86,13 +86,14 @@ $coin_sum = sql_fetch($sql);
             <span class="main_top_title_line">Global newfound Coin 구매 결제 사이트</span>
         </div>
         <div class="main_top_btn_wrap">
-            <button type="button" class="btn_main_type01" onclick="location.href='<?php echo G5_BBS_URL ?>/coin_change_form.php'">
+            <a type="button" class="btn_main_type01" onclick="location.href='<?php echo G5_BBS_URL ?>/coin_change_form.php'">
+            <!--<a type="button" class="btn_main_type01" href="javascript:;">-->
                 <i class="icon_usd1"></i>
                 <span class="cnt_wrap">
                 <span class="title_btn">Availiable Balance</span>
                 <span class="cnt_btn"><span class="number_st_big"><?php echo $member['mb_coin'] ?></span> coin</span>
             </span>
-            </button>
+            </a>
             <a class="btn_main_type02" href="<?php echo G5_BBS_URL ?>/coin_request_form.php">
                 <i class="icon_cart"></i>
                 <span class="cnt_wrap">
