@@ -35,13 +35,18 @@ if ($_POST['act_button'] == "선택삭제") {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
         $icr_id = isset($_POST['cr_id'][$i]) ? (int) $_POST['cr_id'][$k] : 0;
 
-        $result = sql_fetch(" select * from {$g5['coin_req_table']} where cr_id = '{$icr_id}' ");
+        $result = sql_fetch(" select * from {$g5['coin_req_table']} where cr_id = '{$icr_id}' and cr_state = '6' ");
 
-        $sql = "update {$g5['coin_req_table']} set cr_state = 5, cr_uptime = '" . G5_TIME_YMDHIS . "' where cr_id = '{$icr_id}' and cr_state = 6 ";
-        sql_query($sql);
+        if($result['mb_id']){
+            $sql = "update {$g5['coin_req_table']} set cr_state = 5, cr_uptime = '" . G5_TIME_YMDHIS . "' where cr_id = '{$icr_id}' and cr_state = '6' ";
+            sql_query($sql);
 
-        // 회원정보에 코인차감
-        $rtn = delete_coin($result['mb_id'], $result['cr_coin']);
+            // 회원정보에 코인차감
+            $rtn = delete_coin($result['mb_id'], $result['cr_coin']);
+        }else{
+            $error = '변경 할 정보를 확인 바랍니다.';
+            continue;
+        }
     }
 }elseif ($_POST['act_button'] == "일괄취소"){
     auth_check_menu($auth, $sub_menu, 'w');
@@ -51,7 +56,7 @@ if ($_POST['act_button'] == "선택삭제") {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
         $icr_id = isset($_POST['cr_id'][$i]) ? (int) $_POST['cr_id'][$k] : 0;
 
-        $sql = "update {$g5['coin_req_table']} set cr_state = 7, cr_uptime = '".G5_TIME_YMDHIS."'  where cr_id = '{$icr_id}' and cr_state = 6 ";
+        $sql = "update {$g5['coin_req_table']} set cr_state = 7, cr_uptime = '".G5_TIME_YMDHIS."'  where cr_id = '{$icr_id}' and cr_state = '6' ";
         sql_query($sql);
     }
 }

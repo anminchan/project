@@ -37,13 +37,13 @@ if ($sca != "") {
 
 if ($cr_status != "") {
     if ($cr_status == 'S'){
-        $where[] = " cr_state in(1, 2) ";
+        $where[] = " cr_state in('1', '2') ";
     }elseif($cr_status == 'U'){
-        $where[] = " cr_state = 3 ";
+        $where[] = " cr_state = '3' ";
     }elseif($cr_status == 'D'){
-        $where[] = " cr_state = 4 ";
+        $where[] = " cr_state = '4' ";
     }elseif($cr_status == 'C'){
-        $where[] = " cr_state = 5 ";
+        $where[] = " cr_state = '5' ";
     }
 }
 
