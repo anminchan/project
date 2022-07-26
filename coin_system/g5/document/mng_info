@@ -198,6 +198,10 @@ gc-tiger-115.com/adm
 신청 아이디 : coinmkttiger115 / coinmkttiger115!
 임시 root 비밀번호 : coinmkttiger115@
 
+업체
+gc-z1.com
+gc-z1.com/adm
+
 CREATE DATABASE coinmkttiger115 default CHARACTER SET UTF8;
 CREATE USER 'coinmkttiger115'@localhost IDENTIFIED BY 'qwe123!@#';
 grant all privileges on coinmkttiger115.* to 'coinmkttiger115'@'localhost' IDENTIFIED BY 'qwe123!@#';
