@@ -333,6 +333,22 @@ FLUSH PRIVILEGES;
 
 
 
+17. 업체명 : daese
+gc-daese.com
+gc-daese.com /adm
+신청 아이디 : coinmktdaese / coinmktdaese!
+임시 root 비밀번호 : coinmktdaese@
+
+CREATE DATABASE coinmktdaese default CHARACTER SET UTF8;
+CREATE USER 'coinmktdaese'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktdaese.* to 'coinmktdaese'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktdaese.* to 'coinmktdaese'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktdaese@';
+FLUSH PRIVILEGES;
+
+
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 
