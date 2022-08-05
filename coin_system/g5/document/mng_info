@@ -570,7 +570,7 @@ sum(a.cc_sum_price2)as sum_price2
 from (select a.*, b.mb_level
 from g5_coin_sum a left join g5_member b
 on a.mb_id = b.mb_id)a
-where a.mb_level = 2
+where a.mb_level < 3
 group by a.cc_date;
 
 
@@ -617,7 +617,7 @@ if i_Req_Cnt <= 0 then
 	where cr_uptime between concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 00:00:00') and concat(DATE_ADD(CURDATE(), INTERVAL -1 DAY),' 23:59:59')
 	group by mb_id) b
 	on a.mb_id = b.mb_id
-	where a.mb_level = '2' and (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
+	where a.mb_level < 3 and (a.mb_coin > 0 or b.cc_sum0 > 0 or b.cc_sum1 > 0 or b.cc_sum2 > 0 or b.cc_sum3 > 0 or b.cc_sum4 > 0 or b.cc_sum5);
 
 end if;
 
@@ -655,7 +655,7 @@ BEGIN
     	    from g5_coin_sum a left join g5_member b
     	    on a.mb_id = b.mb_id
     	    where a.cc_date = (CURDATE() - INTERVAL 1 DAY)
-    	    and b.mb_level = 2)a
+    	    and b.mb_level < 3)a
     	    group by a.cc_date;
 
        	end if;
