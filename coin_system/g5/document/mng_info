@@ -1,3 +1,5 @@
+테스트서버(globalcoin365) : chanykingweb / qwer123@
+
 1.카페24
 ssh911010 / coinmarket1!!
 
@@ -332,8 +334,23 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktex99@';
 FLUSH PRIVILEGES;
 
 
+17. 업체명 : one
+gc-one.kr
+gc-one.kr/adm
+신청 아이디 : coinmktcoopang / coinmktcoopang!
+임시 root 비밀번호 : coinmktcoopang@
+* 쿠팡서버 그대로 사용
 
-17. 업체명 : daese
+
+18. 업체명 : z1
+gc-z1.com
+gc-z1.com/adm
+신청 아이디 : coinmkttiger115 / coinmkttiger115!
+임시 root 비밀번호 : coinmkttiger115@
+* 타이거서버 그대로 사용
+
+
+19. 업체명 : daese
 gc-daese.com
 gc-daese.com /adm
 신청 아이디 : coinmktdaese / coinmktdaese!
