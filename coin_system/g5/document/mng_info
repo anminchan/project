@@ -380,14 +380,21 @@ FLUSH PRIVILEGES;
 
 
 21. 업체명 :
-
+호스트 : 149.28.28.180
 root 비밀번호 : wjdwlr1123!@
 mysql root 는 Wjdwlr1123!@
-bank
+디비명 : bank
+계정1 : bank / Tmxksltm8814!@#
+계정2 : coinmarket / Zhdlsakzpt365!@#
 
-CREATE USER 'coinmarket'@localhost IDENTIFIED BY 'qwe123!@#';
-grant all privileges on bank.* to 'coinmarket'@'localhost' IDENTIFIED BY 'qwe123!@#';
-grant all privileges on bank.* to 'coinmarket'@'%' IDENTIFIED BY 'qwe123!@#';
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+## Zhdlsakzpt365!@# > 코인마켓365!@#
+
+CREATE USER 'coinmarket'@'%' IDENTIFIED BY 'Zhdlsakzpt365!@#';
+GRANT ALL PRIVILEGES ON bank.* TO 'coinmarket'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 
@@ -426,6 +433,13 @@ delete from g5_visit_sum;
 update g5_menu set me_link = REPLACE(me_link, 'gc-beast', 'gc-{업체명}');
 update g5_menu set me_link = REPLACE(me_link, 'http://coinmarket.slotuniv.com', 'https://mg-coin.com');
 update g5_config set cf_title = '메가코인';
+
+/*insert into g5_member set mb_id = 'mng777', mb_name = 'mng777', mb_nick = 'mng777', mb_level = 9, mb_open = 1,
+mb_password = sha2('qwe123!@#', 256),
+mb_datetime = now(),
+mb_email_certify = now(), mb_wallet_addr = 'aaa';*/
+
+// nimda1, nimda2 비번 : starcoin
 
 // 매니져권한
 insert into g5_auth set mb_id = 'nimda1', au_menu = '300900', au_auth = 'r,w,d';

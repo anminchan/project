@@ -244,7 +244,14 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         <th scope="row"><label for="mb_level">회원 권한</label></th>
         <td>
             <?php /*echo get_member_level_select('mb_level', 1, $member['mb_level'], $mb['mb_level']) */?>
-            <?php echo get_member_level_select('mb_level', 2, 2, $member['mb_level'], $mb['mb_level']) ?>
+            <?php /*echo get_member_level_select('mb_level', 2, 2, $member['mb_level'], $mb['mb_level']) */?>
+            <?php if ($w == ''){?>
+                <?php echo get_member_level_select('mb_level', 2, 2, $member['mb_level'], $mb['mb_level']) ?>
+            <?php } ?>
+            <?php if ($w == 'u'){?>
+                <input type="hidden" name="mb_level" value="<?php echo $mb['mb_level'] ?>">
+                <?php echo $member_gubun[$mb['mb_level']]; ?>
+            <?php } ?>
         </td>
         <!--<th scope="row">포인트</th>
         <td><a href="./point_list.php?sfl=mb_id&amp;stx=<?php /*echo $mb['mb_id'] */?>" target="_blank"><?php /*echo number_format($mb['mb_point']) */?></a> 점</td>-->
