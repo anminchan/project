@@ -92,8 +92,8 @@ $coin_sum = sql_fetch($sql);
                 <span class="cnt_btn">코인구매</span>
             </span>
             </a>
-            <!--<a type="button" class="btn_main_type01" onclick="location.href='<?php /*echo G5_BBS_URL */?>/coin_change_form.php'">-->
-            <a type="button" class="btn_main_type01" href="javascript:;">
+            <a type="button" class="btn_main_type01" onclick="location.href='<?php echo G5_BBS_URL ?>/coin_change_form.php'">
+            <!--<a type="button" class="btn_main_type01" href="javascript:;">-->
                 <i class="icon_usd1"></i>
                 <span class="cnt_wrap">
                 <span class="title_btn">Availiable Balance</span>

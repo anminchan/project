@@ -379,7 +379,7 @@ FLUSH PRIVILEGES;
 
 
 
-21. 업체명 :
+21. 업체명 : sbs-mglab.com
 호스트 : 149.28.28.180
 root 비밀번호 : wjdwlr1123!@
 mysql root 는 Wjdwlr1123!@
@@ -397,7 +397,7 @@ CREATE USER 'coinmarket'@'%' IDENTIFIED BY 'Zhdlsakzpt365!@#';
 GRANT ALL PRIVILEGES ON bank.* TO 'coinmarket'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
-22. 업체명 :
+22. 업체명 : ib-mglab.com
 호스트 : 45.77.134.201
 root 비밀번호 : wjdwlr1123!@
 mysql root 는 Wjdwlr1123!@
