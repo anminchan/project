@@ -246,11 +246,16 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             <?php /*echo get_member_level_select('mb_level', 1, $member['mb_level'], $mb['mb_level']) */?>
             <?php /*echo get_member_level_select('mb_level', 2, 2, $member['mb_level'], $mb['mb_level']) */?>
             <?php if ($w == ''){?>
-                <?php echo get_member_level_select('mb_level', 2, 2, $member['mb_level'], $mb['mb_level']) ?>
+                <?php echo get_member_level_select('mb_level', 2, 2, $mb['mb_level']) ?>
             <?php } ?>
             <?php if ($w == 'u'){?>
-                <input type="hidden" name="mb_level" value="<?php echo $mb['mb_level'] ?>">
-                <?php echo $member_gubun[$mb['mb_level']]; ?>
+                <?php if ($mb['mb_level'] >= 2){?>
+                    <input type="hidden" name="mb_level" value="<?php echo $mb['mb_level'] ?>">
+                    <?php echo $member_gubun[$mb['mb_level']]; ?>
+                <?php }else{ ?>
+                    <?php echo get_member_level_select('mb_level', 1, 2, $mb['mb_level']) ?>
+                <?php } ?>
+
             <?php } ?>
         </td>
         <!--<th scope="row">포인트</th>

@@ -397,6 +397,13 @@ CREATE USER 'coinmarket'@'%' IDENTIFIED BY 'Zhdlsakzpt365!@#';
 GRANT ALL PRIVILEGES ON bank.* TO 'coinmarket'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
+22. 업체명 :
+호스트 : 45.77.134.201
+root 비밀번호 : wjdwlr1123!@
+mysql root 는 Wjdwlr1123!@
+디비명 : bank
+계정1 : bank / Tmxksltm8814!@#
+
 
 
 
@@ -486,9 +493,29 @@ insert into g5_auth set mb_id = 'mng365', au_menu = '300980', au_auth = 'r';
 insert into g5_auth set mb_id = 'mng365', au_menu = '300990', au_auth = 'r';
 
 
+insert into g5_auth set mb_id = 'okok01', au_menu = '300900', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '200810', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '200100', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '200800', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '100600', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300950', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300910', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300920', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300930', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300940', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300960', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300970', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300980', au_auth = 'r';
+insert into g5_auth set mb_id = 'okok01', au_menu = '300990', au_auth = 'r';
+
+
 
 덤프
 mysqldump -uroot -p db명 > /저장경로/mydump220421.sql
+
+특정테이블덤프
+mysqldump -u root -p coinmktup g5_member > /var/www/coinmktup/document/member220922.sql
+
 
 복구
 mysql -uroot -p coinmkt{업체명} < /var/www/coinmkt{업체명}/document/mydump220604.sql
