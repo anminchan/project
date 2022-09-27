@@ -37,55 +37,59 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
     <h2>계좌 내역</h2>
 
     <form name="faccount" id="faccount" method="post" action="./accountupdate.php" onsubmit="return faccount_submit(this);">
-    <input type="hidden" name="w" value="d">
-    <input type="hidden" name="page" value="<?php echo $page; ?>">
-    <input type="hidden" name="token" value="">
-    <div class="tbl_head01 tbl_wrap">
-        <table>
-        <caption>추가배송비 내역</caption>
-        <thead>
-        <tr>
-            <th scope="col">
-                <label for="chkall" class="sound_only">내역 전체</label>
-                <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-            </th>
-            <th scope="col">은행명</th>
-            <th scope="col">예금주</th>
-            <th scope="col">계좌번호</th>
-            <th scope="col">사용여부</th>
-            <th scope="col">메모</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        for($i=0; $row=sql_fetch_array($result); $i++) {
-        $bg = 'bg'.($i%2);
-        ?>
-        <tr class="<?php echo $bg; ?>">
-            <td class="td_chk">
-                <input type="hidden" id="ac_id_<?php echo $i; ?>" name="ac_id[<?php echo $i; ?>]" value="<?php echo $row['ac_id']; ?>">
-                <input type="checkbox" id="chk_<?php echo $i; ?>" name="chk[]" value="<?php echo $i; ?>" title="내역선택">
-            </td>
-            <td class="td_center"><?php echo $row['ac_name']; ?></td>
-            <td class="td_center"><?php echo $row['ac_holder']; ?></td>
-            <td class="td_center"><?php echo $row['account']; ?></td>
-            <td class="td_center"><?php echo $row['ac_state']?'사용':'미사용'; ?></td>
-            <td class="td_center"><?php echo preg_replace("/\n/", "<br />", $row['ac_memo']) ?></td>
-        </tr>
-        <?php
-        }
+        <input type="hidden" name="page" value="<?php echo $page; ?>">
+        <input type="hidden" name="token" value="">
+        <div class="tbl_head01 tbl_wrap">
+            <table>
+            <caption>추가배송비 내역</caption>
+            <thead>
+            <tr>
+                <th scope="col">
+                    <label for="chkall" class="sound_only">내역 전체</label>
+                    <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+                </th>
+                <th scope="col">은행명</th>
+                <th scope="col">예금주</th>
+                <th scope="col">계좌번호</th>
+                <th scope="col">사용여부</th>
+                <th scope="col">노출여부</th>
+                <th scope="col">메모</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            for($i=0; $row=sql_fetch_array($result); $i++) {
+            $bg = 'bg'.($i%2);
+            ?>
+            <tr class="<?php echo $bg; ?>">
+                <td class="td_chk">
+                    <input type="hidden" id="ac_id_<?php echo $i; ?>" name="ac_id[<?php echo $i; ?>]" value="<?php echo $row['ac_id']; ?>">
+                    <input type="checkbox" id="chk_<?php echo $i; ?>" name="chk[]" value="<?php echo $i; ?>" title="내역선택">
+                </td>
+                <td class="td_center"><?php echo $row['ac_name']; ?></td>
+                <td class="td_center"><?php echo $row['ac_holder']; ?></td>
+                <td class="td_center"><?php echo $row['account']; ?></td>
+                <td class="td_center"><?php echo $row['ac_state']?'사용':'미사용'; ?></td>
+                <td class="td_center">
+                    <input type="checkbox" name="use_yn[<?php echo $i; ?>]" value="1" <?php echo $row['use_yn']?'checked':''; ?> id="use_yn_<?php echo $i ?>">
+                    <label for="use_yn_<?php echo $i; ?>" class="sound_only">노출여부</label>
+                </td>
+                <td class="td_center"><?php echo preg_replace("/\n/", "<br />", $row['ac_memo']) ?></td>
+            </tr>
+            <?php
+            }
 
-        if ($i == 0)
-            echo '<tr><td colspan="6" class="empty_table">자료가 없습니다.</td></tr>';
-        ?>
-        </tbody>
-        </table>
-    </div>
+            if ($i == 0)
+                echo '<tr><td colspan="6" class="empty_table">자료가 없습니다.</td></tr>';
+            ?>
+            </tbody>
+            </table>
+        </div>
 
-    <div class="btn_list01 btn_list">
-        <input type="submit" name="act_button" value="계좌정지" onclick="document.pressed=this.value" class="btn_frmline">
-    </div>
-
+        <div class="btn_fixed_top">
+            <input type="submit" name="act_button" onclick="document.pressed=this.value" value="선택수정" class="btn btn_02">
+            <input type="submit" name="act_button" onclick="document.pressed=this.value" value="선택삭제" class="btn btn_02">
+        </div>
     </form>
 </section>
 
@@ -133,9 +137,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         <input type="submit" value="등록" class="btn_submit btn">
         <a href="javascript:;" onclick="window.open('./coin_pop_sellerlist.php', '', 'width=650,height=450,scrollbars=1,menus=0');" class="btn_submit btn">판매자리스트</a>
     </div>
-
     </form>
-
 </section>
 
 <script>

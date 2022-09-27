@@ -8,19 +8,26 @@ auth_check_menu($auth, $sub_menu, "w");
 
 check_admin_token();
 
-$w = isset($_POST['w']) ? $_POST['w'] : '';
-
-if($w == 'd') {
+if($_POST['act_button'] == "선택삭제") {
     $count = (isset($_POST['chk']) && is_array($_POST['chk'])) ? count($_POST['chk']) : 0;
     if(!$count)
         alert('삭제하실 항목을 하나이상 선택해 주십시오.');
 
     for($i=0; $i<$count; $i++) {
         $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
-
         $ac_id = isset($_POST['ac_id'][$i]) ? (int) $_POST['ac_id'][$k] : 0;
         //sql_query(" delete from {$g5['account_table']} where ac_id = '$ac_id' ");
         sql_query(" update {$g5['account_table']} set ac_state = 0 where ac_id = '$ac_id' ");
+    }
+} elseif ($_POST['act_button'] == "선택수정"){
+    $count = (isset($_POST['chk']) && is_array($_POST['chk'])) ? count($_POST['chk']) : 0;
+    if(!$count)
+        alert('수정하실 항목을 하나이상 선택해 주십시오.');
+
+    for($i=0; $i<$count; $i++) {
+        $k = isset($_POST['chk'][$i]) ? (int) $_POST['chk'][$i] : 0;
+        $ac_id = isset($_POST['ac_id'][$i]) ? (int) $_POST['ac_id'][$k] : 0;
+        sql_query(" update {$g5['account_table']} set use_yn = '{$_POST['use_yn'][$k]}' where ac_id = '$ac_id' ");
     }
 } else {
     $ac_name = isset($_POST['ac_name']) ? trim(strip_tags(clean_xss_attributes($_POST['ac_name']))) : '';

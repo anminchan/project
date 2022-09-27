@@ -22,7 +22,7 @@ referer_check();
 $g5['title'] = '코인구매';
 
 // 계좌정보
-$sql_acc = " select * from {$g5['account_table']} where ac_state = 1 order by ac_id desc limit 1 ";
+$sql_acc = " select * from {$g5['account_table']} where ac_state = 1 and use_yn = 1 order by ac_id desc limit 1 ";
 $result_acc = sql_fetch($sql_acc);
 if (!$result_acc)
     alert('입금계좌정보가 존재하지 않습니다.', G5_URL);
