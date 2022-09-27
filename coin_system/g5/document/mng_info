@@ -3,6 +3,10 @@
 1.카페24
 ssh911010 / coinmkt1!!
 
+카페24
+ID : kk4215
+PW : wlrsu0202!
+
 2. 업체명칭 및 도메인 체크
 
 3. 서버 설치 후
@@ -405,6 +409,19 @@ mysql root 는 Wjdwlr1123!@
 계정1 : bank / Tmxksltm8814!@#
 
 
+23. 업체 도메인은 mama321
+175.125.21.7
+gc-mama321.com
+gc-mama321.com/adm
+신청 아이디 : coinmktmama321 / coinmktmama321!
+임시 root 비밀번호 : coinmktmama321@
+
+CREATE DATABASE coinmktmama321 default CHARACTER SET UTF8;
+CREATE USER 'coinmktmama321'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktmama321.* to 'coinmktmama321'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktmama321.* to 'coinmktmama321'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktmama321@';
+FLUSH PRIVILEGES;
 
 
 ##########디비생성START############
@@ -539,7 +556,6 @@ DO update g5_coin_req set cr_state = 7 where cr_state = 6 and date_format(cr_con
 CREATE EVENT e_coin_total_sum
 ON SCHEDULE EVERY 1 DAY STARTS '2022-08-31 00:03:00'
 DO call coin_total_sum();
-
 
 -- 통합관리시스템으로 전송하기 위함
 CREATE EVENT e_coin_total_day_sum
