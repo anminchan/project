@@ -755,3 +755,6 @@ END;
 // 아파치 로그정리
 cp -f /dev/null /etc/httpd/logs/access_log
 cp -f /dev/null /etc/httpd/logs/error_log
+
+
+ ALTER TABLE g5_account ADD COLUMN use_yn tinyint(4) DEFAULT 1;
