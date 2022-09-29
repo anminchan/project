@@ -34,8 +34,8 @@ $sql = " select TIMESTAMPDIFF(MINUTE, max(cr_date), now()) AS TIMESTAMPDIFF
 order by cr_id desc limit 1 ";
 $result = sql_fetch($sql);
 
-if($result['TIMESTAMPDIFF']!='' && $result['TIMESTAMPDIFF']<=2)
-    alert('입금신청은 2분에 1번씩만 가능합니다.\\n2분 후 재신청해주시기 바랍니다.');
+/*if($result['TIMESTAMPDIFF']!='' && $result['TIMESTAMPDIFF']<=2)
+    alert('입금신청은 2분에 1번씩만 가능합니다.\\n2분 후 재신청해주시기 바랍니다.');*/
     //alert('입금신청은 2분에 1번씩만 가능합니다.\\n2분 후 재신청해주시기 바랍니다.', G5_HTTP_BBS_URL.'/coin_request_form.php?cr_price='.$cr_price.'&cr_coin='.$cr_coin);
 
 $sql = " select count(*)as cnt 
