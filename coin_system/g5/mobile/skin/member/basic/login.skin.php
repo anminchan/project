@@ -52,14 +52,14 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                     </a>-->
                 </div>
 
-                <div class="text-left p-t-12">
+                <!--<div class="text-left p-t-12">
                     <?php
-                    include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
+/*                    include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
                     $captcha_html = captcha_html();
                     $captcha_js   = chk_captcha_js();
                     echo $captcha_html;
-                    ?>
-                </div>
+                    */?>
+                </div>-->
 
                 <div class="text-center p-t-136">
                     <span class="txt2">Welecome, P2P Coin Purchasing System.</span>
@@ -92,7 +92,7 @@ jQuery(function($){
 function flogin_submit(f)
 {
 
-    <?php echo $captcha_js; // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함  ?>
+    <?php /*echo $captcha_js; // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함  */?>
 
     if( $( document.body ).triggerHandler( 'login_sumit', [f, 'flogin'] ) !== false ){
         return true;
