@@ -103,6 +103,22 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktsbs@';
 grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmktsbs@';
 
 
+api연동 X
+gc-sbs.com
+gc-sbs.com/adm
+신청 아이디 : coinmkt2sbs / coinmkt2sbs!
+임시 root 비밀번호 : coinmkt2sbs@
+
+CREATE DATABASE coinmkt2sbs default CHARACTER SET UTF8;
+CREATE USER 'coinmkt2sbs'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt2sbs.* to 'coinmkt2sbs'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt2sbs.* to 'coinmkt2sbs'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmkt2sbs.* to 'coinmkt2sbs'@'211.230.48.26' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmkt2sbs@';
+grant all privileges on *.* to 'root'@'%' IDENTIFIED BY 'coinmkt2sbs@';
+
+
+
 FLUSH PRIVILEGES;
 
 show databases;
@@ -385,6 +401,7 @@ FLUSH PRIVILEGES;
 
 21. 업체명 : sbs-mglab.com
 호스트 : 149.28.28.180
+sbs-mglab.com은 108.61.223.254
 root 비밀번호 : wjdwlr1123!@
 mysql root 는 Wjdwlr1123!@
 디비명 : bank
@@ -403,10 +420,12 @@ FLUSH PRIVILEGES;
 
 22. 업체명 : ib-mglab.com
 호스트 : 45.77.134.201
+ib-mglab.com 은 167.179.114.103
 root 비밀번호 : wjdwlr1123!@
 mysql root 는 Wjdwlr1123!@
 디비명 : bank
 계정1 : bank / Tmxksltm8814!@#
+
 
 
 23. 업체 도메인은 mama321
