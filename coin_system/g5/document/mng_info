@@ -424,6 +424,57 @@ grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktmama321@
 FLUSH PRIVILEGES;
 
 
+
+
+
+24. 업체명 : evo(에보)211.45.162.192
+http://gc-evo.com
+http://gc-evo.com/adm
+신청 아이디 : coinmktevo / coinmktevo!
+임시 root 비밀번호 : coinmktevo@
+
+CREATE DATABASE coinmktevo default CHARACTER SET UTF8;
+CREATE USER 'coinmktevo'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktevo.* to 'coinmktevo'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktevo.* to 'coinmktevo'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktevo@';
+FLUSH PRIVILEGES;
+
+202.182.116.135
+219.101.18.43
+
+25. 업체명 : onoff(온오프)210.114.19.190
+http://gc-onoff.com
+http://gc-onoff.com/adm
+신청 아이디 : coinmktonoff / coinmktonoff!
+임시 root 비밀번호 : coinmktonoff@
+
+CREATE DATABASE coinmktonoff default CHARACTER SET UTF8;
+CREATE USER 'coinmktonoff'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktonoff.* to 'coinmktonoff'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktonoff.* to 'coinmktonoff'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktonoff@';
+FLUSH PRIVILEGES;
+
+202.182.116.135
+219.101.18.43
+
+
+25. 업체명 : 아프리카
+gc-afreeca.com
+
+신청 아이디 : coinmktafrica / coinmktafrica!
+임시 root 비밀번호 : coinmktafrica@
+
+CREATE DATABASE coinmktafrica default CHARACTER SET UTF8;
+CREATE USER 'coinmktafrica'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktafrica.* to 'coinmktafrica'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktafrica.* to 'coinmktafrica'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktafrica@';
+FLUSH PRIVILEGES;
+
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 
