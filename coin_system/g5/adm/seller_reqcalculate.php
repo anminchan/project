@@ -26,7 +26,8 @@ if ($fr_date && $to_date) {
     $where[] = " cc_date between '$fr_date' and '$to_date' ";
 }
 
-$where[] = " seller_id in(select seller_id from {$g5['seller_table']} where seller_state = 1) ";
+//$where[] = " seller_id in(select seller_id from {$g5['seller_table']} where seller_state = 1) ";
+$where[] = " seller_id in(select seller_id from {$g5['seller_table']} where 1=1) ";
 
 if ($where) {
     $sql_search = ' where '.implode(' and ', $where);
