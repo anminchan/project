@@ -499,6 +499,19 @@ gc-earning.com
 타이거 서버 사용
 
 
+27. 업체명 : oca
+gc-oca.com
+신청 아이디 : coinmktoca / coinmktoca!
+임시 root 비밀번호 : coinmktoca@
+
+CREATE DATABASE coinmktoca default CHARACTER SET UTF8;
+CREATE USER 'coinmktoca'@localhost IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktoca.* to 'coinmktoca'@'localhost' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on coinmktoca.* to 'coinmktoca'@'%' IDENTIFIED BY 'qwe123!@#';
+grant all privileges on *.* to 'root'@'localhost' IDENTIFIED BY 'coinmktoca@';
+FLUSH PRIVILEGES;
+
+
 ##########디비생성START############
 CREATE DATABASE coinmkt{업체명} default CHARACTER SET UTF8;
 
