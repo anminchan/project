@@ -10,7 +10,7 @@ if (!$is_member){
 }
 
 if(defined('G5_THEME_PATH')) {
-    require_once(G5_THEME_PATH.'/index.php');
+    require_once(G5_THEME_PATH.'/index2.php');
     return;
 }
 
