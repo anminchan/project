@@ -1,29 +1,50 @@
 <?php
-if (!defined('_INDEX_')) define('_INDEX_', true);
-if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
-
-if (!$is_member){
-    //alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
-    goto_url(G5_BBS_URL.'/login.php?url='.urlencode($url));
+$ss_mb_10 = get_session('ss_mb_10_ss');
+if($member){
+    if( $ss_mb_10 != $member['mb_10']){
+        if(function_exists('social_provider_logout')){
+            social_provider_logout();
+        }
+        session_unset(); // 모든 세션변수를 언레지스터 시켜줌
+        session_destroy(); // 세션해제함
+        alert('중복접속으로 인하여 로그아웃 되었습니다.', G5_URL);
+    }
 }
 
-if (G5_IS_MOBILE) {
-    include_once(G5_THEME_MOBILE_PATH.'/index.php');
-    return;
+function PHPsessionCheck(){
+    $chk = "N";
+    $member2 = get_member($_SESSION['ss_mb_id']);
+    if($member2){
+        if( $ss_mb_10 != $member['mb_10']){
+            if(function_exists('social_provider_logout')){
+                social_provider_logout();
+            }
+            $chk = "Y";
+            session_unset(); // 모든 세션변수를 언레지스터 시켜줌
+            session_destroy(); // 세션해제함
+        }
+    }
+    return $chk;
 }
 
-/*if(G5_COMMUNITY_USE === false) {
-    include_once(G5_THEME_SHOP_PATH.'/index.php');
-    return;
-}*/
-
-include_once(G5_THEME_PATH.'/head.php');
-
 ?>
-<?php
-
-?>
-
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="<?php echo G5_THEME_URL?>/js/hmac-sha256.js"></script>
+    <script type="text/javascript" src="<?php echo G5_THEME_URL?>/js/enc-base64-min.js"></script>
+    <script type="text/javascript" src="<?php echo G5_JS_DIR?>/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="<?php echo G5_THEME_URL?>/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?php echo G5_THEME_URL?>/js/js.cookie.js"></script>
+    <script type="text/javascript" src="<?php echo G5_THEME_URL?>/js/jquery-watermark.js"></script>
+    <link rel="stylesheet" href="<?php echo G5_THEME_URL?>/css/jquery-ui.min.css">
+    <link rel='stylesheet' href='<?php echo G5_THEME_URL?>/css/tbos.css'>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+    <title>Insert title here</title>
 
     <script type="text/javascript">
         var overlap = "${overlap}";
@@ -319,6 +340,7 @@ include_once(G5_THEME_PATH.'/head.php');
 
         function calcResults(shoeItem)
         {
+            console.log(shoeItem);
             var singleResults = [{"level":0,"totCnt":0,"winCnt":0,"firstMatch":0,"bangMiss":0,"pick":"","order":1}];
             var pMaxResults = [{"level":0,"totCnt":0,"winCnt":0,"firstMatch":0,"bangMiss":0,"pick":"","order":2}];
             var bMaxResults = [{"level":0,"totCnt":0,"winCnt":0,"firstMatch":0,"bangMiss":0,"pick":"","order":3}];
@@ -388,6 +410,7 @@ include_once(G5_THEME_PATH.'/head.php');
 
         function calcResult(prevResult, roundResult, pick, rIdx, prev3Shoe, prev3Pick, prev2Shoe, prev2Pick, prev1Shoe, prev1Pick)
         {
+            console.log(roundResult);
             var result = $.extend({}, prevResult);
             if (roundResult == pick) // 적중
             {
@@ -595,11 +618,11 @@ include_once(G5_THEME_PATH.'/head.php');
                 // 10배수 씩 체크
                 if(($(".inputTable .roundNo").index($(this))+1) % 4 == 0){
                     // 세션체크
-                    /*if(fnSessionCheck() == "Y"){
+                    if(fnSessionCheck() == "Y"){
                         alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
                         location.href = "/site/loginForm";
                         return false;
-                    }*/
+                    }
                 }
 
                 var $rounds = $(".inputTable .roundNo");
@@ -827,11 +850,11 @@ include_once(G5_THEME_PATH.'/head.php');
                 }
 
                 // 세션체크
-                /*if(fnSessionCheck() == "Y"){
+                if(fnSessionCheck() == "Y"){
                     alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
                     location.href = "/site/loginForm";
                     return false;
-                }*/
+                }
 
                 var valChk = "Y";
                 for(var i=0; i<4; i++){
@@ -889,11 +912,11 @@ include_once(G5_THEME_PATH.'/head.php');
                     return false;
                 }
 
-                /*if(fnSessionCheck() == "Y"){
+                if(fnSessionCheck() == "Y"){
                     alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
                     location.href = "/site/loginForm";
                     return false;
-                }*/
+                }
 
                 /* $restApiBk.bkShoeUserProceding.clear(null, memberNo, tableNos[0], function(data) {
                     loadShoe();
@@ -932,9 +955,14 @@ include_once(G5_THEME_PATH.'/head.php');
             });
         }
 
-        /*function fnSessionCheck(){
+        function fnSessionCheck(){
+
+            console.log("@@");
+            console.log("<?php echo PHPsessionCheck(); ?>");
+
             var sCheck = "N";
-            $.ajax({
+            sCheck = "<?php echo PHPsessionCheck(); ?>";
+            /*$.ajax({
                 url:"/site/sessionCheck",
                 type:'GET',
                 async: false,
@@ -943,10 +971,10 @@ include_once(G5_THEME_PATH.'/head.php');
                         sCheck = "Y";
                     }
                 }
-            });
+            });*/
 
             return sCheck;
-        }*/
+        }
 
         function hexc(colorval) {
             var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -1590,14 +1618,14 @@ include_once(G5_THEME_PATH.'/head.php');
         .pointInfoT .pointBaseDisp { width : 85px; }
         .pointInfoT .pointBaseDisp .basePoint { width : 100%; height:100%; }
 
-        .clearButton { height : 37px; }
-        .fristButton { height : 37px; }
+        .clearButton { height : 30px; }
+        .fristButton { height : 30px; }
         .pointInfoT tbody { border : 2px solid black; }
         .pointInfoT .pointDisp { border-right: 2px solid black; }
 
         .inputTableSec {display:inline-block; vertical-align:top; margin-top: 10px;}
-        .inputTable { margin-right:30px;}
-        .inputTable td { height : 30px; }
+        .inputTable { margin-right:25px;}
+        .inputTable td { height : 25px; }
         .inputTable .roundResult { width : 42px; }
         .inputTable tbody { border : 2px solid black; }
         .inputTable .quaterIndi.current { background-color : red; }
@@ -1610,7 +1638,7 @@ include_once(G5_THEME_PATH.'/head.php');
         .pickTableNameSec label { vertical-align:top; margin-top:7px; display:inline-block; }
         .pickTableNameTbl { display:inline-block; }
         .pickTableNameTbl tbody { border : 2px solid black; }
-        .pickTableNameTbl td { width : 100px; height : 30px; }
+        .pickTableNameTbl td { width : 100px; height : 25px; }
         .pickTableNameTbl td.first { background-color : red; color:white; }
         .pickTableNameTbl td.second { background-color : blue;  color:white; }
         .pickTableNameTbl td.match { background-color : lime;  color:black; }
@@ -1638,7 +1666,7 @@ include_once(G5_THEME_PATH.'/head.php');
         .pickTable .roundRow .last { background-color:#FF6CFF; }
 
         .pickTable { margin-right:30px;}
-        .pickTable td { height : 30px; width : 42px; }
+        .pickTable td { height : 25px; width : 42px; }
         .pickTable tbody { border : 2px solid black; }
         .pickTable tr td:nth-child(4n) { border-right : 2px solid black; }
         .pickTable tbody tr.resultRow { border-bottom : 2px solid black; }
@@ -1667,8 +1695,35 @@ include_once(G5_THEME_PATH.'/head.php');
         .pickTable .resultRow td.recommandReverse.bWin { color : #b0b0b0; }
         .pickTable .resultRow td.recommandReverse.pWin { color : #808080; }
     </style>
+    <script type="text/javascript">
+        var loginPingInterval = null;
 
+        /* $(document).ready(function() {
+            loginPingInterval = setInterval(pingSession, 5*60*1000);
+            pingSession();
+        }); */
+
+        function pingSession()
+        {
+            /* $restApi.member.pingLogin(function(data) {
+                //console.log(data);
+                if (data.ErrorCode != 0) // 갱신 실패 로그아웃 처리
+                {
+                    Cookies.set("sessionKey", "", {path : "/"});
+                    location.href="/";
+                }
+            }); */
+        }
+    </script>
+    </head>
+    <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="pageRoot" style="margin-left: -200px;">
+        <div id="header">
+            <div id="headerTop">
+                <strong><?php echo $member['mb_id'] ?>님</strong>
+                <a href="<?php echo G5_BBS_URL ?>/logout.php" id="ol_after_logout">로그아웃</a>
+            </div>
+        </div>
         <div id="section" class="contentArea">
             <!-- start of contentArea -->
             <div class="topSec">
@@ -2694,5 +2749,5 @@ include_once(G5_THEME_PATH.'/head.php');
             </div><br/>
         </div>
     </div>
-<?php
-include_once(G5_THEME_PATH.'/tail.php');
+</body>
+</html>
