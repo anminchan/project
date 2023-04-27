@@ -1,4 +1,11 @@
 <?php
+include_once('./_common.php');
+
+$mb_id = isset($_SESSION['ss_mb_id']) ? trim($_SESSION['ss_mb_id']) : '';
+
+if(!$mb_id)
+    alert('회원아이디 값이 없습니다. 올바른 방법으로 이용해 주십시오.');
+
 $ss_mb_10 = get_session('ss_mb_10_ss');
 if($member){
     if( $ss_mb_10 != $member['mb_10']){
@@ -9,22 +16,6 @@ if($member){
         session_destroy(); // 세션해제함
         alert('중복접속으로 인하여 로그아웃 되었습니다.', G5_URL);
     }
-}
-
-function PHPsessionCheck(){
-    $chk = "N";
-    $member2 = get_member($_SESSION['ss_mb_id']);
-    if($member2){
-        if( $ss_mb_10 != $member['mb_10']){
-            if(function_exists('social_provider_logout')){
-                social_provider_logout();
-            }
-            $chk = "Y";
-            session_unset(); // 모든 세션변수를 언레지스터 시켜줌
-            session_destroy(); // 세션해제함
-        }
-    }
-    return $chk;
 }
 
 ?>
@@ -90,7 +81,7 @@ function PHPsessionCheck(){
         $(document).ready(function() {
             if(overlap == ''){
                 alert("중복 브라우저 허용은 안됩니다.");
-                location.href = "/site/loginForm";
+                location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                 return false;
             }
 
@@ -110,7 +101,7 @@ function PHPsessionCheck(){
 
             /* if ("${USER}" == null || "${USER}" == "")
             {
-                location.href="/site/loginForm";
+                location.href="<?php echo G5_BBS_URL; ?>/login.php";
                 return;
             } */
 
@@ -611,7 +602,7 @@ function PHPsessionCheck(){
             $(".inputTable .roundNo").on("click", function() {
                 if(overlap == ''){
                     alert("중복 브라우셔 허용은 안됩니다.");
-                    location.href = "/site/loginForm";
+                    location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                     return false;
                 }
 
@@ -620,7 +611,7 @@ function PHPsessionCheck(){
                     // 세션체크
                     if(fnSessionCheck() == "Y"){
                         alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
-                        location.href = "/site/loginForm";
+                        location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                         return false;
                     }
                 }
@@ -845,14 +836,14 @@ function PHPsessionCheck(){
             $(".fristButton").click(function(){
                 if(overlap == ''){
                     alert("중복 브라우셔 허용은 안됩니다.");
-                    location.href = "/site/loginForm";
+                    location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                     return false;
                 }
 
                 // 세션체크
                 if(fnSessionCheck() == "Y"){
                     alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
-                    location.href = "/site/loginForm";
+                    location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                     return false;
                 }
 
@@ -908,13 +899,13 @@ function PHPsessionCheck(){
             $(".clearButton").on("click", function() {
                 if(overlap == ''){
                     alert("중복 브라우셔 허용은 안됩니다.");
-                    location.href = "/site/loginForm";
+                    location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                     return false;
                 }
 
                 if(fnSessionCheck() == "Y"){
                     alert("세션이 끊겼습니다.(사용시간 마감되었거나 중복 로그인 발생)");
-                    location.href = "/site/loginForm";
+                    location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                     return false;
                 }
 
@@ -956,22 +947,19 @@ function PHPsessionCheck(){
         }
 
         function fnSessionCheck(){
-
-            console.log("@@");
-            console.log("<?php echo PHPsessionCheck(); ?>");
-
             var sCheck = "N";
-            sCheck = "<?php echo PHPsessionCheck(); ?>";
-            /*$.ajax({
-                url:"/site/sessionCheck",
-                type:'GET',
+            $.ajax({
+                url: "<?php echo G5_BBS_URL ?>/ajax.sessioncheck.php",
+                type: "GET",
+                dataType: "json",
                 async: false,
-                success:function(data){
-                    if(data == "Y"){
-                        sCheck = "Y";
-                    }
+                cache: false,
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.msg);
+                    sCheck = data.msg;
                 }
-            });*/
+            });
 
             return sCheck;
         }
@@ -1534,7 +1522,7 @@ function PHPsessionCheck(){
                 if(hoursRound == '0' && minutesRound == '0' && secondsRound == '1'){
                     $("#userTime").hide();
                     alert("사용종료되었습니다.!!![문의 주시기 바랍니다.]");
-                    //location.href = "/site/loginForm";
+                    //location.href = "<?php echo G5_BBS_URL; ?>/login.php";
                 }else{
                     window.setTimeout("getTime();", 1000);
                 }
